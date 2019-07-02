@@ -15,11 +15,15 @@ class KolodaCardView: UIView {
     init() {
         super.init(frame: .zero)
         
-        self.backgroundColor = #colorLiteral(red: 0.9911627173, green: 0.6678413749, blue: 0.3004458249, alpha: 1)
+        self.backgroundColor = Global.themeColor
         self.clipsToBounds = true
-        self.layer.cornerRadius = 15
         
         setupSubviews()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.layer.cornerRadius = imageView.frame.height / 10
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,6 +33,7 @@ class KolodaCardView: UIView {
     func setupSubviews() {
         
         imageView = UIImageView(image: UIImage(named: "clothingitem"))
+        imageView.clipsToBounds = true
         self.addSubview(imageView)
         
         setupConstraints()

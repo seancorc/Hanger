@@ -29,11 +29,21 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     @objc func loginButtonPressed() {
-        let homeController = HomeViewController()
-        let navController = UINavigationController(rootViewController: homeController)
-        present(navController, animated: true) {
-            self.removeFromParent()
-        }
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let navHomeController = UINavigationController(rootViewController: HomeViewController())
+        let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
+        let loginViewController = UIApplication.shared.keyWindow?.rootViewController
+        UIApplication.shared.keyWindow?.rootViewController = navHomeController
+        if let snapshot = snapshot {
+            navHomeController.view.addSubview(snapshot)
+            UIView.animate(withDuration: 0.5, animations: {
+                snapshot.layer.opacity = 0
+                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+            }, completion: { (completed) in
+                snapshot.removeFromSuperview()
+                loginViewController?.removeFromParent()
+            })
     }
     
+}
 }

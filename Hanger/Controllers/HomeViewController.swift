@@ -26,9 +26,8 @@ class HomeViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        
     }
-    
+
 }
 
 extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
@@ -38,6 +37,7 @@ extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let view = KolodaCardView()
+        view.layer.cornerRadius = self.view.frame.height * 0.015
         return view
     }
     
@@ -46,11 +46,15 @@ extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
 extension HomeViewController {
     func setupNavBar() {
         //Making Nav Bar transparent
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "Hanger"))
+        titleImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(self.view.frame.width * 0.4)
+            make.height.equalTo(self.view.frame.height * 0.03)
+        }
+        self.navigationItem.titleView = titleImageView
         
-        self.navigationItem.title = "Clothes Near Me"
+        navigationController?.navigationBar.barTintColor = Global.themeColor
     }
     
 }

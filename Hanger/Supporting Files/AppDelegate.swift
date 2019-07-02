@@ -42,12 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print("\(error.localizedDescription)")
         } else {
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            let homeViewController = HomeViewController()
+            let navHomeController = UINavigationController(rootViewController: HomeViewController())
             let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
             let loginViewController = UIApplication.shared.keyWindow?.rootViewController
-            UIApplication.shared.keyWindow?.rootViewController = homeViewController
+            UIApplication.shared.keyWindow?.rootViewController = navHomeController
             if let snapshot = snapshot {
-                homeViewController.view.addSubview(snapshot)
+                navHomeController.view.addSubview(snapshot)
                 UIView.animate(withDuration: 0.5, animations: {
                     snapshot.layer.opacity = 0
                     snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
@@ -55,8 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     snapshot.removeFromSuperview()
                     loginViewController?.removeFromParent()
                 })
-                let fullName = user.profile.name
-                let email = user.profile.email
+            }
                 
                 print(fullName as Any)
                 print(email as Any)
