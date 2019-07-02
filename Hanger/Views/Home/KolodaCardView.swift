@@ -42,7 +42,7 @@ class KolodaCardView: UIView {
     func setupConstraints() {
         imageView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.height.width.equalToSuperview().multipliedBy(0.8)
+            make.width.height.equalToSuperview().multipliedBy(0.8)
         }
     }
     

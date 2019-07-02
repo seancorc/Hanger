@@ -42,12 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print("\(error.localizedDescription)")
         } else {
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            let navHomeController = UINavigationController(rootViewController: HomeViewController())
+            let tabBarController = TabBarController()
             let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
             let loginViewController = UIApplication.shared.keyWindow?.rootViewController
-            UIApplication.shared.keyWindow?.rootViewController = navHomeController
+            UIApplication.shared.keyWindow?.rootViewController = tabBarController
             if let snapshot = snapshot {
-                navHomeController.view.addSubview(snapshot)
+                tabBarController.view.addSubview(snapshot)
                 UIView.animate(withDuration: 0.5, animations: {
                     snapshot.layer.opacity = 0
                     snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
@@ -56,15 +56,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     loginViewController?.removeFromParent()
                 })
             }
-                
-                print(fullName as Any)
-                print(email as Any)
-                
-                //Do some calls to the backend
-                
-            }
+            let fullName = user.profile.name
+            let email = user.profile.email
+            print(fullName as Any)
+            print(email as Any)
+            
+            //Do some calls to the backend
         }
     }
+    
     
     //When user dissconects from app
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,

@@ -27,11 +27,11 @@ class TabBarController: UITabBarController {
         
         let homePage = HomeViewController()
         let homeNavController = UINavigationController(rootViewController: homePage)
-        let homeIcon = UIImage(named: "homeicon")!
+        let homeIcon = UIImage(named: "homeicon")!.withRenderingMode(.alwaysTemplate)
         let homeTabItem = configureTabItem(title: "Home", icon: homeIcon)
         homeNavController.tabBarItem = homeTabItem
         
-        let viewsArray = [homePage]
+        let viewsArray = [homeNavController]
         self.viewControllers = viewsArray
         
     }
