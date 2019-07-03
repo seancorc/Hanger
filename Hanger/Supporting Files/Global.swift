@@ -10,5 +10,6 @@ import Foundation
 import UIKit
 
 class Global {
+    static let scaleFactor = UIScreen.main.bounds.height / 896
     static let themeColor = #colorLiteral(red: 1, green: 0.1148675904, blue: 0.2737748325, alpha: 1)
 }

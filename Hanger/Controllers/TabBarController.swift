@@ -31,7 +31,25 @@ class TabBarController: UITabBarController {
         let homeTabItem = configureTabItem(title: "Home", icon: homeIcon)
         homeNavController.tabBarItem = homeTabItem
         
-        let viewsArray = [homeNavController]
+        let categoryPage = CategoriesViewController()
+        let categoryNavController = UINavigationController(rootViewController: categoryPage)
+        let categoryIcon = UIImage(named: "categoryicon")!.withRenderingMode(.alwaysTemplate)
+        let categoryTabItem = configureTabItem(title: "Categories", icon: categoryIcon)
+        categoryNavController.tabBarItem = categoryTabItem
+        
+        let messagesPage = MessagesViewController()
+        let messagesNavController = UINavigationController(rootViewController: messagesPage)
+        let messagesIcon = UIImage(named: "chaticon")!.withRenderingMode(.alwaysTemplate)
+        let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)
+        messagesNavController.tabBarItem = messagesTabItem
+        
+        let accountPage = AccountViewController()
+        let accountNavController = UINavigationController(rootViewController: accountPage)
+        let accountIcon = UIImage(named: "accounticon")!.withRenderingMode(.alwaysTemplate)
+        let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)
+        accountNavController.tabBarItem = accountTabItem
+        
+        let viewsArray = [homeNavController, categoryNavController, messagesNavController, accountNavController]
         self.viewControllers = viewsArray
         
     }

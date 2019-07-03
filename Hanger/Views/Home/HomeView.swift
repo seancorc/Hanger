@@ -12,6 +12,7 @@ import SnapKit
 
 class HomeView: UIView {
     var kolodaView: KolodaView!
+    var cityLabel: UILabel!
     
     init() {
         super.init(frame: .zero)
@@ -32,10 +33,21 @@ class HomeView: UIView {
         kolodaView.backgroundColor = .clear
         self.addSubview(kolodaView)
         
+        cityLabel = UILabel()
+        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        cityLabel.font = UIFont.systemFont(ofSize: 16 * Global.scaleFactor, weight: .bold)
+        self.addSubview(cityLabel)
+        
         setupConstraints()
     }
     
     func setupConstraints() {
+        cityLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.height.equalToSuperview().multipliedBy(0.05)
+        }
+        
         kolodaView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)

@@ -25,6 +25,9 @@
 		D63157E822CB16C100571558 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E722CB16C100571558 /* TabBarController.swift */; };
 		D63157EA22CB177800571558 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E922CB177800571558 /* Global.swift */; };
 		D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157ED22CB29C900571558 /* Helpful Extensions.swift */; };
+		D63157F022CC827300571558 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157EF22CC827300571558 /* CategoriesViewController.swift */; };
+		D63157F222CC896400571558 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F122CC896400571558 /* MessagesViewController.swift */; };
+		D63157F422CC906100571558 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F322CC906100571558 /* AccountViewController.swift */; };
 		EF594054ADAEE109503CB0C0 /* Pods_HangerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70346B35C8A9A9B6F6B02192 /* Pods_HangerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +79,9 @@
 		D63157E722CB16C100571558 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		D63157E922CB177800571558 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D63157ED22CB29C900571558 /* Helpful Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helpful Extensions.swift"; sourceTree = "<group>"; };
+		D63157EF22CC827300571558 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		D63157F122CC896400571558 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		D63157F322CC906100571558 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -202,6 +208,9 @@
 				D63157D922C9F21400571558 /* LoginViewController.swift */,
 				D63157E722CB16C100571558 /* TabBarController.swift */,
 				D63157DB22C9F25D00571558 /* HomeViewController.swift */,
+				D63157EF22CC827300571558 /* CategoriesViewController.swift */,
+				D63157F122CC896400571558 /* MessagesViewController.swift */,
+				D63157F322CC906100571558 /* AccountViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -491,12 +500,15 @@
 			files = (
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
 				D63157DE22C9F28800571558 /* LoginView.swift in Sources */,
+				D63157F422CC906100571558 /* AccountViewController.swift in Sources */,
+				D63157F022CC827300571558 /* CategoriesViewController.swift in Sources */,
 				D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */,
 				D63157E822CB16C100571558 /* TabBarController.swift in Sources */,
 				D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */,
 				D63157EA22CB177800571558 /* Global.swift in Sources */,
 				D63157E022C9F2BC00571558 /* NiceSpacingButton.swift in Sources */,
 				D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */,
+				D63157F222CC896400571558 /* MessagesViewController.swift in Sources */,
 				D63157E322C9F30400571558 /* KolodaCardView.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
 				D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */,

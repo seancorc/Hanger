@@ -8,9 +8,12 @@
 
 import UIKit
 import Koloda
+import MapKit
 
 class HomeViewController: UIViewController {
     var homeView: HomeView!
+    var locationManager: CLLocationManager!
+    var geoCoder: CLGeocoder!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +29,9 @@ class HomeViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
+        setupLocationManagment()
     }
-
+    
 }
 
 extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
@@ -57,5 +61,35 @@ extension HomeViewController {
         navigationController?.navigationBar.barTintColor = Global.themeColor
     }
     
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func setupLocationManagment() {
+        locationManager = CLLocationManager()
+        geoCoder = CLGeocoder()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = manager.location {
+            geoCoder.reverseGeocodeLocation(location) { (placemark, error) in
+                if let err = error {
+                    print(err.localizedDescription)
+                } else {
+                    let city = placemark?[0].locality ?? ""
+                    let state = placemark?[0].administrativeArea ?? ""
+                    self.homeView.cityLabel.text = city + ", " + state
+                    self.homeView.layoutIfNeeded()
+                }
+            }
+        }
+        
+        
+    }
 }
 
