@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     var homeView: HomeView!
     var locationManager: CLLocationManager!
     var geoCoder: CLGeocoder!
+    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Nike Shirt", clothingImage: UIImage(named: "clothingitem1")!, sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Lulu Leggings", clothingImage: UIImage(named: "clothingitem2")!, sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Jordan Slip - Velcro", clothingImage: UIImage(named: "clothingitem3")!, sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,13 +37,15 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
     func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-        return 5
+        return hardcodedClothingItems.count
     }
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        let view = KolodaCardView()
-        view.layer.cornerRadius = self.view.frame.height * 0.015
-        return view
+        let kolodaView = KolodaCardView()
+        kolodaView.layer.cornerRadius = self.view.frame.height * 0.015
+        let sellableClothingItem = hardcodedClothingItems[index]
+        kolodaView.configureSubviews(nameLabelText: sellableClothingItem.name, clothingImage: sellableClothingItem.clothingImage, sellerImage: sellableClothingItem.sellerImage, sellerName: sellableClothingItem.sellerName, price: sellableClothingItem.price)
+        return kolodaView
     }
     
 }
@@ -57,8 +60,7 @@ extension HomeViewController {
             make.height.equalTo(self.view.frame.height * 0.03)
         }
         self.navigationItem.titleView = titleImageView
-        
-        navigationController?.navigationBar.barTintColor = Global.themeColor
+        navigationController?.navigationBar.barTintColor = Global.ThemeColor
     }
     
 }

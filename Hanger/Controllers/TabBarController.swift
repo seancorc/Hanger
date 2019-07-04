@@ -37,7 +37,7 @@ class TabBarController: UITabBarController {
         let categoryTabItem = configureTabItem(title: "Categories", icon: categoryIcon)
         categoryNavController.tabBarItem = categoryTabItem
         
-        let messagesPage = MessagesViewController()
+        let messagesPage = MessageViewController()
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
         let messagesIcon = UIImage(named: "chaticon")!.withRenderingMode(.alwaysTemplate)
         let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)

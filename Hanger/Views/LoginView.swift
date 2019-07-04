@@ -73,7 +73,7 @@ class LoginView: UIView {
         loginButton.setTitle("Login", for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-        loginButton.backgroundColor = Global.themeColor
+        loginButton.backgroundColor = Global.ThemeColor
         self.addSubview(loginButton)
         
         dividerContainerView = UIView()

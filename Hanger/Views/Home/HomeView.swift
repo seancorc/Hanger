@@ -35,7 +35,7 @@ class HomeView: UIView {
         
         cityLabel = UILabel()
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityLabel.font = UIFont.systemFont(ofSize: 16 * Global.scaleFactor, weight: .bold)
+        cityLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .bold)
         self.addSubview(cityLabel)
         
         setupConstraints()
@@ -50,8 +50,8 @@ class HomeView: UIView {
         
         kolodaView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalToSuperview().multipliedBy(0.6)
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(kolodaView.snp.width).multipliedBy(16.0/9.0)
         }
         
     }
