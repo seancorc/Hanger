@@ -38,7 +38,7 @@ class LoginView: UIView {
         imagineClothesLabel = UILabel()
         imagineClothesLabel.translatesAutoresizingMaskIntoConstraints = false
         imagineClothesLabel.font = UIFont.systemFont(ofSize: 32)
-        imagineClothesLabel.text = "ImagineClothes"
+        imagineClothesLabel.text = "Hanger"
         imagineClothesLabel.textAlignment = .center
         self.addSubview(imagineClothesLabel)
         

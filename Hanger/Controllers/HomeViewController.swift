@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
         }
         
         setupLocationManagment()
+        
+        
     }
     
 }
@@ -53,6 +55,19 @@ extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
 extension HomeViewController {
     func setupNavBar() {
         //Making Nav Bar transparent
+        
+        let addNavButton = UIButton(type: .custom)
+        addNavButton.addTarget(self, action: #selector(createSale), for: UIControl.Event.touchUpInside)
+        addNavButton.setBackgroundImage(UIImage(named: "plusicon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        addNavButton.tintColor = .white
+        addNavButton.translatesAutoresizingMaskIntoConstraints = false
+        addNavButton.snp.makeConstraints { (make) in
+            make.width.equalTo(self.view.frame.width * 0.1)
+            make.height.equalTo(addNavButton.snp.width)
+        }
+        let addNavBarButton = UIBarButtonItem(customView: addNavButton)
+        self.navigationItem.rightBarButtonItem = addNavBarButton
+        
         let titleImageView = UIImageView(image: #imageLiteral(resourceName: "Hanger"))
         titleImageView.translatesAutoresizingMaskIntoConstraints = false
         titleImageView.snp.makeConstraints { (make) in
@@ -62,6 +77,11 @@ extension HomeViewController {
         self.navigationItem.titleView = titleImageView
         navigationController?.navigationBar.barTintColor = Global.ThemeColor
     }
+    
+    @objc func createSale() {
+        
+    }
+    
     
 }
 

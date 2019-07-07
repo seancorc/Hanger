@@ -25,20 +25,27 @@
 		D63157E822CB16C100571558 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E722CB16C100571558 /* TabBarController.swift */; };
 		D63157EA22CB177800571558 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E922CB177800571558 /* Global.swift */; };
 		D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157ED22CB29C900571558 /* Helpful Extensions.swift */; };
-		D63157F022CC827300571558 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157EF22CC827300571558 /* CategoriesViewController.swift */; };
 		D63157F222CC896400571558 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F122CC896400571558 /* MessageViewController.swift */; };
 		D63157F422CC906100571558 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F322CC906100571558 /* AccountViewController.swift */; };
 		D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F522CDBFC800571558 /* SellableClothingItem.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */; };
-		D6F05D7422CDD57F00621E36 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7322CDD57F00621E36 /* ChatMessage.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
 		D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */; };
 		D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7922CDD81C00621E36 /* HelpfulFunctions.swift */; };
-		D6F05D8122CDD88700621E36 /* DateMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7D22CDD88700621E36 /* DateMessageHeaderView.swift */; };
-		D6F05D8222CDD88700621E36 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7E22CDD88700621E36 /* ChatView.swift */; };
-		D6F05D8322CDD88700621E36 /* SelectableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7F22CDD88700621E36 /* SelectableLabel.swift */; };
-		D6F05D8422CDD88700621E36 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8022CDD88700621E36 /* ChatTableViewCell.swift */; };
+		D6F05D8622CDEB4800621E36 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8522CDEB4800621E36 /* ChatMessage.swift */; };
+		D6F05D8B22CDEC0B00621E36 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8722CDEC0B00621E36 /* ChatTableViewCell.swift */; };
+		D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */; };
+		D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8922CDEC0B00621E36 /* ChatView.swift */; };
+		D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */; };
+		D6F05D9022CFE46200621E36 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8F22CFE46200621E36 /* CategoriesViewController.swift */; };
+		D6F05D9522CFE4F800621E36 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9422CFE4F800621E36 /* CategoryView.swift */; };
+		D6F05D9722CFE99F00621E36 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */; };
+		D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */; };
+		D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9B22D291EB00621E36 /* AccountView.swift */; };
+		D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */; };
+		D6F05DA222D2925700621E36 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */; };
+		D6F05DA422D2937B00621E36 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DA322D2937B00621E36 /* ChangePasswordViewController.swift */; };
 		EF594054ADAEE109503CB0C0 /* Pods_HangerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70346B35C8A9A9B6F6B02192 /* Pods_HangerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,20 +97,27 @@
 		D63157E722CB16C100571558 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		D63157E922CB177800571558 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D63157ED22CB29C900571558 /* Helpful Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helpful Extensions.swift"; sourceTree = "<group>"; };
-		D63157EF22CC827300571558 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		D63157F122CC896400571558 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		D63157F322CC906100571558 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D63157F522CDBFC800571558 /* SellableClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellableClothingItem.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedMessages.swift; sourceTree = "<group>"; };
-		D6F05D7322CDD57F00621E36 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatMessage.swift; path = ../../../../../Downloads/ChatMessage.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D6F05D7922CDD81C00621E36 /* HelpfulFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpfulFunctions.swift; sourceTree = "<group>"; };
-		D6F05D7D22CDD88700621E36 /* DateMessageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateMessageHeaderView.swift; path = "../../../../../beethoven/Carbon38/Views/Community/Chat Page/DateMessageHeaderView.swift"; sourceTree = "<group>"; };
-		D6F05D7E22CDD88700621E36 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatView.swift; path = "../../../../../beethoven/Carbon38/Views/Community/Chat Page/ChatView.swift"; sourceTree = "<group>"; };
-		D6F05D7F22CDD88700621E36 /* SelectableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectableLabel.swift; path = "../../../../../beethoven/Carbon38/Views/Community/Chat Page/SelectableLabel.swift"; sourceTree = "<group>"; };
-		D6F05D8022CDD88700621E36 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableViewCell.swift; path = "../../../../../beethoven/Carbon38/Views/Community/Chat Page/ChatTableViewCell.swift"; sourceTree = "<group>"; };
+		D6F05D8522CDEB4800621E36 /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		D6F05D8722CDEC0B00621E36 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableLabel.swift; sourceTree = "<group>"; };
+		D6F05D8922CDEC0B00621E36 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMessageHeaderView.swift; sourceTree = "<group>"; };
+		D6F05D8F22CFE46200621E36 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		D6F05D9422CFE4F800621E36 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		D6F05D9B22D291EB00621E36 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
+		D6F05DA322D2937B00621E36 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -217,10 +231,13 @@
 		D63157D622C9F1EF00571558 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */,
 				D63157E122C9F2EE00571558 /* Home */,
 				D6F05D6D22CDD50200621E36 /* Messages */,
 				D63157DF22C9F2BC00571558 /* NiceSpacingButton.swift */,
 				D63157DD22C9F28800571558 /* LoginView.swift */,
+				D6F05D9122CFE46C00621E36 /* Category Page */,
+				D6F05DA022D291F300621E36 /* Account */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,12 +245,13 @@
 		D63157D722C9F1FE00571558 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D6F05D9222CFE49200621E36 /* Category Page */,
 				D63157D922C9F21400571558 /* LoginViewController.swift */,
 				D63157E722CB16C100571558 /* TabBarController.swift */,
 				D63157DB22C9F25D00571558 /* HomeViewController.swift */,
-				D63157EF22CC827300571558 /* CategoriesViewController.swift */,
 				D6F05D7022CDD52D00621E36 /* Messages */,
 				D63157F322CC906100571558 /* AccountViewController.swift */,
+				D6F05DA322D2937B00621E36 /* ChangePasswordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -242,7 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				D63157F522CDBFC800571558 /* SellableClothingItem.swift */,
-				D6F05D7322CDD57F00621E36 /* ChatMessage.swift */,
+				D6F05D8522CDEB4800621E36 /* ChatMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -298,12 +316,39 @@
 		D6F05D7C22CDD85C00621E36 /* ChatPage */ = {
 			isa = PBXGroup;
 			children = (
-				D6F05D8022CDD88700621E36 /* ChatTableViewCell.swift */,
-				D6F05D7E22CDD88700621E36 /* ChatView.swift */,
-				D6F05D7D22CDD88700621E36 /* DateMessageHeaderView.swift */,
-				D6F05D7F22CDD88700621E36 /* SelectableLabel.swift */,
+				D6F05D8722CDEC0B00621E36 /* ChatTableViewCell.swift */,
+				D6F05D8922CDEC0B00621E36 /* ChatView.swift */,
+				D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */,
+				D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */,
 			);
 			path = ChatPage;
+			sourceTree = "<group>";
+		};
+		D6F05D9122CFE46C00621E36 /* Category Page */ = {
+			isa = PBXGroup;
+			children = (
+				D6F05D9422CFE4F800621E36 /* CategoryView.swift */,
+				D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */,
+			);
+			path = "Category Page";
+			sourceTree = "<group>";
+		};
+		D6F05D9222CFE49200621E36 /* Category Page */ = {
+			isa = PBXGroup;
+			children = (
+				D6F05D8F22CFE46200621E36 /* CategoriesViewController.swift */,
+			);
+			path = "Category Page";
+			sourceTree = "<group>";
+		};
+		D6F05DA022D291F300621E36 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				D6F05D9B22D291EB00621E36 /* AccountView.swift */,
+				D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */,
+				D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -563,31 +608,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */,
 				D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */,
+				D6F05D8B22CDEC0B00621E36 /* ChatTableViewCell.swift in Sources */,
 				D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */,
-				D6F05D8222CDD88700621E36 /* ChatView.swift in Sources */,
+				D6F05D8622CDEB4800621E36 /* ChatMessage.swift in Sources */,
+				D6F05D9722CFE99F00621E36 /* CategoryCollectionViewCell.swift in Sources */,
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
-				D6F05D8322CDD88700621E36 /* SelectableLabel.swift in Sources */,
 				D63157DE22C9F28800571558 /* LoginView.swift in Sources */,
 				D63157F422CC906100571558 /* AccountViewController.swift in Sources */,
-				D6F05D8422CDD88700621E36 /* ChatTableViewCell.swift in Sources */,
+				D6F05DA422D2937B00621E36 /* ChangePasswordViewController.swift in Sources */,
+				D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */,
 				D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */,
-				D63157F022CC827300571558 /* CategoriesViewController.swift in Sources */,
+				D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */,
 				D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */,
 				D63157E822CB16C100571558 /* TabBarController.swift in Sources */,
-				D6F05D8122CDD88700621E36 /* DateMessageHeaderView.swift in Sources */,
+				D6F05D9022CFE46200621E36 /* CategoriesViewController.swift in Sources */,
 				D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */,
-				D6F05D7422CDD57F00621E36 /* ChatMessage.swift in Sources */,
+				D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */,
 				D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */,
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,
 				D63157EA22CB177800571558 /* Global.swift in Sources */,
 				D63157E022C9F2BC00571558 /* NiceSpacingButton.swift in Sources */,
 				D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */,
+				D6F05DA222D2925700621E36 /* ContentSizedTableView.swift in Sources */,
 				D63157F222CC896400571558 /* MessageViewController.swift in Sources */,
 				D63157E322C9F30400571558 /* KolodaCardView.swift in Sources */,
+				D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
 				D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */,
 				D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */,
+				D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */,
+				D6F05D9522CFE4F800621E36 /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
