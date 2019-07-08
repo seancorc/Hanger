@@ -12,18 +12,18 @@ import GoogleSignIn
 class AccountViewController: UIViewController {
     var accountView: AccountView!
     var imagePicker: UIImagePickerController!
-    let hardcodedInfo = ["Danielle Pascente", "DaniP@gmail.com", "310-556-2143", ""]
+    let hardcodedInfo = ["Josh Smith", "Jsmith@gmail.com", "310-556-2143", ""]
     var keyboardFrame: CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
         accountView = AccountView()
         accountView.logoutButton.addTarget(self, action: #selector(logoutPressed), for: UIControl.Event.touchUpInside)
-        accountView.backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         accountView.profilePictureButton.addTarget(self, action: #selector(changePicture), for: .touchUpInside)
         self.view.addSubview(accountView)
         self.accountView.snp.makeConstraints { (make) -> Void in
@@ -36,8 +36,6 @@ class AccountViewController: UIViewController {
         //Handle keyboard showing - needs to be refined along with constraints for tableview
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        
         
     }
     
@@ -63,10 +61,7 @@ class AccountViewController: UIViewController {
         self.present(loginViewController, animated: true, completion: nil)
         
     }
-    
-    @objc func backButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
+
     
     @objc func changePicture() {
         imagePicker.sourceType = .photoLibrary
@@ -138,8 +133,13 @@ extension AccountViewController: UITextFieldDelegate {
         return true
     }
     
-    
-    
-    
 }
 
+extension AccountViewController {
+    func setupNavBar() {
+        //Making nav bar transparent
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+    }
+}

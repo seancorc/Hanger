@@ -9,6 +9,7 @@ target 'Hanger' do
     pod 'SnapKit'
     pod 'GoogleSignIn'
     pod 'Koloda'
+    pod 'Alamofire'
 
   target 'HangerTests' do
     inherit! :search_paths

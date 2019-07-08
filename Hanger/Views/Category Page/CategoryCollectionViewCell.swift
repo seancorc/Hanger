@@ -53,7 +53,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         self.addSubview(lineView)
         
         arrowImageView = UIImageView()
-        arrowImageView.image = #imageLiteral(resourceName: "arrow").withRenderingMode(.alwaysTemplate)
+        arrowImageView.image = UIImage(named: "rightskinnyarrow")?.withRenderingMode(.alwaysTemplate)
         arrowImageView.tintColor = .white
         arrowImageView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(arrowImageView)

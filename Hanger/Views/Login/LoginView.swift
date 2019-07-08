@@ -11,11 +11,11 @@ import SnapKit
 import GoogleSignIn
 
 class LoginView: UIView {
-    var imagineClothesLabel: UILabel!
+    var hangerView: UIImageView!
     var loginButton: NiceSpacingButton!
     var googleSignInButton: GIDSignInButton!
     var signUpButton: UIButton!
-    var usernameTextField: UITextField!
+    var emailTextField: UITextField!
     var passwordTextField: UITextField!
     var divderImageView: UIImageView!
     var dividerContainerView: UIView!
@@ -26,21 +26,19 @@ class LoginView: UIView {
         self.backgroundColor = .white
         
         setupSubviews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     func setupSubviews() {
         
-        imagineClothesLabel = UILabel()
-        imagineClothesLabel.translatesAutoresizingMaskIntoConstraints = false
-        imagineClothesLabel.font = UIFont.systemFont(ofSize: 32)
-        imagineClothesLabel.text = "Hanger"
-        imagineClothesLabel.textAlignment = .center
-        self.addSubview(imagineClothesLabel)
+        hangerView = UIImageView(image: UIImage(named: "Hanger")?.withRenderingMode(.alwaysTemplate))
+        hangerView.tintColor = .black
+        hangerView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(hangerView)
         
         googleSignInButton = GIDSignInButton()
         googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
@@ -48,15 +46,15 @@ class LoginView: UIView {
         googleSignInButton.colorScheme = .light
         self.addSubview(googleSignInButton)
         
-        usernameTextField = UITextField()
-        usernameTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        usernameTextField.returnKeyType = .done
-        usernameTextField.textColor = .black
-        usernameTextField.font = UIFont(name: "Helvetica", size: 18)
-        usernameTextField.placeholder = "Email"
-        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextField.textAlignment = .center
-        self.addSubview(usernameTextField)
+        emailTextField = UITextField()
+        emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        emailTextField.returnKeyType = .done
+        emailTextField.textColor = .black
+        emailTextField.font = UIFont(name: "Helvetica", size: 18)
+        emailTextField.placeholder = "Email"
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField.textAlignment = .center
+        self.addSubview(emailTextField)
         
         passwordTextField = UITextField()
         passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
@@ -65,6 +63,7 @@ class LoginView: UIView {
         passwordTextField.font = UIFont(name: "Helvetica", size: 18)
         passwordTextField.placeholder = "Password"
         passwordTextField.textAlignment = .center
+        passwordTextField.isSecureTextEntry = true
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
         
@@ -73,7 +72,7 @@ class LoginView: UIView {
         loginButton.setTitle("Login", for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-        loginButton.backgroundColor = Global.ThemeColor
+        loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
         self.addSubview(loginButton)
         
         dividerContainerView = UIView()
@@ -100,20 +99,23 @@ class LoginView: UIView {
     }
     
     func setupConstraints() {
-        imagineClothesLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(80)
+        
+        hangerView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalToSuperview().multipliedBy(0.04)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(96 * Global.ScaleFactor)
         }
         
         googleSignInButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
-            make.top.equalTo(imagineClothesLabel.snp.top).offset(96)
+            make.top.equalTo(hangerView.snp.bottom).offset(60 * Global.ScaleFactor)
         }
         
         dividerContainerView.snp.makeConstraints { (make) in
             make.top.equalTo(googleSignInButton.snp.bottom)
-            make.bottom.equalTo(usernameTextField.snp.top)
+            make.bottom.equalTo(emailTextField.snp.top)
             make.centerX.equalToSuperview()
         }
         
@@ -122,15 +124,15 @@ class LoginView: UIView {
             make.centerY.equalToSuperview()
         }
         
-        usernameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(googleSignInButton.snp.bottom).offset(96)
+        emailTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(googleSignInButton.snp.bottom).offset(60 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.05)
         }
         
         passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(usernameTextField.snp.bottom).offset(32)
+            make.top.equalTo(emailTextField.snp.bottom).offset(32 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.05)
@@ -138,12 +140,12 @@ class LoginView: UIView {
         
         loginButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(passwordTextField.snp.bottom).offset(60)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(60 * Global.ScaleFactor)
         }
         
         signUpButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(loginButton.snp.bottom).offset(40)
+            make.top.equalTo(loginButton.snp.bottom).offset(40 * Global.ScaleFactor)
         }
         
     }

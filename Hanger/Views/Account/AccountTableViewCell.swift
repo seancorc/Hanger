@@ -64,7 +64,7 @@ class AccountTableViewCell: UITableViewCell {
         textField.text = nil
         label.text = labelText
         if labelText == "Password" {
-            passwordArrow.image = UIImage(named: "arrow")
+            passwordArrow.image = UIImage(named: "rightskinnyarrow")
             contentView.addSubview(passwordArrow)
             passwordArrow.snp.makeConstraints { (make) in
                 make.trailing.equalToSuperview().offset(-32 * Global.ScaleFactor)

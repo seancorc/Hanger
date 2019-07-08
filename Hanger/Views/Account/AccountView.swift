@@ -11,7 +11,6 @@ import SnapKit
 
 class AccountView: UIView {
     var profilePictureButton: UIButton!
-    var backButton: UIButton!
     var logoutButton: NiceSpacingButton!
     var tableView: ContentSizedTableView!
     
@@ -33,11 +32,7 @@ class AccountView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         self.addSubview(tableView)
-        
-        backButton = UIButton()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(named: "leftthickarrow"), for: .normal)
-        self.addSubview(backButton)
+
         
         profilePictureButton = UIButton()
         profilePictureButton.setBackgroundImage(UIImage(named: "sellerimage"), for: .normal)
@@ -55,11 +50,6 @@ class AccountView: UIView {
     
     
     func setupConstraints() {
-        backButton.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.snp.leading).offset(20 * Global.ScaleFactor)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20 * Global.ScaleFactor)
-            make.width.height.equalTo(Global.BackButtonSize)
-        }
         
         profilePictureButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(50 * Global.ScaleFactor) 
