@@ -8,13 +8,11 @@
 
 import UIKit
 import CoreData
-import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,55 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = LoginViewController()
         window?.makeKeyAndVisible()
-        
-        GIDSignIn.sharedInstance().clientID = "314768372344-7jvhe43ur6nqb17tr5vcb5qv6pllt7g5.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        
         return true
     }
-    
-    //Note: Does not work for iOS 8 and older
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url as URL?,
-                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                 annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-    }
-    
-    //When user signs in
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            let tabBarController = TabBarController()
-            let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
-            let loginViewController = UIApplication.shared.keyWindow?.rootViewController
-            UIApplication.shared.keyWindow?.rootViewController = tabBarController
-            if let snapshot = snapshot {
-                tabBarController.view.addSubview(snapshot)
-                UIView.animate(withDuration: 0.5, animations: {
-                    snapshot.layer.opacity = 0
-                    snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-                }, completion: { (completed) in
-                    snapshot.removeFromSuperview()
-                    loginViewController?.removeFromParent()
-                })
-            }
-            let fullName = user.profile.name
-            let email = user.profile.email
-            print(fullName as Any)
-            print(email as Any)
-            
-            //Do some calls to the backend
-        }
-    }
+
+
     
     
-    //When user dissconects from app
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        
-    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

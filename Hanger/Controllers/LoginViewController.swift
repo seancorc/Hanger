@@ -8,15 +8,15 @@
 
 import Foundation
 import UIKit
-import GoogleSignIn
 
-class LoginViewController: UIViewController, GIDSignInUIDelegate {
+class LoginViewController: UIViewController {
     var loginView: LoginView!
+    
+    //Hanger todos change categories section to filter (possibly), start implementing dependency injection, fix googlesignin
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GIDSignIn.sharedInstance()?.uiDelegate = self
         
         loginView = LoginView()
         loginView.loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
@@ -33,32 +33,22 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     @objc func loginButtonPressed() {
-        NetworkManager.login(email: loginView.emailTextField.text!, password: loginView.passwordTextField.text!) { (user, success) in
-            print(user)
-            print(success)
-            if success {
-                self.loginView.emailTextField.resignFirstResponder()
-                self.loginView.passwordTextField.resignFirstResponder()
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                let tabBarController = TabBarController()
-                let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
-                let loginViewController = UIApplication.shared.keyWindow?.rootViewController
-                UIApplication.shared.keyWindow?.rootViewController = tabBarController
-                if let snapshot = snapshot {
-                    tabBarController.view.addSubview(snapshot)
-                    UIView.animate(withDuration: 0.5, animations: {
-                        snapshot.layer.opacity = 0
-                        snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-                    }, completion: { (completed) in
-                        snapshot.removeFromSuperview()
-                        loginViewController?.removeFromParent()
-                    })
-                }
-            } else {
-                
-            }
-        }
+//        NetworkManager.login(email: loginView.emailTextField.text!, password: loginView.passwordTextField.text!) { (user, success) in
+//            print(user)
+//            print(success)
+//            if success {
+//                self.loginView.emailTextField.resignFirstResponder()
+//                self.loginView.passwordTextField.resignFirstResponder()
+//                HelpfulFunctions.signInAnimation()
+//            } else {
+//
+//            }
+//        }
         
+        NetworkManager.shared.execute(request: UserRequests.login(email: loginView.emailTextField.text!
+            , password: loginView.passwordTextField.text!)) { (json) in
+                print(json)
+        }
         
  
     }

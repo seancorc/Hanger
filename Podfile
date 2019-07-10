@@ -7,7 +7,6 @@ target 'Hanger' do
 
   # Pods for Hanger
     pod 'SnapKit'
-    pod 'GoogleSignIn'
     pod 'Koloda'
     pod 'Alamofire'
 

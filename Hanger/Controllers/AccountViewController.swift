@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleSignIn
 
 class AccountViewController: UIViewController {
     var accountView: AccountView!
@@ -56,7 +55,6 @@ class AccountViewController: UIViewController {
     }
     
     @objc func logoutPressed() {
-        GIDSignIn.sharedInstance()?.signOut()
         let loginViewController = LoginViewController()
         self.present(loginViewController, animated: true, completion: nil)
         

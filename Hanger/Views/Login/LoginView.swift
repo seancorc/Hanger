@@ -8,12 +8,10 @@
 
 import UIKit
 import SnapKit
-import GoogleSignIn
 
 class LoginView: UIView {
     var hangerView: UIImageView!
     var loginButton: NiceSpacingButton!
-    var googleSignInButton: GIDSignInButton!
     var signUpButton: UIButton!
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
@@ -21,7 +19,7 @@ class LoginView: UIView {
     var dividerContainerView: UIView!
     
     init() {
-        super.init(frame: .zero)
+        super.init(frame: UIScreen.main.bounds)
         
         self.backgroundColor = .white
         
@@ -39,12 +37,6 @@ class LoginView: UIView {
         hangerView.tintColor = .black
         hangerView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(hangerView)
-        
-        googleSignInButton = GIDSignInButton()
-        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
-        googleSignInButton.style = .wide
-        googleSignInButton.colorScheme = .light
-        self.addSubview(googleSignInButton)
         
         emailTextField = UITextField()
         emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
@@ -75,13 +67,6 @@ class LoginView: UIView {
         loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
         self.addSubview(loginButton)
         
-        dividerContainerView = UIView()
-        dividerContainerView.backgroundColor = .white
-        self.addSubview(dividerContainerView)
-        
-        divderImageView = UIImageView(image: UIImage(named: "logindividerimage"))
-        divderImageView.translatesAutoresizingMaskIntoConstraints = false
-        dividerContainerView.addSubview(divderImageView)
         
         signUpButton = UIButton()
         let topText = NSMutableAttributedString(string: "Don't have an account? \n")
@@ -107,35 +92,19 @@ class LoginView: UIView {
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(96 * Global.ScaleFactor)
         }
         
-        googleSignInButton.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.6)
-            make.top.equalTo(hangerView.snp.bottom).offset(60 * Global.ScaleFactor)
-        }
-        
-        dividerContainerView.snp.makeConstraints { (make) in
-            make.top.equalTo(googleSignInButton.snp.bottom)
-            make.bottom.equalTo(emailTextField.snp.top)
-            make.centerX.equalToSuperview()
-        }
-        
-        divderImageView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
         
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(googleSignInButton.snp.bottom).offset(60 * Global.ScaleFactor)
+            make.top.equalToSuperview().offset(self.frame.height * 0.4)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
-            make.height.equalToSuperview().multipliedBy(0.05)
+            make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(emailTextField.snp.bottom).offset(32 * Global.ScaleFactor)
+            make.top.equalTo(emailTextField.snp.bottom).offset(64 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
-            make.height.equalToSuperview().multipliedBy(0.05)
+            make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         loginButton.snp.makeConstraints { (make) in
