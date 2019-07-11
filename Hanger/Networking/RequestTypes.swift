@@ -16,7 +16,7 @@ public protocol Request {
     
     var parameters: [String: String] { get }
     
-    var headers: [String: Any]? { get }
+    var headers: [String: String] { get }
 }
 
 
@@ -36,15 +36,13 @@ public enum UserRequests: Request {
     
     public var parameters: [String: String] {
         switch self {
-        case .login(let email, let password): return ["email" : email, "pasword" : password]
+        case .login(let email, let password): return ["email" : email, "password" : password]
         case .signUp(let email, let username, let password): return ["email" : email, "password" : password, "username": username]
         }
     }
     
-    public var headers: [String : Any]? {
-        return nil
+    public var headers: [String : String] {
+        return [:]
     }
-    
-    
     
 }

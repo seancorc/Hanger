@@ -94,7 +94,7 @@ class LoginView: UIView {
         
         
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(self.frame.height * 0.4)
+            make.top.equalToSuperview().offset(self.frame.height * 0.3)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)

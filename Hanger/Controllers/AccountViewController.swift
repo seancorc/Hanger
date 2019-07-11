@@ -11,8 +11,19 @@ import UIKit
 class AccountViewController: UIViewController {
     var accountView: AccountView!
     var imagePicker: UIImagePickerController!
-    let hardcodedInfo = ["Josh Smith", "Jsmith@gmail.com", "310-556-2143", ""]
     var keyboardFrame: CGRect!
+    var userManager: UserManager!
+    
+    init(userManager: UserManager = .currentUser()) {
+        super.init(nibName: nil, bundle: nil)
+        self.userManager = userManager
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +99,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hardcodedInfo.count
+        return 3
     }
     
     
@@ -98,7 +109,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 3 {
+        if indexPath.row == 2 {
             present(ChangePasswordViewController(), animated: true, completion: nil)
         }
     }
@@ -109,15 +120,13 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         cell.tag = indexPath.row //Must be assigned before setup called - tells top cell to have a seperator line
         var labelText: String = ""
         switch indexPath.row {
-        case 0: labelText = "Name"
-        case 1: labelText = "Email"
-        case 2: labelText = "Phone Number"
-        case 3: labelText = "Password"; cell.textField.allowsEditingTextAttributes = false
+        case 0: labelText = "Username"; cell.textField.text = userManager.user.username
+        case 1: labelText = "Email"; cell.textField.text = userManager.user.email
+        case 2: labelText = "Password"; cell.textField.isUserInteractionEnabled = false
         default: labelText = "Error"
         }
         cell.configureCell(labelText: labelText)
         cell.textField.delegate = self
-        cell.textField.text = hardcodedInfo[indexPath.row]
         return cell
     }
     

@@ -57,3 +57,13 @@ extension UIImage { //Used to make frosty tabBar
         return image ?? UIImage(named: "Hanger")!
     }
 }
+
+
+
+extension UITextField {
+    func validateText(validationType: ValidatorType) throws -> String {
+        let validator = AppValidator.validatorFor(type: validationType)
+        return try validator.validate(self.text!)
+    }
+}
+

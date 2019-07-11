@@ -15,7 +15,6 @@ struct usersResponse: Codable {
 
 struct singleUserResponse: Codable {
     var data: User
-    var success: Bool
 }
 
 struct User: Codable {
@@ -23,6 +22,4 @@ struct User: Codable {
     var email: String
     var password: String
     var username: String
-    var latitude: Float
-    var longitude: Float
 }

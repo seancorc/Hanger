@@ -59,9 +59,6 @@ class AccountTableViewCell: UITableViewCell {
     }
     
     func configureCell(labelText: String) {
-        passwordArrow.image = nil
-        label.text = nil
-        textField.text = nil
         label.text = labelText
         if labelText == "Password" {
             passwordArrow.image = UIImage(named: "rightskinnyarrow")

@@ -11,8 +11,18 @@ import UIKit
 
 class LoginViewController: UIViewController {
     var loginView: LoginView!
+    var userManager: UserManager!
+    var networkManager: NetworkManager!
     
-    //Hanger todos change categories section to filter (possibly), start implementing dependency injection, fix googlesignin
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared()) {
+        super.init(nibName: nil, bundle: nil)
+        self.userManager = userManager
+        self.networkManager = networkManager
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,25 +43,24 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonPressed() {
-//        NetworkManager.login(email: loginView.emailTextField.text!, password: loginView.passwordTextField.text!) { (user, success) in
-//            print(user)
-//            print(success)
-//            if success {
-//                self.loginView.emailTextField.resignFirstResponder()
-//                self.loginView.passwordTextField.resignFirstResponder()
-//                HelpfulFunctions.signInAnimation()
-//            } else {
-//
-//            }
-//        }
-        
-        NetworkManager.shared.execute(request: UserRequests.login(email: loginView.emailTextField.text!
-            , password: loginView.passwordTextField.text!)) { (json) in
-                print(json)
+        do {
+            let email = try loginView.emailTextField.validateText(validationType: .email)
+            let password = try loginView.passwordTextField.validateText(validationType: .password)
+            let loginTask = LoginTask(email: email, password: password)
+            loginTask.execute(in: self.networkManager) { (user) in
+                self.userManager.user = user
+                HelpfulFunctions.signInAnimation()
+                self.loginView.emailTextField.resignFirstResponder()
+                self.loginView.passwordTextField.resignFirstResponder()
+            }
+        } catch {
+            present(HelpfulFunctions.createAlert(for: (error as! ValidationError).message), animated: true, completion: nil)
         }
-        
- 
     }
+        
+       
+        
+
     
     @objc func signUpButtonPressed() {
         present(SignUpViewController(), animated: true, completion: nil)
