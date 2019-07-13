@@ -10,7 +10,9 @@ import UIKit
 
 class SignUpView: UIView {
     var backButton: UIButton!
+    var signupLabel: UILabel!
     var emailTextField: UITextField!
+    var usernameTextField: UITextField!
     var passwordTextField: UITextField!
     var signUpButton: NiceSpacingButton!
     
@@ -28,8 +30,15 @@ class SignUpView: UIView {
     func setupSubviews() {
         backButton = UIButton()
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(named: "leftthickarrow"), for: .normal)
+        backButton.setImage(UIImage(named: "downarrow"), for: .normal)
         self.addSubview(backButton)
+        
+        signupLabel = UILabel()
+        signupLabel.textColor = .black
+        signupLabel.translatesAutoresizingMaskIntoConstraints = false
+        signupLabel.text = "Sign Up"
+        signupLabel.font = UIFont.systemFont(ofSize: 36 * Global.ScaleFactor)
+        self.addSubview(signupLabel)
         
         emailTextField = UITextField()
         emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
@@ -40,6 +49,16 @@ class SignUpView: UIView {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.textAlignment = .center
         self.addSubview(emailTextField)
+        
+        usernameTextField = UITextField()
+        usernameTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        usernameTextField.returnKeyType = .done
+        usernameTextField.textColor = .black
+        usernameTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        usernameTextField.placeholder = "Username"
+        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
+        usernameTextField.textAlignment = .center
+        self.addSubview(usernameTextField)
         
         passwordTextField = UITextField()
         passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
@@ -61,6 +80,12 @@ class SignUpView: UIView {
     
     
     func setupConstraints() {
+        
+        signupLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(128 * Global.ScaleFactor)
+        }
+        
         backButton.snp.makeConstraints { (make) in
             make.leading.equalTo(self.snp.leading).offset(20 * Global.ScaleFactor)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20 * Global.ScaleFactor)
@@ -68,14 +93,21 @@ class SignUpView: UIView {
         }
         
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(backButton.snp.bottom).offset(128 * Global.ScaleFactor)
+            make.top.equalTo(signupLabel.snp.bottom).offset(80 * Global.ScaleFactor)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.08)
+        }
+        
+        usernameTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom).offset(64 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(emailTextField.snp.bottom).offset(64 * Global.ScaleFactor)
+            make.top.equalTo(usernameTextField.snp.bottom).offset(64 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)

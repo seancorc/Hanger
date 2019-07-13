@@ -47,9 +47,9 @@ class SignUpViewController: UIViewController {
     @objc func signUpButtonPressed() {
         do {
             let email = try signUpView.emailTextField.validateText(validationType: .email)
-            // Add username text field to signup
+            let username = try signUpView.usernameTextField.validateText(validationType: .username)
             let password = try signUpView.passwordTextField.validateText(validationType: .password)
-            let signUpTask = SignUpTask(email: email, username: "Ahh", password: password)
+            let signUpTask = SignUpTask(email: email, username: username, password: password)
             signUpTask.execute(in: self.networkManager) { (user) in
                 self.userManager.user = user
                 HelpfulFunctions.signInAnimation()

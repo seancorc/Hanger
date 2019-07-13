@@ -13,6 +13,6 @@ import UIKit
 struct Global {
     static let ScaleFactor = UIScreen.main.bounds.height / 896
     static let ThemeColor = #colorLiteral(red: 1, green: 0.1148675904, blue: 0.2737748325, alpha: 1)
-    static let BackButtonSize = 44 * Global.ScaleFactor
+    static let BackButtonSize = 35 * Global.ScaleFactor
     static let CellID = "CellID"
 }

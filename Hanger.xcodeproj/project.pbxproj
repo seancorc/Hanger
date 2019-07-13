@@ -38,7 +38,6 @@
 		D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */; };
 		D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8922CDEC0B00621E36 /* ChatView.swift */; };
 		D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */; };
-		D6F05D9022CFE46200621E36 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8F22CFE46200621E36 /* CategoriesViewController.swift */; };
 		D6F05D9522CFE4F800621E36 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9422CFE4F800621E36 /* CategoryView.swift */; };
 		D6F05D9722CFE99F00621E36 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */; };
 		D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */; };
@@ -50,7 +49,7 @@
 		D6F05DA822D2E92C00621E36 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DA722D2E92C00621E36 /* User.swift */; };
 		D6F05DAA22D2EFBF00621E36 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DA922D2EFBF00621E36 /* SignUpViewController.swift */; };
 		D6F05DAD22D2F02B00621E36 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DAC22D2F02B00621E36 /* SignUpView.swift */; };
-		D6F05DB222D59F5600621E36 /* RequestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB122D59F5600621E36 /* RequestTypes.swift */; };
+		D6F05DB222D59F5600621E36 /* RequestCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB122D59F5600621E36 /* RequestCreation.swift */; };
 		D6F05DB622D7018A00621E36 /* PerformOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB522D7018A00621E36 /* PerformOperations.swift */; };
 		D6F05DB822D707EA00621E36 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB722D707EA00621E36 /* UserManager.swift */; };
 		D6F05DBA22D7120000621E36 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB922D7120000621E36 /* Validator.swift */; };
@@ -118,7 +117,6 @@
 		D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableLabel.swift; sourceTree = "<group>"; };
 		D6F05D8922CDEC0B00621E36 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMessageHeaderView.swift; sourceTree = "<group>"; };
-		D6F05D8F22CFE46200621E36 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		D6F05D9422CFE4F800621E36 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
@@ -130,7 +128,7 @@
 		D6F05DA722D2E92C00621E36 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D6F05DA922D2EFBF00621E36 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D6F05DAC22D2F02B00621E36 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		D6F05DB122D59F5600621E36 /* RequestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTypes.swift; sourceTree = "<group>"; };
+		D6F05DB122D59F5600621E36 /* RequestCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreation.swift; sourceTree = "<group>"; };
 		D6F05DB522D7018A00621E36 /* PerformOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformOperations.swift; sourceTree = "<group>"; };
 		D6F05DB722D707EA00621E36 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D6F05DB922D7120000621E36 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -215,6 +213,7 @@
 			children = (
 				D63157E622CB059500571558 /* Supporting Files */,
 				D6F05DAE22D599B200621E36 /* Networking */,
+				D6F05DBB22D9884000621E36 /* DataManagerss */,
 				D63157D822C9F20600571558 /* Models */,
 				D63157D722C9F1FE00571558 /* Controllers */,
 				D63157D622C9F1EF00571558 /* Views */,
@@ -265,7 +264,6 @@
 				D63157D922C9F21400571558 /* LoginViewController.swift */,
 				D6F05DA922D2EFBF00621E36 /* SignUpViewController.swift */,
 				D63157E722CB16C100571558 /* TabBarController.swift */,
-				D6F05D9222CFE49200621E36 /* Category Page */,
 				D63157DB22C9F25D00571558 /* HomeViewController.swift */,
 				D6F05D7022CDD52D00621E36 /* Messages */,
 				D63157F322CC906100571558 /* AccountViewController.swift */,
@@ -280,7 +278,6 @@
 				D63157F522CDBFC800571558 /* SellableClothingItem.swift */,
 				D6F05D8522CDEB4800621E36 /* ChatMessage.swift */,
 				D6F05DA722D2E92C00621E36 /* User.swift */,
-				D6F05DB722D707EA00621E36 /* UserManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -354,14 +351,6 @@
 			path = "Category Page";
 			sourceTree = "<group>";
 		};
-		D6F05D9222CFE49200621E36 /* Category Page */ = {
-			isa = PBXGroup;
-			children = (
-				D6F05D8F22CFE46200621E36 /* CategoriesViewController.swift */,
-			);
-			path = "Category Page";
-			sourceTree = "<group>";
-		};
 		D6F05DA022D291F300621E36 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,11 +373,19 @@
 		D6F05DAE22D599B200621E36 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				D6F05DB122D59F5600621E36 /* RequestTypes.swift */,
+				D6F05DB122D59F5600621E36 /* RequestCreation.swift */,
 				D6F05DA522D2D97700621E36 /* RequestExecution.swift */,
 				D6F05DB522D7018A00621E36 /* PerformOperations.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		D6F05DBB22D9884000621E36 /* DataManagerss */ = {
+			isa = PBXGroup;
+			children = (
+				D6F05DB722D707EA00621E36 /* UserManager.swift */,
+			);
+			path = DataManagerss;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -639,7 +636,6 @@
 				D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */,
 				D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */,
 				D63157E822CB16C100571558 /* TabBarController.swift in Sources */,
-				D6F05D9022CFE46200621E36 /* CategoriesViewController.swift in Sources */,
 				D6F05DAD22D2F02B00621E36 /* SignUpView.swift in Sources */,
 				D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */,
 				D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */,
@@ -658,7 +654,7 @@
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
 				D6F05DAA22D2EFBF00621E36 /* SignUpViewController.swift in Sources */,
 				D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */,
-				D6F05DB222D59F5600621E36 /* RequestTypes.swift in Sources */,
+				D6F05DB222D59F5600621E36 /* RequestCreation.swift in Sources */,
 				D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */,
 				D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */,
 				D6F05DA622D2D97700621E36 /* RequestExecution.swift in Sources */,

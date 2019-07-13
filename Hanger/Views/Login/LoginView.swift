@@ -19,7 +19,7 @@ class LoginView: UIView {
     var dividerContainerView: UIView!
     
     init() {
-        super.init(frame: UIScreen.main.bounds)
+        super.init(frame: .zero)
         
         self.backgroundColor = .white
         
@@ -61,7 +61,7 @@ class LoginView: UIView {
         
         loginButton = NiceSpacingButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("Login", for: .normal)
+        loginButton.setTitle("Sign In", for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
@@ -94,7 +94,7 @@ class LoginView: UIView {
         
         
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(self.frame.height * 0.3)
+            make.top.equalTo(hangerView.snp.bottom).offset(80 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)

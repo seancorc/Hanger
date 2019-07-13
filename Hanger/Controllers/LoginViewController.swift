@@ -27,7 +27,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         loginView = LoginView()
         loginView.loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         loginView.signUpButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
@@ -57,13 +56,9 @@ class LoginViewController: UIViewController {
             present(HelpfulFunctions.createAlert(for: (error as! ValidationError).message), animated: true, completion: nil)
         }
     }
-        
-       
-        
-
     
     @objc func signUpButtonPressed() {
-        present(SignUpViewController(), animated: true, completion: nil)
+        present(SignUpViewController(userManager: UserManager.currentUser(), networkManager: NetworkManager.shared()), animated: true, completion: nil)
     }
 }
 

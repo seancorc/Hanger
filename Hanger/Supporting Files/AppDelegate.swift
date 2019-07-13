@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        //window?.rootViewController = LoginViewController(userManager: UserManager.currentUser(), networkManager: NetworkManager.shared())
         window?.rootViewController = LoginViewController()
         window?.makeKeyAndVisible()
         return true

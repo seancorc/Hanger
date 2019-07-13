@@ -58,8 +58,7 @@ extension HomeViewController {
         
         let addNavButton = UIButton(type: .custom)
         addNavButton.addTarget(self, action: #selector(createSale), for: UIControl.Event.touchUpInside)
-        addNavButton.setBackgroundImage(UIImage(named: "plusicon")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        addNavButton.tintColor = .white
+        addNavButton.setBackgroundImage(UIImage(named: "createposticon"), for: .normal)
         addNavButton.translatesAutoresizingMaskIntoConstraints = false
         addNavButton.snp.makeConstraints { (make) in
             make.width.equalTo(self.view.frame.width * 0.1)
@@ -76,9 +75,22 @@ extension HomeViewController {
         }
         self.navigationItem.titleView = titleImageView
         navigationController?.navigationBar.barTintColor = Global.ThemeColor
+        
+        let filterButton = UIButton()
+        filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
+        filterButton.setTitle("Filter", for: .normal)
+        filterButton.setTitleColor(.white, for: .normal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: filterButton)
+        
+        
     }
     
     @objc func createSale() {
+        
+    }
+    
+    
+    @objc func filterButtonPressed() {
         
     }
     
