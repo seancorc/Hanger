@@ -50,7 +50,7 @@ class KolodaCardView: UIView {
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textColor = .white
-        nameLabel.font = UIFont.systemFont(ofSize: 22 * Global.ScaleFactor, weight: .heavy)
+        nameLabel.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         self.addSubview(nameLabel)
         
         clothingImageView = UIImageView()
@@ -73,7 +73,7 @@ class KolodaCardView: UIView {
         
         priceLabel = UILabel()
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.font = UIFont.systemFont(ofSize: 22 * Global.ScaleFactor, weight: .heavy)
+        priceLabel.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         priceLabel.textColor = .white
         priceLabel.textAlignment = .right
         self.addSubview(priceLabel)
@@ -101,8 +101,9 @@ class KolodaCardView: UIView {
         }
         
         clothingImageView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.65)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-self.frame.height * 0.03)
+            make.width.equalToSuperview().multipliedBy(0.75)
             make.height.equalTo(clothingImageView.snp.width).multipliedBy(16.0/9.0)
         }
         

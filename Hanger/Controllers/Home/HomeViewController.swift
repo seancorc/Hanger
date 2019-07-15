@@ -54,20 +54,8 @@ extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
 
 extension HomeViewController {
     func setupNavBar() {
-        //Making Nav Bar transparent
         
-        let addNavButton = UIButton(type: .custom)
-        addNavButton.addTarget(self, action: #selector(createSale), for: UIControl.Event.touchUpInside)
-        addNavButton.setBackgroundImage(UIImage(named: "createposticon"), for: .normal)
-        addNavButton.translatesAutoresizingMaskIntoConstraints = false
-        addNavButton.snp.makeConstraints { (make) in
-            make.width.equalTo(self.view.frame.width * 0.1)
-            make.height.equalTo(addNavButton.snp.width)
-        }
-        let addNavBarButton = UIBarButtonItem(customView: addNavButton)
-        self.navigationItem.rightBarButtonItem = addNavBarButton
-        
-        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "Hanger"))
+        let titleImageView = UIImageView(image: UIImage(named: "Hanger"))
         titleImageView.translatesAutoresizingMaskIntoConstraints = false
         titleImageView.snp.makeConstraints { (make) in
             make.width.equalTo(self.view.frame.width * 0.4)
@@ -85,13 +73,10 @@ extension HomeViewController {
         
     }
     
-    @objc func createSale() {
-        
-    }
     
     
     @objc func filterButtonPressed() {
-        
+        present(UINavigationController(rootViewController: FilterViewController()), animated: true, completion: nil)
     }
     
     

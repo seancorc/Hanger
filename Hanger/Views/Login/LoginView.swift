@@ -39,6 +39,7 @@ class LoginView: UIView {
         self.addSubview(hangerView)
         
         emailTextField = UITextField()
+        emailTextField.autocorrectionType = .no
         emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         emailTextField.returnKeyType = .done
         emailTextField.textColor = .black
@@ -49,6 +50,7 @@ class LoginView: UIView {
         self.addSubview(emailTextField)
         
         passwordTextField = UITextField()
+        passwordTextField.autocorrectionType = .no
         passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         passwordTextField.returnKeyType = .done
         passwordTextField.textColor = .black
@@ -60,11 +62,7 @@ class LoginView: UIView {
         self.addSubview(passwordTextField)
         
         loginButton = NiceSpacingButton()
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("Sign In", for: .normal)
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-        loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        loginButton.setupButton(title: "Sign In", textColor: .white, backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
         self.addSubview(loginButton)
         
         

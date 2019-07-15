@@ -41,6 +41,7 @@ class SignUpView: UIView {
         self.addSubview(signupLabel)
         
         emailTextField = UITextField()
+        emailTextField.autocorrectionType = .no
         emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         emailTextField.returnKeyType = .done
         emailTextField.textColor = .black
@@ -51,6 +52,7 @@ class SignUpView: UIView {
         self.addSubview(emailTextField)
         
         usernameTextField = UITextField()
+        usernameTextField.autocorrectionType = .no
         usernameTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         usernameTextField.returnKeyType = .done
         usernameTextField.textColor = .black
@@ -61,6 +63,7 @@ class SignUpView: UIView {
         self.addSubview(usernameTextField)
         
         passwordTextField = UITextField()
+        passwordTextField.autocorrectionType = .no
         passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         passwordTextField.returnKeyType = .done
         passwordTextField.textColor = .black
@@ -122,7 +125,38 @@ class SignUpView: UIView {
         
     }
     
+    func updateConstraintsForKeyboard(amount: CGFloat) {
+        signupLabel.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(50 + amount * Global.ScaleFactor)
+            make.width.height.equalTo(150 * Global.ScaleFactor)
+            make.centerX.equalTo(self.snp.centerX)
+        }
+        
+        emailTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(signupLabel.snp.bottom).offset(80 * Global.ScaleFactor)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.08)
+        }
+        
+        usernameTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom).offset(64 * Global.ScaleFactor)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.08)
+        }
+        
+        passwordTextField.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.08)
+            if amount != 0 {make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(amount)}
+            else {make.top.equalTo(usernameTextField.snp.bottom).offset(64 * Global.ScaleFactor)}
+        }
+        
+    
     
     
 }
 
+}

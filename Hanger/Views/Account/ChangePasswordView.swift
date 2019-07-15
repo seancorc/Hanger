@@ -28,7 +28,7 @@ class ChangePasswordView: UIView {
     func setupSubviews() {
         backButton = UIButton()
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(named: "leftthickarrow"), for: .normal)
+        backButton.setImage(UIImage(named: "downarrow"), for: .normal)
         self.addSubview(backButton)
         
         currentPasswordTextField = UITextField()
@@ -54,7 +54,7 @@ class ChangePasswordView: UIView {
         self.addSubview(newPasswordTextField)
         
         changePasswordButton = NiceSpacingButton()
-        changePasswordButton.setupButton(title: "Change Password", textColor: .white, backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+        
         self.addSubview(changePasswordButton)
         
         setupConstraints()

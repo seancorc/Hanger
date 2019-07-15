@@ -31,6 +31,11 @@ class TabBarController: UITabBarController {
         let homeTabItem = configureTabItem(title: "Home", icon: homeIcon)
         homeNavController.tabBarItem = homeTabItem
         
+        let createSalePage = CreateSaleViewController()
+        let createSaleIcon = UIImage(named: "createsaleicon")!.withRenderingMode(.alwaysTemplate)
+        let createSaleTabItem = configureTabItem(title: "Create Sale", icon: createSaleIcon)
+        createSalePage.tabBarItem = createSaleTabItem
+        
         let messagesPage = MessageViewController()
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
         let messagesIcon = UIImage(named: "chaticon")!.withRenderingMode(.alwaysTemplate)
@@ -43,7 +48,7 @@ class TabBarController: UITabBarController {
         let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)
         accountNavController.tabBarItem = accountTabItem
         
-        let viewsArray = [homeNavController, messagesNavController, accountNavController]
+        let viewsArray = [homeNavController, createSalePage, messagesNavController, accountNavController]
         self.viewControllers = viewsArray
         
     }
