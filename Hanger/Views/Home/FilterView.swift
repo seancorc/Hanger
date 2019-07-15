@@ -13,6 +13,7 @@ class FilterView: UIView {
     var applyButton: NiceSpacingButton!
     var tableView: UITableView!
     
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = .white

@@ -10,6 +10,13 @@ import UIKit
 
 class FilterCollectionViewCell: UICollectionViewCell {
     var label: UILabel!
+    override var isSelected: Bool {
+        didSet {
+            UIView.animate(withDuration: 0.2) {
+                self.backgroundColor = self.isSelected ? #colorLiteral(red: 1, green: 0.1148675904, blue: 0.2737748325, alpha: 0.6047998716) : .white
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,16 +61,5 @@ class FilterCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func toggleSelected() {
-        if self.isSelected {
-            UIView.animate(withDuration: 0.2) {
-                self.backgroundColor = #colorLiteral(red: 1, green: 0.1148675904, blue: 0.2737748325, alpha: 0.6047998716)
-            }
-        } else {
-            UIView.animate(withDuration: 0.2) {
-                self.backgroundColor = .white
-            }
-        }
-    }
     
 }

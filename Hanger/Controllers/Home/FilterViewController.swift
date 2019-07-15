@@ -10,7 +10,7 @@ import UIKit
 
 class FilterViewController: UIViewController {
     var filterView: FilterView!
-    var numberOfSelectedFilters: Int = 0
+    var numberOfSelectedFilters: Int = 1
     var firstCellTexts = ["$", "$$", "$$$", "$$$$"]
     var secondCellTexts = ["1 Mi", "5 Mi", "10 Mi", "15 Mi", "25 Mi"]
     var thirdCellTexts = ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"]
@@ -20,7 +20,7 @@ class FilterViewController: UIViewController {
         setupNavBar()
         
         filterView = FilterView()
-        filterView.applyButton.setTitle("Apply", for: .normal)
+        filterView.applyButton.setTitle("Apply (\(numberOfSelectedFilters))", for: .normal)
         filterView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(filterView)
         filterView.snp.makeConstraints { (make) in
@@ -46,16 +46,16 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Global.CellID, for: indexPath) as! FilterTableViewCell
-        switch indexPath.row {
-        case 0: cell.configureCell(labelText: "Price Range"); cell.collectionView.allowsMultipleSelection = true
-        case 1: cell.configureCell(labelText: "Distance"); cell.collectionView.allowsMultipleSelection = false
-        case 2: cell.configureCell(labelText: "Categories"); cell.collectionView.allowsMultipleSelection = true
-        default: print("default")
-        }
         cell.collectionView.delegate = self
         cell.collectionView.dataSource = self
         cell.collectionView.tag = indexPath.row
         cell.collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: Global.CellID)
+        switch indexPath.row {
+        case 0: cell.configureCell(labelText: "Price Range"); cell.collectionView.allowsMultipleSelection = true
+        case 1: cell.configureCell(labelText: "Distance"); cell.collectionView.allowsMultipleSelection = false; cell.collectionView.selectItem(at: IndexPath(row: 2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+        case 2: cell.configureCell(labelText: "Categories"); cell.collectionView.allowsMultipleSelection = true
+        default: print("default")
+        }
         return cell
     }
     
@@ -100,19 +100,17 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? FilterCollectionViewCell {
-            cell.toggleSelected()
+        if collectionView.allowsMultipleSelection {
             self.numberOfSelectedFilters += 1
-            filterView.applyButton.setTitle("Apply (\(self.numberOfSelectedFilters))", for: .normal)
+            filterView.applyButton.setTitle("Apply (\(numberOfSelectedFilters))", for: .normal)
             filterView.applyButton.layoutIfNeeded()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? FilterCollectionViewCell {
-            cell.toggleSelected()
+        if collectionView.allowsMultipleSelection {
             self.numberOfSelectedFilters -= 1
-            filterView.applyButton.setTitle("Apply (\(self.numberOfSelectedFilters))", for: .normal)
+            filterView.applyButton.setTitle("Apply (\(numberOfSelectedFilters))", for: .normal)
             filterView.applyButton.layoutIfNeeded()
         }
     }
@@ -138,12 +136,13 @@ extension FilterViewController {
     
     @objc func resetButtonPressed() {
         for tableViewRow in 0..<self.filterView.tableView.numberOfRows(inSection: 0) {
-            if let cell = filterView.tableView.cellForRow(at: IndexPath(row: tableViewRow, section: 0)) as? FilterTableViewCell {
-                for ip in cell.collectionView.indexPathsForSelectedItems ?? [] {
-                    cell.collectionView.deselectItem(at: ip, animated: false)
-                    cell.collectionView.delegate?.collectionView?(cell.collectionView, didDeselectItemAt: ip) //Doesn't call the delegate method for whatever reason so have to manually call it
+            if tableViewRow != 1 {
+                if let cell = filterView.tableView.cellForRow(at: IndexPath(row: tableViewRow, section: 0)) as? FilterTableViewCell {
+                    for ip in cell.collectionView.indexPathsForSelectedItems ?? [] {
+                        cell.collectionView.deselectItem(at: ip, animated: false)
+                        cell.collectionView.delegate?.collectionView?(cell.collectionView, didDeselectItemAt: ip) //Doesn't call the delegate method for whatever reason so have to manually call it
+                    }
                 }
-                
             }
         }
     }
