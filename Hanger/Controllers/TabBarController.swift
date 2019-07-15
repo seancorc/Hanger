@@ -42,7 +42,7 @@ class TabBarController: UITabBarController {
         let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)
         messagesNavController.tabBarItem = messagesTabItem
         
-        let accountPage = AccountViewController()
+        let accountPage = AccountViewController(userManager: .currentUser(), networkManager: .shared())
         let accountNavController = UINavigationController(rootViewController: accountPage)
         let accountIcon = UIImage(named: "accounticon")!.withRenderingMode(.alwaysTemplate)
         let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)

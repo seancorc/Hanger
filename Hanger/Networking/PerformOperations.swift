@@ -37,10 +37,10 @@ class LoginTask: Operation {
             if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
                 completion(userResponse.data)
             }
-    }
+        }
     }
     
-
+    
 }
 
 class SignUpTask: Operation {
@@ -66,5 +66,34 @@ class SignUpTask: Operation {
             }
         }
     }
+    
+}
+
+class UpdateUserInformationTask: Operation {
+    var previousEmail: String
+    var newEmail: String
+    var previousUsername: String
+    var newUsername: String
+    
+    var request: Request {
+        return UserRequests.updateInfo(previousEmail: previousEmail, newEmail: newEmail, previousUsername: previousUsername, newUsername: newUsername)
+    }
+    
+    init(previousEmail: String, newEmail: String, previousUsername: String, newUsername: String) {
+        self.previousEmail = previousEmail
+        self.newEmail = newEmail
+        self.previousUsername = previousUsername
+        self.newUsername = newUsername
+    }
+    
+    func execute(in dispatcher: Dispatcher, completion: @escaping (User) -> Void) {
+        dispatcher.execute(request: request) { (data) in
+            let jsonDecoder = JSONDecoder()
+            if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
+                completion(userResponse.data)
+            }
+        }
+    }
+    
     
 }

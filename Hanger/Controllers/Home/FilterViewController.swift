@@ -13,7 +13,8 @@ class FilterViewController: UIViewController {
     var numberOfSelectedFilters: Int = 1
     var firstCellTexts = ["$", "$$", "$$$", "$$$$"]
     var secondCellTexts = ["1 Mi", "5 Mi", "10 Mi", "15 Mi", "25 Mi"]
-    var thirdCellTexts = ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"]
+    var thirdCellTexts = ["Male", "Female", "Gender Neutral"]
+    var fourthCellTexts = ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,7 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,7 +54,8 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0: cell.configureCell(labelText: "Price Range"); cell.collectionView.allowsMultipleSelection = true
         case 1: cell.configureCell(labelText: "Distance"); cell.collectionView.allowsMultipleSelection = false; cell.collectionView.selectItem(at: IndexPath(row: 2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
-        case 2: cell.configureCell(labelText: "Categories"); cell.collectionView.allowsMultipleSelection = true
+        case 2: cell.configureCell(labelText: "Type"); cell.collectionView.allowsMultipleSelection = true
+        case 3: cell.configureCell(labelText: "Categories"); cell.collectionView.allowsMultipleSelection = true
         default: print("default")
         }
         return cell
@@ -68,6 +70,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case 0: return firstCellTexts.count
         case 1: return secondCellTexts.count
         case 2: return thirdCellTexts.count
+        case 3: return fourthCellTexts.count
         default: return 0
         }
     }
@@ -79,6 +82,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case 0: text = firstCellTexts[indexPath.row]
         case 1: text = secondCellTexts[indexPath.row]
         case 2: text = thirdCellTexts[indexPath.row]
+        case 3: text = fourthCellTexts[indexPath.row]
         default: text = "ahhhh"
         }
         cell.configureCell(labelText: text)
@@ -91,12 +95,13 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         switch collectionView.tag {
         case 0: text = firstCellTexts[indexPath.row]; widthMultiplier = 0.22
         case 1: text = secondCellTexts[indexPath.row]; widthMultiplier = 0.2
-        case 2: text = thirdCellTexts[indexPath.row]; widthMultiplier = 0.25
+        case 2: text = thirdCellTexts[indexPath.row]; widthMultiplier = 0.3
+        case 3: text = fourthCellTexts[indexPath.row]; widthMultiplier = 0.25
         default: text = "ahhhh"
         }
         let NSText = NSString(string: text)
-        let size = NSText.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18 * Global.ScaleFactor)])
-        return CGSize(width: size.width > self.view.frame.width * widthMultiplier ? size.width : self.view.frame.width * widthMultiplier, height: size.height * 2)
+        let size = NSText.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17 * Global.ScaleFactor)])
+        return CGSize(width: (size.width + 12) > self.view.frame.width * widthMultiplier ? (size.width + 12) : self.view.frame.width * widthMultiplier, height: size.height * 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -43,7 +43,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
         
         label = UILabel()
         label.clipsToBounds = true
-        label.font = UIFont.systemFont(ofSize: 18 * Global.ScaleFactor)
+        label.font = UIFont.systemFont(ofSize: 17 * Global.ScaleFactor)
         label.textAlignment = .center
         self.backgroundView = label
         

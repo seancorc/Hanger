@@ -11,7 +11,7 @@ import UIKit
 class FilterView: UIView {
     var applyButtonContainerView: UIView!
     var applyButton: NiceSpacingButton!
-    var tableView: UITableView!
+    var tableView: ContentSizedTableView!
     
     
     init() {
@@ -27,7 +27,7 @@ class FilterView: UIView {
     
     func setupSubviews() {
         
-        tableView = UITableView()
+        tableView = ContentSizedTableView()
         tableView.isScrollEnabled = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -35,8 +35,6 @@ class FilterView: UIView {
         
         applyButtonContainerView = UIView()
         applyButtonContainerView.backgroundColor = .white
-        applyButtonContainerView.layer.borderColor = UIColor.lightGray.cgColor
-        applyButtonContainerView.layer.borderWidth = 1
         self.addSubview(applyButtonContainerView)
         
         applyButton = NiceSpacingButton(widthOffset: UIScreen.main.bounds.width * 0.8, heightOffset: 12, hasCornerRadius: true)

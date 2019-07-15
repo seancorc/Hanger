@@ -24,11 +24,13 @@ public enum UserRequests: Request {
     
     case login(email: String, password: String)
     case signUp(email: String, username: String, password: String)
+    case updateInfo(previousEmail: String, newEmail: String, previousUsername: String, newUsername: String)
     
     public var path: String {
         switch self {
         case .login(_, _): return "/user/login/"
         case .signUp(_, _, _): return "/user/signup/"
+        case .updateInfo(_, _, _, _): return "/user/updateinfo/"
         }
     }
     
@@ -38,6 +40,7 @@ public enum UserRequests: Request {
         switch self {
         case .login(let email, let password): return ["email" : email, "password" : password]
         case .signUp(let email, let username, let password): return ["email" : email, "password" : password, "username": username]
+        case .updateInfo(let previousEmail, let newEmail, let previousUsername, let newUsername): return ["previousEmail": previousEmail, "newEmail": newEmail, "previousUsername": previousUsername, "newUsername": newUsername]
         }
     }
     

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         //window?.rootViewController = LoginViewController(userManager: UserManager.currentUser(), networkManager: NetworkManager.shared())
-        window?.rootViewController = TabBarController()
+        window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared())
         window?.makeKeyAndVisible()
         return true
     }
