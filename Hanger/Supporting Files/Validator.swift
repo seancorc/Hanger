@@ -8,13 +8,6 @@
 
 import Foundation
 
-class ValidationError: Error {
-    var message: String
-    
-    init(_ message: String) {
-        self.message = message
-    }
-}
 
 protocol Validator {
     func validate(_ value: String) throws -> String
@@ -43,14 +36,13 @@ fileprivate let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailReg
 struct EmailValidator: Validator{
     func validate(_ value: String) throws -> String {
         if emailPredicate.evaluate(with: value) {return value }
-        else {throw ValidationError("Invalid Email")}
-        
+        else {throw MessageError("Invalid Email")}
     }
 }
 
 struct PasswordValidator: Validator {
     func validate(_ value: String) throws -> String {
-        guard value.count >= 6 else { throw ValidationError("Password must have at least 6 characters") }
+        guard value.count >= 6 else { throw MessageError("Password must have at least 6 characters") }
         
         return value
     }
@@ -59,18 +51,18 @@ struct PasswordValidator: Validator {
 struct UserNameValidator: Validator {
     func validate(_ value: String) throws -> String {
         guard value.count >= 3 else {
-            throw ValidationError("Username must contain more than three characters" )
+            throw MessageError("Username must contain more than three characters" )
         }
         guard value.count < 18 else {
-            throw ValidationError("Username shoudn't conain more than 18 characters" )
+            throw MessageError("Username shoudn't conain more than 18 characters" )
         }
         
         do {
             if try NSRegularExpression(pattern: "[A-Z0-9a-z]{1,18}$").firstMatch(in: value, options: [], range: NSRange(location: 0, length: value.count)) == nil {
-                throw ValidationError("Invalid username, username should not contain whitespaces or special characters")
+                throw MessageError("Username should not contain whitespaces or special characters")
             }
         } catch {
-            throw ValidationError("Invalid username, username should not contain whitespaces,  or special characters")
+            throw MessageError("Username should not contain whitespaces or special characters")
         }
         
         return value

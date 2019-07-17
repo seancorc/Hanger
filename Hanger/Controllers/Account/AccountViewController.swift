@@ -19,9 +19,9 @@ class AccountViewController: UIViewController {
     var keyboardFrame: CGRect!
     var userManager: UserManager!
     var networkManager: NetworkManager!
-    var informationEdited: Bool = false
     var newEmail: String!
     var newUsername: String!
+    var saveBarButton: UIBarButtonItem!
     
     init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared()) {
         super.init(nibName: nil, bundle: nil)
@@ -33,19 +33,6 @@ class AccountViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if informationEdited {
-            let updateInfoTask = UpdateUserInformationTask(previousEmail: userManager.user.email, newEmail: newEmail, previousUsername: userManager.user.username, newUsername: newUsername)
-            updateInfoTask.execute(in: self.networkManager) { (user) in
-                print(user)
-                self.userManager.user.email = self.newEmail
-                self.userManager.user.username = self.newUsername
-            }
-        }
-        informationEdited = false
     }
     
     override func viewDidLoad() {
@@ -86,9 +73,8 @@ class AccountViewController: UIViewController {
     }
     
     @objc func logoutPressed() {
-        let loginViewController = LoginViewController()
-        self.present(loginViewController, animated: true, completion: nil)
-        
+        self.userManager.user = nil
+        HelpfulFunctions.signOutAnimation()
     }
     
     @objc func changePicture() {
@@ -150,16 +136,13 @@ extension AccountViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        informationEdited = true
-    }
-    
     @objc func textFieldDidChange(_ sender: Any) {
+        navigationItem.rightBarButtonItem = saveBarButton
         if let textField = sender as? UITextField {
             switch textField.tag {
             case 0: newUsername = textField.text
             case 1: newEmail = textField.text
-            default: print("That shouldnt happen - editing text field in non editable cell")
+            default: print("This shouldnt happen - editing text field in non editable cell")
             }
         }
     }
@@ -171,5 +154,35 @@ extension AccountViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
+        
+        let saveButton = NiceSpacingButton()
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        saveButton.setupButton(title: "Save", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+        saveBarButton = UIBarButtonItem(customView: saveButton)
+        
+    }
+    
+    @objc func saveButtonPressed() {
+        do {
+            try self.newEmail.validateText(validationType: .email)
+            try self.newUsername.validateText(validationType: .username)
+        } catch {
+            present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil)
+            return
+        }
+        let updateInfoTask = UpdateUserInformationTask(previousEmail: self.userManager.user.email, newEmail: self.newEmail, previousUsername: self.userManager.user.username, newUsername: self.newUsername)
+        updateInfoTask.execute(in: self.networkManager) { (user, responseError) in
+            if let err = responseError {
+                self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
+                return
+            }
+            self.userManager.user.email = self.newEmail
+            self.userManager.user.username = self.newUsername
+            let alert = HelpfulFunctions.createAlert(for: "Changes Saved")
+            self.present(alert, animated: true, completion: nil)
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
 }
+
+

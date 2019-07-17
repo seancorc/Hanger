@@ -19,7 +19,7 @@
 		D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157D922C9F21400571558 /* LoginViewController.swift */; };
 		D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157DB22C9F25D00571558 /* HomeViewController.swift */; };
 		D63157DE22C9F28800571558 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157DD22C9F28800571558 /* LoginView.swift */; };
-		D63157E022C9F2BC00571558 /* NiceSpacingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157DF22C9F2BC00571558 /* NiceSpacingButton.swift */; };
+		D63157E022C9F2BC00571558 /* NiceSpacingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157DF22C9F2BC00571558 /* NiceSpacingViews.swift */; };
 		D63157E322C9F30400571558 /* KolodaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E222C9F30400571558 /* KolodaCardView.swift */; };
 		D63157E522C9F35F00571558 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E422C9F35F00571558 /* HomeView.swift */; };
 		D63157E822CB16C100571558 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157E722CB16C100571558 /* TabBarController.swift */; };
@@ -103,7 +103,7 @@
 		D63157D922C9F21400571558 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D63157DB22C9F25D00571558 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D63157DD22C9F28800571558 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		D63157DF22C9F2BC00571558 /* NiceSpacingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceSpacingButton.swift; sourceTree = "<group>"; };
+		D63157DF22C9F2BC00571558 /* NiceSpacingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceSpacingViews.swift; sourceTree = "<group>"; };
 		D63157E222C9F30400571558 /* KolodaCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KolodaCardView.swift; sourceTree = "<group>"; };
 		D63157E422C9F35F00571558 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D63157E722CB16C100571558 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 		D63157D622C9F1EF00571558 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D63157DF22C9F2BC00571558 /* NiceSpacingButton.swift */,
+				D63157DF22C9F2BC00571558 /* NiceSpacingViews.swift */,
 				D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */,
 				D6F05DAB22D2EFFC00621E36 /* Login */,
 				D63157E122C9F2EE00571558 /* Home */,
@@ -677,7 +677,7 @@
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,
 				D63157EA22CB177800571558 /* GlobalConstants.swift in Sources */,
 				D6F05DC622DC48F000621E36 /* CreateSaleViewController.swift in Sources */,
-				D63157E022C9F2BC00571558 /* NiceSpacingButton.swift in Sources */,
+				D63157E022C9F2BC00571558 /* NiceSpacingViews.swift in Sources */,
 				D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */,
 				D6F05DA222D2925700621E36 /* ContentSizedTableView.swift in Sources */,
 				D6F05DA822D2E92C00621E36 /* User.swift in Sources */,

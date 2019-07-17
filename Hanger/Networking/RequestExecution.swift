@@ -10,11 +10,36 @@ import Foundation
 import MapKit
 import Alamofire
 
-protocol Dispatcher {
+
+class MessageError: Error {
+    var message: String
     
-    func execute(request: Request, completion: @escaping (Data) -> Void)
-    
+    init(_ message: String) {
+        self.message = message
+    }
 }
+
+protocol Dispatcher {
+    func execute(request: Request, completion: @escaping ((NetworkResponse) -> Void))
+}
+
+enum NetworkResponse {
+    case data(_ data: Data)
+    case error(_ statusCode: Int, _ error: MessageError)
+    
+    init(response: (data: Data?, statusCode: Int?)) {
+        if let code = response.statusCode {
+        switch code {
+        case 200...299: if let data = response.data {self = .data(data)} else {self = .error(500, MessageError("Internal Error"))}
+        case 400: self = .error(400, MessageError("Incorrect Email"))
+        case 401: self = .error(401, MessageError("Incorrect password"))
+        default: self = .error(500, MessageError("Internal Error"))
+        }
+        } else {self = .error(500, MessageError("Internal Error"))}
+    }
+}
+
+
 /**
  Responsible for executing requests and storing information about the network enviroment
  */
@@ -31,15 +56,20 @@ class NetworkManager: Dispatcher {
     /**
      - Parameter completion: Is given an optional JSON upon a successful request
      */
-     func execute(request: Request, completion: @escaping (Data) -> Void) {
+    func execute(request: Request, completion: @escaping ((NetworkResponse) -> Void))  {
         Alamofire.request("\(self.baseURL)\(request.path)", method: request.method, parameters: request.parameters, encoding: JSONEncoding.default, headers: request.headers).validate().responseData { (response) in
                 switch response.result {
                 case .success(let data):
                     if let json = self.jsonFromResponseData(data: data) {
-                        print(json)
-                        completion(data)
+                        print("JSON RESPONSE:\n \(json)")
+                        let networkResponse = NetworkResponse(response: (data: response.data, statusCode: response.response?.statusCode))
+                        completion(networkResponse)
                     } else {print("data is not in JSON format")}
-                case .failure(let error): print(error.localizedDescription)
+                case .failure(let error):
+                    if let err = error as? AFError {
+                        let networkRespose = NetworkResponse(response: (data: nil, statusCode: err.responseCode))
+                        completion(networkRespose)
+                    }
                 }
             }
         }
@@ -54,6 +84,7 @@ class NetworkManager: Dispatcher {
             return nil
         }
     }
+    
     
     
 }

@@ -38,7 +38,7 @@ class FilterView: UIView {
         self.addSubview(applyButtonContainerView)
         
         applyButton = NiceSpacingButton(widthOffset: UIScreen.main.bounds.width * 0.8, heightOffset: 12, hasCornerRadius: true)
-        applyButton.setupButton(title: "", textColor: .white, backgroundColor: Global.ThemeColor)
+        applyButton.setupButton(title: "", backgroundColor: Global.ThemeColor) //Text set in controller as it depends on the number of filters selected
         applyButtonContainerView.addSubview(applyButton)
         
         setupConstraints()

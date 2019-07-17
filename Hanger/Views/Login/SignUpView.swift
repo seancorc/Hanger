@@ -14,7 +14,7 @@ class SignUpView: UIView {
     var emailTextField: UITextField!
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
-    var signUpButton: NiceSpacingButton!
+    var signUpButton: UIButton!
     
     init() {
         super.init(frame: .zero)
@@ -24,6 +24,12 @@ class SignUpView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        signUpButton.layer.cornerRadius = signUpButton.frame.width / 8
     }
     
     
@@ -74,9 +80,15 @@ class SignUpView: UIView {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
         
-        signUpButton = NiceSpacingButton()
-        signUpButton.setupButton(title: "Sign Up", textColor: .white, backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+        signUpButton = UIButton()
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        signUpButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        signUpButton.setTitle("Sign Up", for: UIControl.State.normal)
+        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor)
+        signUpButton.setTitleColor(.white, for: UIControl.State.normal)
+        signUpButton.clipsToBounds = true
         self.addSubview(signUpButton)
+        
         
         setupConstraints()
     }
@@ -117,7 +129,7 @@ class SignUpView: UIView {
         }
         
         signUpButton.snp.makeConstraints { (make) in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(96 * Global.ScaleFactor)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(80 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)

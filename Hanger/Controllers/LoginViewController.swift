@@ -42,18 +42,24 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonPressed() {
+        var email = ""; var password = ""
         do {
-            let email = try loginView.emailTextField.validateText(validationType: .email)
-            let password = try loginView.passwordTextField.validateText(validationType: .password)
-            let loginTask = LoginTask(email: email, password: password)
-            loginTask.execute(in: self.networkManager) { (user) in
-                self.userManager.user = user
-                HelpfulFunctions.signInAnimation()
-                self.loginView.emailTextField.resignFirstResponder()
-                self.loginView.passwordTextField.resignFirstResponder()
-            }
+            email = try loginView.emailTextField.text!.validateText(validationType: .email)
+            password = try loginView.passwordTextField.text!.validateText(validationType: .password)
         } catch {
-            present(HelpfulFunctions.createAlert(for: (error as! ValidationError).message), animated: true, completion: nil)
+            present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil)
+            return
+        }
+        let loginTask = LoginTask(email: email, password: password)
+        loginTask.execute(in: self.networkManager) { (user, responseError) in
+            if let err = responseError {
+                self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
+                return
+            }
+            self.userManager.user = user
+            HelpfulFunctions.signInAnimation()
+            self.loginView.emailTextField.resignFirstResponder()
+            self.loginView.passwordTextField.resignFirstResponder()
         }
     }
     

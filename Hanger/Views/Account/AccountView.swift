@@ -42,7 +42,7 @@ class AccountView: UIView {
         self.addSubview(profilePictureButton)
         
         logoutButton = NiceSpacingButton()
-        logoutButton.setupButton(title: "Logout", textColor: .white, backgroundColor: #colorLiteral(red: 0.9995071292, green: 0.2495709658, blue: 0.2678492069, alpha: 1))
+        logoutButton.setupButton(title: "Logout", backgroundColor: #colorLiteral(red: 0.9995071292, green: 0.2495709658, blue: 0.2678492069, alpha: 1))
         self.addSubview(logoutButton)
         
         setupConstraints()

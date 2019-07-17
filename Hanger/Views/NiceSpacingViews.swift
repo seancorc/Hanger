@@ -29,11 +29,11 @@ class NiceSpacingButton: UIButton {
         return CGSize(width: origContentSize.width + self.widthOffset, height: origContentSize.height + self.heightOffset)
     }
     
-    func setupButton(title: String, textColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat = 18 * Global.ScaleFactor) {
+    func setupButton(title: String, backgroundColor: UIColor, fontSize: CGFloat = 18 * Global.ScaleFactor) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.setTitle(title, for: UIControl.State.normal)
-        self.titleLabel?.font = UIFont(name: "Helvetica", size: fontSize)
-        self.setTitleColor(textColor, for: UIControl.State.normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        self.setTitleColor(.white, for: UIControl.State.normal)
         self.clipsToBounds = true
         self.backgroundColor = backgroundColor
     }
@@ -65,7 +65,7 @@ class NiceSpacingLabel: UILabel {
     func setupLabel(text: String, backgroundColor: UIColor, fontSize: CGFloat = 18 * Global.ScaleFactor) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.text = text
-        self.font = UIFont(name: "Helvetica", size: fontSize)
+        self.font = UIFont.systemFont(ofSize: fontSize)
         self.textColor = .white
         self.clipsToBounds = true
         self.backgroundColor = backgroundColor

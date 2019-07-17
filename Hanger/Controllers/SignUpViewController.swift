@@ -45,19 +45,25 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
+        var email = ""; var username = ""; var password = ""
         do {
-            let email = try signUpView.emailTextField.validateText(validationType: .email)
-            let username = try signUpView.usernameTextField.validateText(validationType: .username)
-            let password = try signUpView.passwordTextField.validateText(validationType: .password)
-            let signUpTask = SignUpTask(email: email, username: username, password: password)
-            signUpTask.execute(in: self.networkManager) { (user) in
-                self.userManager.user = user
-                HelpfulFunctions.signInAnimation()
-                self.signUpView.emailTextField.resignFirstResponder()
-                self.signUpView.passwordTextField.resignFirstResponder()
-            }
+            email = try signUpView.emailTextField.text!.validateText(validationType: .email)
+            username = try signUpView.usernameTextField.text!.validateText(validationType: .username)
+            password = try signUpView.passwordTextField.text!.validateText(validationType: .password)
         } catch {
-            present(HelpfulFunctions.createAlert(for: (error as! ValidationError).message), animated: true, completion: nil)
+            present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil)
+            return
+        }
+        let signUpTask = SignUpTask(email: email, username: username, password: password)
+        signUpTask.execute(in: self.networkManager) { (user, responseError) in
+            if let err = responseError {
+                self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
+                return
+            }
+            self.userManager.user = user
+            HelpfulFunctions.signInAnimation()
+            self.signUpView.emailTextField.resignFirstResponder()
+            self.signUpView.passwordTextField.resignFirstResponder()
         }
         
     }

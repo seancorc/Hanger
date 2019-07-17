@@ -11,7 +11,7 @@ import SnapKit
 
 class LoginView: UIView {
     var hangerView: UIImageView!
-    var loginButton: NiceSpacingButton!
+    var loginButton: UIButton!
     var signUpButton: UIButton!
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
@@ -28,6 +28,11 @@ class LoginView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        loginButton.layer.cornerRadius = loginButton.frame.width / 8
     }
 
     
@@ -61,10 +66,14 @@ class LoginView: UIView {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
         
-        loginButton = NiceSpacingButton()
-        loginButton.setupButton(title: "Sign In", textColor: .white, backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+        loginButton = UIButton()
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        loginButton.setTitle("Sign In", for: UIControl.State.normal)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor)
+        loginButton.setTitleColor(.white, for: UIControl.State.normal)
+        loginButton.clipsToBounds = true
         self.addSubview(loginButton)
-        
         
         signUpButton = UIButton()
         let topText = NSMutableAttributedString(string: "Don't have an account? \n")
@@ -106,8 +115,10 @@ class LoginView: UIView {
         }
         
         loginButton.snp.makeConstraints { (make) in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(80 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
-            make.top.equalTo(passwordTextField.snp.bottom).offset(60 * Global.ScaleFactor)
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         signUpButton.snp.makeConstraints { (make) in

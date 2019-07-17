@@ -8,14 +8,14 @@
 
 import Foundation
 
-
+//Needs to be fixed - effectivley get network errors
 protocol Operation {
     
     associatedtype OutputType
     
     var request: Request { get }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (_ output: OutputType) -> Void)
+    func execute(in dispatcher: Dispatcher, completion: @escaping (_ output: OutputType?, _ error: MessageError?) -> Void)
 }
 
 class LoginTask: Operation {
@@ -31,15 +31,19 @@ class LoginTask: Operation {
         return UserRequests.login(email: self.email, password: self.password)
     }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (User) -> Void) {
-        dispatcher.execute(request: request) { (data) in
-            let jsonDecoder = JSONDecoder()
-            if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
-                completion(userResponse.data)
+    func execute(in dispatcher: Dispatcher, completion: @escaping (User?, MessageError?) -> Void)  {
+        dispatcher.execute(request: request) { (networkResponse) in
+            switch networkResponse {
+            case .data(let data):
+                let jsonDecoder = JSONDecoder()
+                if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
+                    completion(userResponse.data, nil)
+                    return
+                }
+            case .error(let statusCode, let responseError): completion(nil, responseError)
             }
         }
     }
-    
     
 }
 
@@ -58,11 +62,16 @@ class SignUpTask: Operation {
         return UserRequests.signUp(email: email, username: username, password: password)
     }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (User) -> Void) {
-        dispatcher.execute(request: request) { (data) in
-            let jsonDecoder = JSONDecoder()
-            if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
-                completion(userResponse.data)
+    func execute(in dispatcher: Dispatcher, completion: @escaping (User?, MessageError?) -> Void)  {
+        dispatcher.execute(request: request) { (networkResponse) in
+            switch networkResponse {
+            case .data(let data):
+                let jsonDecoder = JSONDecoder()
+                if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
+                    completion(userResponse.data, nil)
+                    return
+                }
+            case .error(let statusCode, let responseError): completion(nil, responseError)
             }
         }
     }
@@ -86,11 +95,16 @@ class UpdateUserInformationTask: Operation {
         self.newUsername = newUsername
     }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (User) -> Void) {
-        dispatcher.execute(request: request) { (data) in
-            let jsonDecoder = JSONDecoder()
-            if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
-                completion(userResponse.data)
+    func execute(in dispatcher: Dispatcher, completion: @escaping (User?, MessageError?) -> Void)  {
+        dispatcher.execute(request: request) { (networkResponse) in
+            switch networkResponse {
+            case .data(let data):
+                let jsonDecoder = JSONDecoder()
+                if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
+                    completion(userResponse.data, nil)
+                    return
+                }
+            case .error(let statusCode, let responseError): completion(nil, responseError)
             }
         }
     }

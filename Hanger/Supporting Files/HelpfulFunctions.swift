@@ -57,6 +57,24 @@ public class HelpfulFunctions {
         }
     }
     
+    static func signOutAnimation() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let loginController = LoginViewController()
+        let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
+        let loginViewController = UIApplication.shared.keyWindow?.rootViewController
+        UIApplication.shared.keyWindow?.rootViewController = loginController
+        if let snapshot = snapshot {
+            loginController.view.addSubview(snapshot)
+            UIView.animate(withDuration: 0.5, animations: {
+                snapshot.layer.opacity = 0
+                snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+            }, completion: { (completed) in
+                snapshot.removeFromSuperview()
+                loginViewController?.removeFromParent()
+            })
+        }
+    }
+    
     static func createAlert(for alert: String) -> UIAlertController  {
         let alertController = UIAlertController(title: nil, message: alert, preferredStyle: UIAlertController.Style.alert)
         let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
