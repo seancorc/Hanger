@@ -12,7 +12,7 @@ class ChangePasswordView: UIView {
     var backButton: UIButton!
     var currentPasswordTextField: UITextField!
     var newPasswordTextField: UITextField!
-    var changePasswordButton: NiceSpacingButton!
+    var changePasswordButton: UIButton!
     
     init() {
         super.init(frame: .zero)
@@ -24,6 +24,10 @@ class ChangePasswordView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        changePasswordButton.layer.cornerRadius = changePasswordButton.frame.width / 8
+    }
     
     func setupSubviews() {
         backButton = UIButton()
@@ -53,8 +57,11 @@ class ChangePasswordView: UIView {
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(newPasswordTextField)
         
-        changePasswordButton = NiceSpacingButton()
-        
+        changePasswordButton = UIButton()
+        changePasswordButton.setTitle("Change Password", for: .normal)
+        changePasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
+        changePasswordButton.setTitleColor(UIColor.white, for: .normal)
+        changePasswordButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
         self.addSubview(changePasswordButton)
         
         setupConstraints()
@@ -83,7 +90,7 @@ class ChangePasswordView: UIView {
         }
         
         changePasswordButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newPasswordTextField.snp.bottom).offset(96 * Global.ScaleFactor)
+            make.top.equalTo(newPasswordTextField.snp.bottom).offset(80 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)

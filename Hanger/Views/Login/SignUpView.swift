@@ -43,7 +43,7 @@ class SignUpView: UIView {
         signupLabel.textColor = .black
         signupLabel.translatesAutoresizingMaskIntoConstraints = false
         signupLabel.text = "Sign Up"
-        signupLabel.font = UIFont.systemFont(ofSize: 36 * Global.ScaleFactor)
+        signupLabel.font = UIFont.systemFont(ofSize: 36 * Global.ScaleFactor, weight: .bold)
         self.addSubview(signupLabel)
         
         emailTextField = UITextField()
@@ -84,7 +84,7 @@ class SignUpView: UIView {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
         signUpButton.setTitle("Sign Up", for: UIControl.State.normal)
-        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor)
+        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         signUpButton.setTitleColor(.white, for: UIControl.State.normal)
         signUpButton.clipsToBounds = true
         self.addSubview(signUpButton)

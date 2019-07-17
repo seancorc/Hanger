@@ -70,7 +70,7 @@ class LoginView: UIView {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
         loginButton.setTitle("Sign In", for: UIControl.State.normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         loginButton.setTitleColor(.white, for: UIControl.State.normal)
         loginButton.clipsToBounds = true
         self.addSubview(loginButton)
