@@ -56,6 +56,15 @@ extension UIImage { //Used to make frosty tabBar
         
         return image ?? UIImage(named: "Hanger")!
     }
+    
+    func scale(to newSize: CGSize) -> UIImage {
+        let newSize = CGSize(width: newSize.width, height: newSize.height)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        self.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
 }
 
 extension String {

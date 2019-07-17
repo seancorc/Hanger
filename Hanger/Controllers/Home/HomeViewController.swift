@@ -10,21 +10,16 @@ import UIKit
 import Koloda
 import MapKit
 
-class HomeViewController: UIViewController {
-    var homeView: HomeView!
+class HomeViewController: HomeKolodaViewController {
     var locationManager: CLLocationManager!
     var geoCoder: CLGeocoder!
-    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Nike Shirt", clothingImage: UIImage(named: "clothingitem1")!, sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Lulu Leggings", clothingImage: UIImage(named: "clothingitem2")!, sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Jordan Slip - Velcro", clothingImage: UIImage(named: "clothingitem3")!, sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavBar()
         
-        homeView = HomeView()
-        homeView.translatesAutoresizingMaskIntoConstraints = false
-        homeView.kolodaView.delegate = self
-        homeView.kolodaView.dataSource = self
+        homeView.translatesAutoresizingMaskIntoConstraints = false        
         view.addSubview(homeView)
         homeView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -33,21 +28,6 @@ class HomeViewController: UIViewController {
         setupLocationManagment()
         
         
-    }
-    
-}
-
-extension HomeViewController: KolodaViewDelegate, KolodaViewDataSource {
-    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-        return hardcodedClothingItems.count
-    }
-    
-    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        let kolodaView = KolodaCardView()
-        kolodaView.layer.cornerRadius = self.view.frame.height * 0.015
-        let sellableClothingItem = hardcodedClothingItems[index]
-        kolodaView.configureSubviews(nameLabelText: sellableClothingItem.name, clothingImage: sellableClothingItem.clothingImage, sellerImage: sellableClothingItem.sellerImage, sellerName: sellableClothingItem.sellerName, price: sellableClothingItem.price)
-        return kolodaView
     }
     
 }

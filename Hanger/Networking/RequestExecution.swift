@@ -31,8 +31,9 @@ enum NetworkResponse {
         if let code = response.statusCode {
         switch code {
         case 200...299: if let data = response.data {self = .data(data)} else {self = .error(500, MessageError("Internal Error"))}
-        case 400: self = .error(400, MessageError("Incorrect Email"))
-        case 401: self = .error(401, MessageError("Incorrect password"))
+        case 400: self = .error(400, MessageError("Incorrect Email/Password Combo"))
+        case 401: self = .error(401, MessageError("User With That Email Already Exists"))
+        case 402: self = .error(402, MessageError("User With That Username Already Exists"))
         default: self = .error(500, MessageError("Internal Error"))
         }
         } else {self = .error(500, MessageError("Internal Error"))}
@@ -69,6 +70,8 @@ class NetworkManager: Dispatcher {
                     if let err = error as? AFError {
                         let networkRespose = NetworkResponse(response: (data: nil, statusCode: err.responseCode))
                         completion(networkRespose)
+                    } else {
+                        completion(NetworkResponse(response: (data: nil, statusCode: 500)))
                     }
                 }
             }

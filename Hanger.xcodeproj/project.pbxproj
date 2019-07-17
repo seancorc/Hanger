@@ -28,6 +28,8 @@
 		D63157F222CC896400571558 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F122CC896400571558 /* MessageViewController.swift */; };
 		D63157F422CC906100571558 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F322CC906100571558 /* AccountViewController.swift */; };
 		D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F522CDBFC800571558 /* SellableClothingItem.swift */; };
+		D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */; };
+		D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
@@ -112,6 +114,8 @@
 		D63157F122CC896400571558 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		D63157F322CC906100571558 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D63157F522CDBFC800571558 /* SellableClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellableClothingItem.swift; sourceTree = "<group>"; };
+		D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeKolodaViewController.swift; sourceTree = "<group>"; };
+		D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedMessages.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 			children = (
 				D63157E422C9F35F00571558 /* HomeView.swift */,
 				D63157E222C9F30400571558 /* KolodaCardView.swift */,
+				D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */,
 				D6F05DBC22DBFE4C00621E36 /* FilterView.swift */,
 				D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */,
 				D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */,
@@ -404,6 +409,7 @@
 		D6F05DBE22DBFF0700621E36 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */,
 				D63157DB22C9F25D00571558 /* HomeViewController.swift */,
 				D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */,
 			);
@@ -665,6 +671,7 @@
 				D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */,
 				D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */,
 				D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */,
+				D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */,
 				D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */,
 				D63157E822CB16C100571558 /* TabBarController.swift in Sources */,
 				D6F05DAD22D2F02B00621E36 /* SignUpView.swift in Sources */,
@@ -675,6 +682,7 @@
 				D6F05DB622D7018A00621E36 /* PerformOperations.swift in Sources */,
 				D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */,
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,
+				D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */,
 				D63157EA22CB177800571558 /* GlobalConstants.swift in Sources */,
 				D6F05DC622DC48F000621E36 /* CreateSaleViewController.swift in Sources */,
 				D63157E022C9F2BC00571558 /* NiceSpacingViews.swift in Sources */,

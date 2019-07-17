@@ -13,6 +13,7 @@ import SnapKit
 class HomeView: UIView {
     var kolodaView: KolodaView!
     var cityLabel: UILabel!
+    var pagingControl: UIPageControl!
     
     init() {
         super.init(frame: .zero)
@@ -27,16 +28,26 @@ class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func setupSubviews() {
+        cityLabel = UILabel()
+        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        cityLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .bold)
+        self.addSubview(cityLabel)
+        
         kolodaView = KolodaView()
         kolodaView.translatesAutoresizingMaskIntoConstraints = false
         kolodaView.backgroundColor = .clear
         self.addSubview(kolodaView)
         
-        cityLabel = UILabel()
-        cityLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .bold)
-        self.addSubview(cityLabel)
+        pagingControl = UIPageControl()
+        pagingControl.currentPage = 0
+        pagingControl.numberOfPages = 4
+        pagingControl.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        pagingControl.pageIndicatorTintColor = UIColor.darkGray
+        pagingControl.currentPageIndicatorTintColor = .white
+        self.addSubview(pagingControl)
+        
         
         setupConstraints()
     }
@@ -54,6 +65,10 @@ class HomeView: UIView {
             make.height.equalTo(kolodaView.snp.width).multipliedBy(16.0/9.0)
         }
         
+        pagingControl.snp.makeConstraints { (make) in
+            make.leading.equalTo(kolodaView.snp.leading).offset(4)
+            make.centerY.equalToSuperview()
+        }
     }
-
+    
 }

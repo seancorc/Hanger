@@ -11,7 +11,7 @@ import SnapKit
 
 class KolodaCardView: UIView {
     var nameLabel: UILabel!
-    var clothingImageView: UIImageView!
+    var collectionView: UICollectionView!
     var labelImageCenteringView: UIView!
     var priceImageCenteringView: UIView!
     var sellerImageView: UIImageView!
@@ -29,7 +29,7 @@ class KolodaCardView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        clothingImageView.layer.cornerRadius = clothingImageView.frame.height / 10
+        collectionView.layer.cornerRadius = collectionView.frame.height / 16
         sellerImageView.layer.cornerRadius = sellerImageView.frame.width / 2
     }
     
@@ -53,11 +53,12 @@ class KolodaCardView: UIView {
         nameLabel.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         self.addSubview(nameLabel)
         
-        clothingImageView = UIImageView()
-        clothingImageView.translatesAutoresizingMaskIntoConstraints = false
-        clothingImageView.clipsToBounds = true
-        clothingImageView.contentMode = .scaleAspectFill
-        self.addSubview(clothingImageView)
+        let layout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
+        collectionView.clipsToBounds = true
+        self.addSubview(collectionView)
         
         sellerImageView = UIImageView()
         sellerImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,9 +82,8 @@ class KolodaCardView: UIView {
         setupConstraints()
     }
     
-    func configureSubviews(nameLabelText: String, clothingImage: UIImage, sellerImage: UIImage, sellerName: String, price: Int) {
+    func configureSubviews(nameLabelText: String, sellerImage: UIImage, sellerName: String, price: Int) {
         nameLabel.text = nameLabelText
-        clothingImageView.image = clothingImage
         sellerImageView.image = sellerImage
         sellerNameLabel.text = sellerName
         priceLabel.text = "$\(price)"
@@ -92,7 +92,7 @@ class KolodaCardView: UIView {
     func setupConstraints() {
         labelImageCenteringView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
-            make.bottom.equalTo(clothingImageView.snp.top)
+            make.bottom.equalTo(collectionView.snp.top)
         }
         
         nameLabel.snp.makeConstraints { (make) in
@@ -100,15 +100,15 @@ class KolodaCardView: UIView {
             make.centerY.equalTo(labelImageCenteringView.snp.centerY)
         }
         
-        clothingImageView.snp.makeConstraints { (make) in
+        collectionView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-self.frame.height * 0.03)
             make.width.equalToSuperview().multipliedBy(0.75)
-            make.height.equalTo(clothingImageView.snp.width).multipliedBy(16.0/9.0)
+            make.height.equalTo(collectionView.snp.width).multipliedBy(16.0/9.0)
         }
         
         priceImageCenteringView.snp.makeConstraints { (make) in
-            make.top.equalTo(clothingImageView.snp.bottom)
+            make.top.equalTo(collectionView.snp.bottom)
             make.bottom.equalToSuperview()
         }
         
