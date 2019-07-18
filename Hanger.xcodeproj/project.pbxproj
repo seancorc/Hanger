@@ -40,8 +40,6 @@
 		D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */; };
 		D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8922CDEC0B00621E36 /* ChatView.swift */; };
 		D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */; };
-		D6F05D9522CFE4F800621E36 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9422CFE4F800621E36 /* CategoryView.swift */; };
-		D6F05D9722CFE99F00621E36 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */; };
 		D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */; };
 		D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9B22D291EB00621E36 /* AccountView.swift */; };
 		D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */; };
@@ -126,8 +124,6 @@
 		D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableLabel.swift; sourceTree = "<group>"; };
 		D6F05D8922CDEC0B00621E36 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMessageHeaderView.swift; sourceTree = "<group>"; };
-		D6F05D9422CFE4F800621E36 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
-		D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		D6F05D9B22D291EB00621E36 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
@@ -266,7 +262,6 @@
 				D6F05DAB22D2EFFC00621E36 /* Login */,
 				D63157E122C9F2EE00571558 /* Home */,
 				D6F05D6D22CDD50200621E36 /* Messages */,
-				D6F05D9122CFE46C00621E36 /* Category Page */,
 				D6F05DA022D291F300621E36 /* Account */,
 			);
 			path = Views;
@@ -358,15 +353,6 @@
 				D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */,
 			);
 			path = ChatPage;
-			sourceTree = "<group>";
-		};
-		D6F05D9122CFE46C00621E36 /* Category Page */ = {
-			isa = PBXGroup;
-			children = (
-				D6F05D9422CFE4F800621E36 /* CategoryView.swift */,
-				D6F05D9622CFE99F00621E36 /* CategoryCollectionViewCell.swift */,
-			);
-			path = "Category Page";
 			sourceTree = "<group>";
 		};
 		D6F05DA022D291F300621E36 /* Account */ = {
@@ -663,7 +649,6 @@
 				D6F05DB822D707EA00621E36 /* UserManager.swift in Sources */,
 				D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */,
 				D6F05D8622CDEB4800621E36 /* ChatMessage.swift in Sources */,
-				D6F05D9722CFE99F00621E36 /* CategoryCollectionViewCell.swift in Sources */,
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
 				D63157DE22C9F28800571558 /* LoginView.swift in Sources */,
 				D63157F422CC906100571558 /* AccountViewController.swift in Sources */,
@@ -702,7 +687,6 @@
 				D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */,
 				D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */,
 				D6F05DA622D2D97700621E36 /* RequestExecution.swift in Sources */,
-				D6F05D9522CFE4F800621E36 /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

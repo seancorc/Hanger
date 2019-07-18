@@ -110,7 +110,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            present(ChangePasswordViewController(), animated: true, completion: nil)
+            navigationController?.pushViewController(ChangePasswordViewController(), animated: true)
         }
     }
     

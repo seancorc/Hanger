@@ -14,18 +14,41 @@ enum MessageType {
     case photo
 }
 
+struct Chat {
+    var chatName: String!
+    var lastMessage: String!
+    var conversation: [[ChatMessage]]!
+
+    init(chatName: String, lastMessage: String, conversation: [[ChatMessage]]) {
+        self.chatName = chatName
+        self.lastMessage = lastMessage
+        self.conversation = conversation
+    }
+}
+
 struct ChatMessage {
-    let text: String
+    var text: String?
     let isMyMessage: Bool
     let date: String
     let messageType: MessageType
     var photo: UIImage?
     
-    init(text: String, isMyMessage: Bool, date: String, messageType: MessageType, photo: UIImage? = nil) {
-        self.text = text
+    
+    private init(isMyMessage: Bool, date: String, messageType: MessageType) {
         self.isMyMessage = isMyMessage
         self.date = date
         self.messageType = messageType
+    }
+    
+    
+    init(text: String, isMyMessage: Bool, date: String) {
+        self.init(isMyMessage: isMyMessage, date: date, messageType: .text)
+        self.text = text
+    }
+    
+    init(isMyMessage: Bool, date: String, photo: UIImage) {
+        self.init(isMyMessage: isMyMessage, date: date, messageType: .photo)
         self.photo = photo
     }
+    
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 class ChatTableViewCell: UITableViewCell {
-    var chatNameLabel: UILabel!
     var label: SelectableLabel!
     var chatImageView: UIImageView!
     var messageBackgroundView: UIView!
@@ -27,12 +26,6 @@ class ChatTableViewCell: UITableViewCell {
     
     func initalSetup() {
         
-        chatNameLabel = UILabel()
-        chatNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        chatNameLabel.textColor = .darkGray
-        chatNameLabel.font = UIFont(name: "Helvetica", size: 12)
-        contentView.addSubview(chatNameLabel)
-        
         messageBackgroundView = UIView() //Must be added before label so that label text is shown on top
         messageBackgroundView.clipsToBounds = true
         messageBackgroundView.layer.cornerRadius = 12
@@ -40,10 +33,12 @@ class ChatTableViewCell: UITableViewCell {
         contentView.addSubview(messageBackgroundView)
         
         label = SelectableLabel()
+        label.adjustsFontSizeToFitWidth = true //To account for weird bug where label rarley and randomly cuts off text of label
+        label.minimumScaleFactor = 0.8
         label.numberOfLines = 0 //0 means it automatically adjust to amount of lines needed
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont(name: "Helvetica", size: 18)
+        label.font = UIFont.systemFont(ofSize: 20 * Global.ScaleFactor)
         contentView.addSubview(label)
         
         chatImageView = UIImageView()
@@ -53,30 +48,29 @@ class ChatTableViewCell: UITableViewCell {
         
     }
     
-    func configureCell(chatMessage: ChatMessage, chatNameLabelText: String) {
+    func configureCell(chatMessage: ChatMessage) {
+        label.text = nil
+        chatImageView.image = nil
+        
         switch chatMessage.messageType {
         case .photo: configureCellForImage(isMyMessage: chatMessage.isMyMessage, image: chatMessage.photo)
-        case .text: configureCellForText(labelText: chatMessage.text, isMyMessage: chatMessage.isMyMessage, chatNameLabelText: chatNameLabelText)
+        case .text: configureCellForText(labelText: chatMessage.text ?? "", isMyMessage: chatMessage.isMyMessage)
         }
     }
     
-    private func configureCellForText(labelText: String, isMyMessage: Bool, chatNameLabelText: String) {
-        chatImageView.image = nil
-        messageBackgroundView.backgroundColor = isMyMessage ? #colorLiteral(red: 1, green: 0.6321351786, blue: 0.484305679, alpha: 1) : .white
+    private func configureCellForText(labelText: String, isMyMessage: Bool) {
+        label.isHidden = false
+        chatImageView.isHidden = true
         label.text = labelText
-        if !isMyMessage { //Only put name label if message is incoming
-            chatNameLabel.text = chatNameLabelText
-        } else {
-            chatNameLabel.text = ""
-        }
+        messageBackgroundView.backgroundColor = isMyMessage ? #colorLiteral(red: 1, green: 0.6321351786, blue: 0.484305679, alpha: 1) : .white
         
         setupMessageConstraints(isMyMessage: isMyMessage)
     }
     
     private func configureCellForImage(isMyMessage: Bool, image: UIImage?) {
-        label.text = nil
+        chatImageView.isHidden = false
+        label.isHidden = true
         messageBackgroundView.backgroundColor = isMyMessage ? #colorLiteral(red: 1, green: 0.6321351786, blue: 0.484305679, alpha: 1) : .white
-        chatNameLabel.text = nil
         if let chatImage = image {
             chatImageView.image = chatImage
             setupImageConstraints(isMyMessage: isMyMessage)
@@ -85,12 +79,7 @@ class ChatTableViewCell: UITableViewCell {
     
     
     private func setupMessageConstraints(isMyMessage: Bool) {
-        
-        chatNameLabel.snp.remakeConstraints { (make) in
-            make.leading.equalTo(label.snp.leading)
-            make.bottom.equalTo(messageBackgroundView.snp.top)
-        }
-        
+
         messageBackgroundView.snp.remakeConstraints { (make) in
             make.leading.equalTo(label.snp.leading).offset(-16 * Global.ScaleFactor)
             make.trailing.equalTo(label.snp.trailing).offset(16 * Global.ScaleFactor)
@@ -101,13 +90,14 @@ class ChatTableViewCell: UITableViewCell {
         
         label.snp.remakeConstraints { (make) in
             if !isMyMessage {
-                make.leading.equalTo(contentView.snp.leading).offset(28 * Global.ScaleFactor) //If go any higher than 28 there will be issues with small messages having small content sizes causing the constraints to 'squish' the label 
+                make.leading.equalTo(contentView.snp.leading).offset(32 * Global.ScaleFactor)
             } else {
-                make.trailing.equalTo(contentView.snp.trailing).offset(-28 * Global.ScaleFactor)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-32 * Global.ScaleFactor)
             }
-            make.width.lessThanOrEqualTo(250 * Global.ScaleFactor)
-            make.top.equalTo(contentView.snp.top).offset(28 * Global.ScaleFactor)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-28 * Global.ScaleFactor)
+            make.width.lessThanOrEqualTo(275 * Global.ScaleFactor)
+            make.height.greaterThanOrEqualTo(1)
+            make.top.equalTo(contentView.snp.top).offset(38 * Global.ScaleFactor)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-38 * Global.ScaleFactor)
         }
         
     }
@@ -120,8 +110,8 @@ class ChatTableViewCell: UITableViewCell {
             } else {
                 make.trailing.equalToSuperview().offset(-32 * Global.ScaleFactor)
             }
-            make.top.equalToSuperview().offset(32 * Global.ScaleFactor)
-            make.bottom.equalToSuperview().offset(-32 * Global.ScaleFactor)
+            make.top.equalToSuperview().offset(38 * Global.ScaleFactor)
+            make.bottom.equalToSuperview().offset(-38 * Global.ScaleFactor)
         }
         
         messageBackgroundView.snp.remakeConstraints { (make) in

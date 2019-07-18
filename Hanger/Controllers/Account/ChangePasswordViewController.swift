@@ -15,7 +15,6 @@ class ChangePasswordViewController: UIViewController {
         super.viewDidLoad()
         
         changePasswordView = ChangePasswordView()
-        changePasswordView.backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         changePasswordView.changePasswordButton.addTarget(self, action: #selector(changePasswordButtonPressed), for: .touchUpInside)
         changePasswordView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(changePasswordView)
@@ -25,10 +24,6 @@ class ChangePasswordViewController: UIViewController {
         
         setupTextFieldControl() //Must be called after creation of changePasswordView
         
-    }
-    
-    @objc func backButtonPressed() {
-        dismiss(animated: true, completion: nil)
     }
 
     @objc func changePasswordButtonPressed() {

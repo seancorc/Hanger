@@ -42,7 +42,6 @@ class HomeView: UIView {
         
         pagingControl = UIPageControl()
         pagingControl.currentPage = 0
-        pagingControl.numberOfPages = 4
         pagingControl.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         pagingControl.pageIndicatorTintColor = UIColor.darkGray
         pagingControl.currentPageIndicatorTintColor = .white
@@ -65,8 +64,10 @@ class HomeView: UIView {
             make.height.equalTo(kolodaView.snp.width).multipliedBy(16.0/9.0)
         }
         
+        
         pagingControl.snp.makeConstraints { (make) in
-            make.leading.equalTo(kolodaView.snp.leading).offset(4)
+            make.leading.equalTo(kolodaView.snp.leading).offset(16 * Global.ScaleFactor)
+            make.width.equalToSuperview().multipliedBy(0.015) //Need to set width or else width increases with number of pages
             make.centerY.equalToSuperview()
         }
     }

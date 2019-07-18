@@ -36,7 +36,7 @@ class TabBarController: UITabBarController {
         let createSaleTabItem = configureTabItem(title: "Create Sale", icon: createSaleIcon)
         createSalePage.tabBarItem = createSaleTabItem
         
-        let messagesPage = MessageViewController()
+        let messagesPage = MessageViewController(userManager: .currentUser())
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
         let messagesIcon = UIImage(named: "chaticon")!.withRenderingMode(.alwaysTemplate)
         let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)

@@ -83,7 +83,6 @@ class ChatViewController: UIViewController {
     @objc func sendMessage() {
         if self.chatView.inputTextView.textColor != .lightGray {
             let messageText = self.chatView.inputTextView.text!
-            hardCodedMessages[numberOfSections(in: self.chatView.tableView) - 1].append(ChatMessage(text: messageText, isMyMessage: true, date: Date().shortDate, messageType: .text))
             self.chatView.tableView.reloadData() //Must be called before scrollToRow
             if let bottomIndexPath = HelpfulFunctions.getBottomMostTableViewIndexPath(tableView: self.chatView.tableView) {
                 self.chatView.tableView.scrollToRow(at: bottomIndexPath, at: .none, animated: true)
@@ -145,24 +144,9 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = chatView.tableView.dequeueReusableCell(withIdentifier: Global.CellID, for: indexPath) as! ChatTableViewCell
         let chatMessage = hardCodedMessages[indexPath.section][indexPath.row]
         switch chatMessage.messageType {
-        case .photo: cell.configureCell(chatMessage: chatMessage, chatNameLabelText: "")
-        case .text:
-            switch indexPath {
-            case [0,0]:
-                if navigationItem.title == "West Coast District" || navigationItem.title == "Job Postings" {
-                    cell.configureCell(chatMessage: chatMessage, chatNameLabelText: "C38 Admin")
-                } else {
-                    cell.configureCell(chatMessage: chatMessage, chatNameLabelText: "")
-                }
-            default:
-                if navigationItem.title == "West Coast District" || navigationItem.title == "Job Postings" {
-                    cell.configureCell(chatMessage: chatMessage, chatNameLabelText: MessageViewController.hardCodedChats[(indexPath.row + 3) % MessageViewController.hardCodedChats.count].chatName)
-                } else {
-                    cell.configureCell(chatMessage: chatMessage, chatNameLabelText: "")
-                }
-            }
+        case .photo: cell.configureCell(chatMessage: chatMessage)
+        case .text: cell.configureCell(chatMessage: chatMessage)
         }
-        
         return cell
     }
     
@@ -219,7 +203,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                 let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
                 UIGraphicsEndImageContext()
                 
-                self.hardCodedMessages[self.numberOfSections(in: self.chatView.tableView) - 1].append(ChatMessage(text: "photoMesssage", isMyMessage: true, date: Date().shortDate, messageType: .photo, photo: newImage))
+                
                 self.chatView.tableView.reloadData() //Must be called before scrollToRow
                 if let bottomIndexPath = HelpfulFunctions.getBottomMostTableViewIndexPath(tableView: self.chatView.tableView) {
                     self.chatView.tableView.scrollToRow(at: bottomIndexPath, at: .none, animated: true)

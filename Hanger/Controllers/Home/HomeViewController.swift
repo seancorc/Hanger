@@ -27,7 +27,6 @@ class HomeViewController: HomeKolodaViewController {
         
         setupLocationManagment()
         
-        
     }
     
 }
@@ -50,10 +49,7 @@ extension HomeViewController {
         filterButton.setTitleColor(.white, for: .normal)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: filterButton)
         
-        
     }
-    
-    
     
     @objc func filterButtonPressed() {
         present(UINavigationController(rootViewController: FilterViewController()), animated: true, completion: nil)

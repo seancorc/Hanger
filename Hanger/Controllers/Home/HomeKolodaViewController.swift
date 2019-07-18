@@ -11,7 +11,8 @@ import Koloda
 
 class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
     var homeView: HomeView!
-    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Nike Shirt", clothingImages: [UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Lulu Leggings", clothingImages: [UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Jordan Slip - Velcro", clothingImages: [UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
+    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Nike Shirt", clothingImages: [UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Lulu Leggings", clothingImages: [UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Jordan Slip - Velcro", clothingImages: [UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
+    var currentKolodaIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,19 +28,26 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let kolodaView = KolodaCardView()
-        setupCollectionViewControl(collectionView: kolodaView.collectionView)
+        setupCollectionViewControl(collectionView: kolodaView.collectionView, index: index)
         let sellableClothingItem = hardcodedClothingItems[index]
         kolodaView.configureSubviews(nameLabelText: sellableClothingItem.name, sellerImage: sellableClothingItem.sellerImage, sellerName: sellableClothingItem.sellerName, price: sellableClothingItem.price)
         return kolodaView
     }
     
+    
+    func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
+        self.homeView.pagingControl.numberOfPages = hardcodedClothingItems[index].clothingImages.count
+        self.homeView.pagingControl.currentPage = 0
+    }
+    
 }
 
 extension HomeKolodaViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func setupCollectionViewControl(collectionView: UICollectionView) {
+    func setupCollectionViewControl(collectionView: UICollectionView, index: Int) {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Global.ThemeColor
+        collectionView.tag = index
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: Global.CellID)
     }
     
@@ -52,17 +60,18 @@ extension HomeKolodaViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return hardcodedClothingItems[collectionView.tag].clothingImages.count
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let x = targetContentOffset.pointee.y
-        self.homeView.pagingControl.currentPage = Int(x / scrollView.frame.height)
+        let y = targetContentOffset.pointee.y
+        self.homeView.pagingControl.currentPage = Int(y / scrollView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Global.CellID, for: indexPath) as! CardCollectionViewCell
-        cell.configureCell(image: #imageLiteral(resourceName: "clothingitem2"))
+        let clothingImage = hardcodedClothingItems[collectionView.tag].clothingImages[indexPath.row]
+        cell.configureCell(image: clothingImage)
         return cell
     }
     

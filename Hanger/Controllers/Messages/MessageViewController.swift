@@ -9,23 +9,21 @@
 import UIKit
 
 
-class Chat {
-    var chatName: String!
-    var previewMessage: String!
-    
-    init(cn: String, cm: String) {
-        chatName = cn
-        previewMessage = cm
-    }
-}
-
 class MessageViewController: UIViewController {
-    var chatName: String!
-    var previewMessage: String!
     var messageView: MessageView!
     var editButton: UIBarButtonItem!
     var doneButton: UIBarButtonItem!
-    static var hardCodedChats = [Chat(cn: "Josh Rosen - Red Nike Hat", cm: "See you soon!"), Chat(cn: "Rowanda Smith - Purple Sweatpants", cm: "I'm intrested in your purple sweaties"),Chat(cn: "George Harden - Yolo braclet", cm: "YOLO AM I RIGHT, LMAO!")]
+    var userManager: UserManager!
+    
+    init(userManager: UserManager = .currentUser()) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.userManager = userManager
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -41,8 +39,9 @@ class MessageViewController: UIViewController {
         }
         
         setupTableViewControl() //Must be called after creation of messageView
-        
     }
+    
+    
     
     
 }
@@ -57,7 +56,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MessageViewController.hardCodedChats.count
+        return 3
     }
     
     
@@ -69,13 +68,9 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !tableView.isEditing {
             tableView.deselectRow(at: indexPath, animated: true) //For UI purposes
-            let chat = MessageViewController.hardCodedChats[indexPath.row]
             let chatController = ChatViewController()
-            chatController.navigationItem.title = chat.chatName
+            //chatController.navigationItem.title = chat.chatName
             tabBarController?.tabBar.isHidden = true
-            
-            chatController.hardCodedMessages = HardCodedChatMessages.conversationArray[indexPath.row]
-            
             self.navigationController?.pushViewController(chatController, animated: true)
         }
     }
@@ -89,21 +84,18 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            MessageViewController.hardCodedChats.remove(at: indexPath.row)
+            //userManager.messageData.hardcodedChats.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
             tableView.endUpdates()
         }
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.messageView.tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! MessageTableViewCell
-        let chat = MessageViewController.hardCodedChats[indexPath.row]
-        cell.configureCell(chatName: chat.chatName, chatImage: #imageLiteral(resourceName: "sellerimage"), dateLastActive:  Date(timeIntervalSinceNow: -86400.0 * Double(indexPath.row)).shortDate, previewMessage: chat.previewMessage)
+        //let chat = self.userManager.messageData.hardcodedChats[indexPath.row]
+        cell.configureCell(chatName: "Seller Name\nClothing Item", chatImage: #imageLiteral(resourceName: "sellerimage"), dateLastActive: Date().shortDate, previewMessage: "Preview Message")
         return cell
     }
-    
-    
     
 }
 
@@ -113,8 +105,6 @@ extension MessageViewController {
     func setupNavBar() {
         navigationItem.title = "Messages"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        
         
         self.editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
         self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editButtonPressed))
@@ -128,5 +118,5 @@ extension MessageViewController {
         navigationItem.leftBarButtonItem = self.messageView.tableView.isEditing ? doneButton : editButton
     }
     
-    
 }
+

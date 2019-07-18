@@ -32,9 +32,10 @@ class MessageTableViewCell: UITableViewCell {
         contentView.addSubview(chatImageView)
         
         chatLabel = UILabel()
+        chatLabel.numberOfLines = 2
         chatLabel.translatesAutoresizingMaskIntoConstraints = false
         chatLabel.textColor = .black
-        chatLabel.font = UIFont.systemFont(ofSize: 20 * Global.ScaleFactor)
+        chatLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
         contentView.addSubview(chatLabel)
         
         previewMessageLabel = UILabel()

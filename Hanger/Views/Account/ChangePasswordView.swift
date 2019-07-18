@@ -9,14 +9,13 @@
 import UIKit
 
 class ChangePasswordView: UIView {
-    var backButton: UIButton!
     var currentPasswordTextField: UITextField!
     var newPasswordTextField: UITextField!
-    var changePasswordButton: UIButton!
+    var changePasswordButton: NiceSpacingButton!
     
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor(white: 0.95, alpha: 1)
         setupSubviews()
     }
     
@@ -26,17 +25,15 @@ class ChangePasswordView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        changePasswordButton.layer.cornerRadius = changePasswordButton.frame.width / 8
+        currentPasswordTextField.layer.cornerRadius = currentPasswordTextField.frame.width / 10
+        newPasswordTextField.layer.cornerRadius = newPasswordTextField.frame.width / 10
     }
     
     func setupSubviews() {
-        backButton = UIButton()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(named: "downarrow"), for: .normal)
-        self.addSubview(backButton)
         
         currentPasswordTextField = UITextField()
-        currentPasswordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        currentPasswordTextField.clipsToBounds = true
+        currentPasswordTextField.backgroundColor = .white
         currentPasswordTextField.returnKeyType = .done
         currentPasswordTextField.textColor = .black
         currentPasswordTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
@@ -44,10 +41,13 @@ class ChangePasswordView: UIView {
         currentPasswordTextField.isSecureTextEntry = true
         currentPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         currentPasswordTextField.textAlignment = .center
+        currentPasswordTextField.layer.borderColor = UIColor.gray.cgColor
+        currentPasswordTextField.layer.borderWidth = 2
         self.addSubview(currentPasswordTextField)
         
         newPasswordTextField = UITextField()
-        newPasswordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        newPasswordTextField.clipsToBounds = true
+        newPasswordTextField.backgroundColor = .white
         newPasswordTextField.returnKeyType = .done
         newPasswordTextField.textColor = .black
         newPasswordTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
@@ -55,13 +55,12 @@ class ChangePasswordView: UIView {
         newPasswordTextField.textAlignment = .center
         newPasswordTextField.isSecureTextEntry = true
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
+        newPasswordTextField.layer.borderColor = UIColor.gray.cgColor
+        newPasswordTextField.layer.borderWidth = 2
         self.addSubview(newPasswordTextField)
         
-        changePasswordButton = UIButton()
-        changePasswordButton.setTitle("Change Password", for: .normal)
-        changePasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
-        changePasswordButton.setTitleColor(UIColor.white, for: .normal)
-        changePasswordButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        changePasswordButton = NiceSpacingButton()
+        changePasswordButton.setupButton(title: "Change Password", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
         self.addSubview(changePasswordButton)
         
         setupConstraints()
@@ -69,14 +68,9 @@ class ChangePasswordView: UIView {
     
     
     func setupConstraints() {
-        backButton.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.snp.leading).offset(20 * Global.ScaleFactor)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20 * Global.ScaleFactor)
-            make.width.height.equalTo(Global.BackButtonSize)
-        }
         
         currentPasswordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(backButton.snp.bottom).offset(128 * Global.ScaleFactor)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(128 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)
@@ -90,7 +84,7 @@ class ChangePasswordView: UIView {
         }
         
         changePasswordButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newPasswordTextField.snp.bottom).offset(80 * Global.ScaleFactor)
+            make.top.equalTo(newPasswordTextField.snp.bottom).offset(96 * Global.ScaleFactor)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)
@@ -99,6 +93,8 @@ class ChangePasswordView: UIView {
     }
     
     
-
+    
 }
+
+
 
