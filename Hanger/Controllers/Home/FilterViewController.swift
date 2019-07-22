@@ -141,12 +141,14 @@ extension FilterViewController {
     
     @objc func resetButtonPressed() {
         for tableViewRow in 0..<self.filterView.tableView.numberOfRows(inSection: 0) {
-            if tableViewRow != 1 {
-                if let cell = filterView.tableView.cellForRow(at: IndexPath(row: tableViewRow, section: 0)) as? FilterTableViewCell {
+            if let cell = filterView.tableView.cellForRow(at: IndexPath(row: tableViewRow, section: 0)) as? FilterTableViewCell {
+                if tableViewRow != 1 {
                     for ip in cell.collectionView.indexPathsForSelectedItems ?? [] {
                         cell.collectionView.deselectItem(at: ip, animated: false)
                         cell.collectionView.delegate?.collectionView?(cell.collectionView, didDeselectItemAt: ip) //Doesn't call the delegate method for whatever reason so have to manually call it
                     }
+                } else {
+                    cell.collectionView.selectItem(at: IndexPath(row: 2, section: 0), animated: true, scrollPosition: .centeredHorizontally)
                 }
             }
         }

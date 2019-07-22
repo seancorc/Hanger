@@ -9,6 +9,20 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    var userManager: UserManager!
+    var networkManager: NetworkManager!
+    
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared()) {
+        self.userManager = userManager
+        self.networkManager = networkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,13 +50,13 @@ class TabBarController: UITabBarController {
         let createSaleTabItem = configureTabItem(title: "Create Sale", icon: createSaleIcon)
         createSalePage.tabBarItem = createSaleTabItem
         
-        let messagesPage = MessageViewController(userManager: .currentUser())
+        let messagesPage = MessageViewController(userManager: self.userManager)
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
         let messagesIcon = UIImage(named: "chaticon")!.withRenderingMode(.alwaysTemplate)
         let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)
         messagesNavController.tabBarItem = messagesTabItem
         
-        let accountPage = AccountViewController(userManager: .currentUser(), networkManager: .shared())
+        let accountPage = AccountViewController(userManager: self.userManager, networkManager: self.networkManager, userDefaults: .standard)
         let accountNavController = UINavigationController(rootViewController: accountPage)
         let accountIcon = UIImage(named: "accounticon")!.withRenderingMode(.alwaysTemplate)
         let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)

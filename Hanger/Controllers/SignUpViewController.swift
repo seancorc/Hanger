@@ -13,11 +13,13 @@ class SignUpViewController: UIViewController {
     var signUpView: SignUpView!
     var userManager: UserManager!
     var networkManager: NetworkManager!
+    var userDefaults: UserDefaults!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared()) {
-        super.init(nibName: nil, bundle: nil)
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
+        self.userDefaults = userDefaults
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,10 +62,16 @@ class SignUpViewController: UIViewController {
                 self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
                 return
             }
+            self.dismiss(animated: false, completion: nil)
             self.userManager.user = user
-            HelpfulFunctions.signInAnimation()
             self.signUpView.emailTextField.resignFirstResponder()
             self.signUpView.passwordTextField.resignFirstResponder()
+            self.userDefaults.set(true, forKey: UserDefaultKeys.loggedIn)
+            self.userDefaults.set(user?.email, forKey: UserDefaultKeys.email)
+            self.userDefaults.set(user?.username, forKey: UserDefaultKeys.username)
+            self.userDefaults.set(user?.password, forKey: UserDefaultKeys.password)
+            self.userDefaults.set(user?.id, forKey: UserDefaultKeys.userID)
+            HelpfulFunctions.signInAnimation()
         }
         
     }

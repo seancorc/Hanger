@@ -19,16 +19,18 @@ class AccountViewController: UIViewController {
     var keyboardFrame: CGRect!
     var userManager: UserManager!
     var networkManager: NetworkManager!
+    var userDefaults: UserDefaults!
     var newEmail: String!
     var newUsername: String!
     var saveBarButton: UIBarButtonItem!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared()) {
-        super.init(nibName: nil, bundle: nil)
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
         self.newEmail = userManager.user.email
         self.newUsername = userManager.user.username
+        self.userDefaults = userDefaults
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,6 +76,11 @@ class AccountViewController: UIViewController {
     
     @objc func logoutPressed() {
         self.userManager.user = nil
+        self.userDefaults.set(false, forKey: UserDefaultKeys.loggedIn)
+        self.userDefaults.set(nil, forKey: UserDefaultKeys.email)
+        self.userDefaults.set(nil, forKey: UserDefaultKeys.username)
+        self.userDefaults.set(nil, forKey: UserDefaultKeys.password)
+        self.userDefaults.set(nil, forKey: UserDefaultKeys.userID)
         HelpfulFunctions.signOutAnimation()
     }
     

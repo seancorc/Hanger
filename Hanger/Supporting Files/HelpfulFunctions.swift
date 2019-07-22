@@ -41,7 +41,7 @@ public class HelpfulFunctions {
     
      static func signInAnimation() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let tabBarController = TabBarController()
+        let tabBarController = TabBarController(userManager: .currentUser(), networkManager: .shared())
         let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
         let loginViewController = UIApplication.shared.keyWindow?.rootViewController
         UIApplication.shared.keyWindow?.rootViewController = tabBarController
@@ -59,7 +59,7 @@ public class HelpfulFunctions {
     
     static func signOutAnimation() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let loginController = LoginViewController()
+        let loginController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
         let snapshot: UIView? = appDelegate?.window?.snapshotView(afterScreenUpdates: true)
         let loginViewController = UIApplication.shared.keyWindow?.rootViewController
         UIApplication.shared.keyWindow?.rootViewController = loginController

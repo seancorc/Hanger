@@ -47,6 +47,7 @@ class SignUpView: UIView {
         self.addSubview(signupLabel)
         
         emailTextField = UITextField()
+        emailTextField.autocapitalizationType = .none
         emailTextField.autocorrectionType = .no
         emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         emailTextField.returnKeyType = .done
@@ -58,6 +59,7 @@ class SignUpView: UIView {
         self.addSubview(emailTextField)
         
         usernameTextField = UITextField()
+        usernameTextField.autocapitalizationType = .none
         usernameTextField.autocorrectionType = .no
         usernameTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         usernameTextField.returnKeyType = .done
@@ -69,6 +71,7 @@ class SignUpView: UIView {
         self.addSubview(usernameTextField)
         
         passwordTextField = UITextField()
+        passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         passwordTextField.returnKeyType = .done

@@ -13,17 +13,32 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var userDefaults = UserDefaults.standard
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared())
+        if let loggedIn = userDefaults.value(forKey: UserDefaultKeys.loggedIn) as? Bool {
+            //Start dependency injection
+            if loggedIn {
+                let email = userDefaults.value(forKey: UserDefaultKeys.email) as? String ?? "Error"
+                let username = userDefaults.value(forKey: UserDefaultKeys.username) as? String ?? "Error"
+                let password = userDefaults.value(forKey: UserDefaultKeys.password) as? String ?? "Error"
+                let id = userDefaults.value(forKey: UserDefaultKeys.userID) as? Int ?? -1
+                let user = User(id: id, email: email, password: password, username: username)
+                UserManager.currentUser().user = user
+                window?.rootViewController = TabBarController(userManager: .currentUser(), networkManager: .shared())
+            } else {
+                window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
+            }
+        } else {
+            window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
+        }
         window?.makeKeyAndVisible()
         return true
     }
-
-
+    
+    
     
     
     
@@ -60,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
-        let container = NSPersistentContainer(name: "ImagineClothes")
+        let container = NSPersistentContainer(name: "Hanger")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
