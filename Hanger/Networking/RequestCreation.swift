@@ -34,7 +34,13 @@ public enum UserRequests: Request {
         }
     }
     
-    public var method: HTTPMethod {return HTTPMethod.post}
+    public var method: HTTPMethod {
+        switch self {
+        case .login(_, _): return HTTPMethod.put
+        case .signUp(_, _, _): return HTTPMethod.post
+        case .updateInfo(_, _, _, _): return HTTPMethod.put
+        }
+    }
     
     public var parameters: [String: String] {
         switch self {
