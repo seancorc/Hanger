@@ -28,7 +28,7 @@
 		D63157F222CC896400571558 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F122CC896400571558 /* MessageViewController.swift */; };
 		D63157F422CC906100571558 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F322CC906100571558 /* AccountViewController.swift */; };
 		D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F522CDBFC800571558 /* SellableClothingItem.swift */; };
-		D69AE42822E57EFE00129FE4 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69AE42722E57EFE00129FE4 /* UserDefaultKeys.swift */; };
+		D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */; };
 		D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */; };
 		D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
@@ -113,7 +113,7 @@
 		D63157F122CC896400571558 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		D63157F322CC906100571558 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D63157F522CDBFC800571558 /* SellableClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellableClothingItem.swift; sourceTree = "<group>"; };
-		D69AE42722E57EFE00129FE4 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
+		D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceKeys.swift; sourceTree = "<group>"; };
 		D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeKolodaViewController.swift; sourceTree = "<group>"; };
 		D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
@@ -314,7 +314,7 @@
 				D63157ED22CB29C900571558 /* Helpful Extensions.swift */,
 				D6F05D7922CDD81C00621E36 /* HelpfulFunctions.swift */,
 				D6F05DB922D7120000621E36 /* Validator.swift */,
-				D69AE42722E57EFE00129FE4 /* UserDefaultKeys.swift */,
+				D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -486,13 +486,16 @@
 				TargetAttributes = {
 					D63157A122C9F1BE00571558 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
 					};
 					D63157B822C9F1BF00571558 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
 						TestTargetID = D63157A122C9F1BE00571558;
 					};
 					D63157C322C9F1BF00571558 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
 						TestTargetID = D63157A122C9F1BE00571558;
 					};
 				};
@@ -681,7 +684,7 @@
 				D6F05DBD22DBFE4C00621E36 /* FilterView.swift in Sources */,
 				D63157E322C9F30400571558 /* KolodaCardView.swift in Sources */,
 				D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */,
-				D69AE42822E57EFE00129FE4 /* UserDefaultKeys.swift in Sources */,
+				D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
 				D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */,
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
@@ -875,7 +878,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SeanCorcoran.Hanger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -894,7 +897,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SeanCorcoran.Hanger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -915,7 +918,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SeanCorcoran.HangerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hanger.app/Hanger";
 			};
@@ -937,7 +940,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SeanCorcoran.HangerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hanger.app/Hanger";
 			};
@@ -958,7 +961,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SeanCorcoran.HangerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Hanger;
 			};
@@ -979,7 +982,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SeanCorcoran.HangerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Hanger;
 			};
