@@ -14,7 +14,7 @@ struct UserDefaultKeys {
     static let userID = "UserID"
 }
 
-struct KeychainKeys {
+struct KeychainKeys { //Implement for security later - https://medium.com/swift2go/application-security-musts-for-every-ios-app-dabf095b9c4f
     static let password = "Password"
     static let email = "Email"
 }

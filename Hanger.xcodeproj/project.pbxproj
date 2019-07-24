@@ -316,7 +316,6 @@
 				D63157ED22CB29C900571558 /* Helpful Extensions.swift */,
 				D6F05D7922CDD81C00621E36 /* HelpfulFunctions.swift */,
 				D6F05DB922D7120000621E36 /* Validator.swift */,
-				D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -393,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				D6D87E7F22E813B4006485BD /* SQLite.swift */,
+				D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */,
 				D6F05DB722D707EA00621E36 /* UserManager.swift */,
 			);
 			path = DataManagment;

@@ -10,6 +10,16 @@ import UIKit
 
 class ChangePasswordViewController: UIViewController {
     var changePasswordView: ChangePasswordView!
+    var userManager: UserManager!
+    
+    init(userManager: UserManager = .currentUser()) {
+        self.userManager = userManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

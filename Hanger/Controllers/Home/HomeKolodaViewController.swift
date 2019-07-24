@@ -36,8 +36,17 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     
     
     func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
+        self.homeView.pagingControl.alpha = 1
         self.homeView.pagingControl.numberOfPages = hardcodedClothingItems[index].clothingImages.count
         self.homeView.pagingControl.currentPage = 0
+    }
+    
+    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
+        self.homeView.pagingControl.alpha = (100 - finishPercentage) / 100.0
+    }
+    
+    func kolodaDidResetCard(_ koloda: KolodaView) {
+        self.homeView.pagingControl.alpha = 1
     }
     
 }
