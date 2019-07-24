@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 /*
  ToDos:
@@ -20,16 +21,20 @@ class AccountViewController: UIViewController {
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
+    var keychainWrapper: KeychainWrapper
     var newEmail: String!
     var newUsername: String!
-    var saveBarButton: UIBarButtonItem!
+    var usernameTextFieldIsOriginalUsername = true
+    var emailTextFieldIsOriginalEmail = true
+    var rightBarButton: UIBarButtonItem!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard, keychainWrapper: KeychainWrapper = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
         self.newEmail = userManager.user.email
         self.newUsername = userManager.user.username
         self.userDefaults = userDefaults
+        self.keychainWrapper = keychainWrapper
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,10 +82,10 @@ class AccountViewController: UIViewController {
     @objc func logoutPressed() {
         self.userManager.user = nil
         self.userDefaults.set(false, forKey: UserDefaultKeys.loggedIn)
-        self.userDefaults.set(nil, forKey: UserDefaultKeys.email)
-        self.userDefaults.set(nil, forKey: UserDefaultKeys.username)
-        self.userDefaults.set(nil, forKey: UserDefaultKeys.password)
-        self.userDefaults.set(nil, forKey: UserDefaultKeys.userID)
+        self.userDefaults.removeObject(forKey: UserDefaultKeys.userID)
+        self.userDefaults.removeObject(forKey: UserDefaultKeys.username)
+        self.keychainWrapper.removeObject(forKey: KeychainKeys.email)
+        self.keychainWrapper.removeObject(forKey: KeychainKeys.password)
         HelpfulFunctions.signOutAnimation()
     }
     
@@ -144,13 +149,17 @@ extension AccountViewController: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ sender: Any) {
-        navigationItem.rightBarButtonItem = saveBarButton
         if let textField = sender as? UITextField {
             switch textField.tag {
-            case 0: newUsername = textField.text
-            case 1: newEmail = textField.text
+            case 0: newUsername = textField.text; self.usernameTextFieldIsOriginalUsername = newUsername == userManager.user.username
+            case 1: newEmail = textField.text; self.emailTextFieldIsOriginalEmail = newEmail == userManager.user.email
             default: print("This shouldnt happen - editing text field in non editable cell")
             }
+        }
+        if self.usernameTextFieldIsOriginalUsername && self.emailTextFieldIsOriginalEmail {
+            navigationItem.rightBarButtonItem = nil
+        } else {
+            navigationItem.setRightBarButton(rightBarButton, animated: true)
         }
     }
 }
@@ -162,11 +171,13 @@ extension AccountViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
-        let saveButton = NiceSpacingButton()
-        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
-        saveButton.setupButton(title: "Save", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
-        saveBarButton = UIBarButtonItem(customView: saveButton)
-        
+        self.rightBarButton = {
+            let button = NiceSpacingButton()
+            button.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+            button.setupButton(title: "Save Changes", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+            let navButton = UIBarButtonItem(customView: button)
+            return navButton
+        }()
     }
     
     @objc func saveButtonPressed() {

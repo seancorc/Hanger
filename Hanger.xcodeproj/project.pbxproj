@@ -31,6 +31,7 @@
 		D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */; };
 		D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */; };
 		D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */; };
+		D6D87E8022E813B4006485BD /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E7F22E813B4006485BD /* SQLite.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
@@ -116,6 +117,7 @@
 		D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceKeys.swift; sourceTree = "<group>"; };
 		D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeKolodaViewController.swift; sourceTree = "<group>"; };
 		D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		D6D87E7F22E813B4006485BD /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedMessages.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -225,7 +227,7 @@
 			children = (
 				D63157E622CB059500571558 /* Supporting Files */,
 				D6F05DAE22D599B200621E36 /* Networking */,
-				D6F05DBB22D9884000621E36 /* DataManagerss */,
+				D6F05DBB22D9884000621E36 /* DataManagment */,
 				D63157D822C9F20600571558 /* Models */,
 				D63157D722C9F1FE00571558 /* Controllers */,
 				D63157D622C9F1EF00571558 /* Views */,
@@ -387,12 +389,13 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		D6F05DBB22D9884000621E36 /* DataManagerss */ = {
+		D6F05DBB22D9884000621E36 /* DataManagment */ = {
 			isa = PBXGroup;
 			children = (
+				D6D87E7F22E813B4006485BD /* SQLite.swift */,
 				D6F05DB722D707EA00621E36 /* UserManager.swift */,
 			);
-			path = DataManagerss;
+			path = DataManagment;
 			sourceTree = "<group>";
 		};
 		D6F05DBE22DBFF0700621E36 /* Home */ = {
@@ -582,6 +585,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -591,6 +595,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -666,6 +671,7 @@
 				D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */,
 				D63157E822CB16C100571558 /* TabBarController.swift in Sources */,
 				D6F05DAD22D2F02B00621E36 /* SignUpView.swift in Sources */,
+				D6D87E8022E813B4006485BD /* SQLite.swift in Sources */,
 				D6F05DC022DBFF1B00621E36 /* FilterViewController.swift in Sources */,
 				D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */,
 				D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */,

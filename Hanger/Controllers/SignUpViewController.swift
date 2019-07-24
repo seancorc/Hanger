@@ -7,18 +7,20 @@
 //
 
 import UIKit
-import MapKit
+import SwiftKeychainWrapper
 
 class SignUpViewController: UIViewController {
     var signUpView: SignUpView!
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
+    var keychainWrapper: KeychainWrapper!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard, keychainWrapper: KeychainWrapper = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
         self.userDefaults = userDefaults
+        self.keychainWrapper = keychainWrapper
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,12 +67,13 @@ class SignUpViewController: UIViewController {
             self.dismiss(animated: false, completion: nil)
             self.userManager.user = user
             self.signUpView.emailTextField.resignFirstResponder()
+            self.signUpView.usernameTextField.resignFirstResponder()
             self.signUpView.passwordTextField.resignFirstResponder()
             self.userDefaults.set(true, forKey: UserDefaultKeys.loggedIn)
-            self.userDefaults.set(user?.email, forKey: UserDefaultKeys.email)
             self.userDefaults.set(user?.username, forKey: UserDefaultKeys.username)
-            self.userDefaults.set(user?.password, forKey: UserDefaultKeys.password)
             self.userDefaults.set(user?.id, forKey: UserDefaultKeys.userID)
+            self.keychainWrapper.set(user?.email ?? "Error", forKey: KeychainKeys.email)
+            self.keychainWrapper.set(user?.password ?? "Error", forKey: KeychainKeys.password)
             HelpfulFunctions.signInAnimation()
         }
         

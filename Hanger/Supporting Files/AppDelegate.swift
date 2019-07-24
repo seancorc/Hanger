@@ -8,38 +8,34 @@
 
 import UIKit
 import CoreData
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var userDefaults = UserDefaults.standard
+    var keychainWrapper = KeychainWrapper.standard
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        if let loggedIn = userDefaults.value(forKey: UserDefaultKeys.loggedIn) as? Bool {
-            //Start dependency injection
-            if loggedIn {
-                let email = userDefaults.value(forKey: UserDefaultKeys.email) as? String ?? "Error"
-                let username = userDefaults.value(forKey: UserDefaultKeys.username) as? String ?? "Error"
-                let password = userDefaults.value(forKey: UserDefaultKeys.password) as? String ?? "Error"
-                let id = userDefaults.value(forKey: UserDefaultKeys.userID) as? Int ?? -1
-                let user = User(id: id, email: email, password: password, username: username)
-                UserManager.currentUser().user = user
-                window?.rootViewController = TabBarController(userManager: .currentUser(), networkManager: .shared())
-            } else {
-                window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
-            }
+        let loggedIn = userDefaults.value(forKey: UserDefaultKeys.loggedIn) as? Bool ?? false
+        //Start dependency injection
+        if loggedIn {
+            let email = keychainWrapper.string(forKey: KeychainKeys.email) ?? "Error"
+            let password = keychainWrapper.string(forKey: KeychainKeys.password) ?? "Error"
+            let username = userDefaults.value(forKey: UserDefaultKeys.username) as? String ?? "Error"
+            let id = userDefaults.value(forKey: UserDefaultKeys.userID) as? Int ?? -1
+            let user = User(id: id, email: email, password: password, username: username)
+            UserManager.currentUser().user = user
+            window?.rootViewController = TabBarController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard, keychainWrapper: .standard)
         } else {
-            window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
+            window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard, keychainWrapper: .standard)
         }
         window?.makeKeyAndVisible()
         return true
     }
-    
-    
-    
     
     
     func applicationWillResignActive(_ application: UIApplication) {

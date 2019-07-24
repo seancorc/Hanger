@@ -36,7 +36,7 @@ fileprivate let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailReg
 struct EmailValidator: Validator{
     func validate(_ value: String) throws -> String {
         if emailPredicate.evaluate(with: value) {return value }
-        else {throw MessageError("Invalid Email")}
+        else {throw MessageError("Please Enter a Valid Email")}
     }
 }
 

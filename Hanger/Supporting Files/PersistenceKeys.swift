@@ -12,8 +12,6 @@ struct UserDefaultKeys {
     static let loggedIn = "LoggedIn"
     static let username = "Username"
     static let userID = "UserID"
-    static let password = "Password"
-    static let email = "Email"
 }
 
 struct KeychainKeys {
