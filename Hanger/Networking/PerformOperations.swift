@@ -7,15 +7,15 @@
 //
 
 import Foundation
+import Promise
 
-//Needs to be fixed - effectivley get network errors
 protocol Operation {
     
     associatedtype OutputType
     
     var request: Request { get }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (_ output: OutputType?, _ error: MessageError?) -> Void)
+    func execute(in dispatcher: Dispatcher) -> Promise<OutputType>
 }
 
 class LoginTask: Operation {
@@ -31,18 +31,34 @@ class LoginTask: Operation {
         return UserRequests.login(email: self.email, password: self.password)
     }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (User?, MessageError?) -> Void)  {
-        dispatcher.execute(request: request) { (networkResponse) in
-            switch networkResponse {
-            case .data(let data):
-                let jsonDecoder = JSONDecoder()
-                if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
-                    completion(userResponse.data, nil)
-                    return
-                }
-            case .error(let statusCode, let responseError): completion(nil, responseError)
-            }
+    func execute(in dispatcher: Dispatcher) -> Promise<User> {
+        return Promise { fulfill, reject in
+            dispatcher.execute(request: self.request).then({ (response) in
+                    switch response.responseCode {
+                    case 200...299:
+                        guard let userResponse = self.createUserFromData(data: response.data) else {
+                            reject(MessageError("Internal Error: Unable To Decode JSON"))
+                            return
+                        }
+                        fulfill(userResponse.data)
+                    default:
+                        guard let error = self.createErrorFromData(data: response.data) else {
+                            reject(MessageError("Internal Error: Unable To Decode JSON"))
+                            return
+                        }
+                        reject(MessageError(error.error))
+                    }
+                }).catch({ (error) in reject(error)})
         }
+    }
+    
+    
+    private func createUserFromData(data: Data) -> UserResponse? {
+        return try? JSONDecoder().decode(UserResponse.self, from: data)
+    }
+    
+    private func createErrorFromData(data: Data) -> NetworkErrorResponse? {
+        return try? JSONDecoder().decode(NetworkErrorResponse.self, from: data)
     }
     
 }
@@ -62,52 +78,84 @@ class SignUpTask: Operation {
         return UserRequests.signUp(email: email, username: username, password: password)
     }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (User?, MessageError?) -> Void)  {
-        dispatcher.execute(request: request) { (networkResponse) in
-            switch networkResponse {
-            case .data(let data):
-                let jsonDecoder = JSONDecoder()
-                if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
-                    completion(userResponse.data, nil)
-                    return
+    func execute(in dispatcher: Dispatcher) -> Promise<User> {
+        return Promise { fulfill, reject in
+            dispatcher.execute(request: self.request).then({ (response) in
+                switch response.responseCode {
+                case 200...299:
+                    guard let userResponse = self.createUserFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Unable To Decode JSON"))
+                        return
+                    }
+                    fulfill(userResponse.data)
+                default:
+                    guard let error = self.createErrorFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Unable To Decode JSON"))
+                        return
+                    }
+                    reject(MessageError(error.error))
                 }
-            case .error(let statusCode, let responseError): completion(nil, responseError)
-            }
+            }).catch({ (error) in reject(error)})
         }
     }
+    
+    
+    private func createUserFromData(data: Data) -> UserResponse? {
+        return try? JSONDecoder().decode(UserResponse.self, from: data)
+    }
+    
+    private func createErrorFromData(data: Data) -> NetworkErrorResponse? {
+        return try? JSONDecoder().decode(NetworkErrorResponse.self, from: data)
+    }
+    
     
 }
 
 class UpdateUserInformationTask: Operation {
-    var previousEmail: String
+    var userID: Int
     var newEmail: String
-    var previousUsername: String
     var newUsername: String
     
     var request: Request {
-        return UserRequests.updateInfo(previousEmail: previousEmail, newEmail: newEmail, previousUsername: previousUsername, newUsername: newUsername)
+        return UserRequests.updateInfo(userID: userID, newEmail: newEmail, newUsername: newUsername)
     }
     
-    init(previousEmail: String, newEmail: String, previousUsername: String, newUsername: String) {
-        self.previousEmail = previousEmail
+    init(userID: Int, newEmail: String, newUsername: String) {
+        self.userID = userID
         self.newEmail = newEmail
-        self.previousUsername = previousUsername
         self.newUsername = newUsername
     }
     
-    func execute(in dispatcher: Dispatcher, completion: @escaping (User?, MessageError?) -> Void)  {
-        dispatcher.execute(request: request) { (networkResponse) in
-            switch networkResponse {
-            case .data(let data):
-                let jsonDecoder = JSONDecoder()
-                if let userResponse = try? jsonDecoder.decode(singleUserResponse.self, from: data) {
-                    completion(userResponse.data, nil)
-                    return
+    func execute(in dispatcher: Dispatcher) -> Promise<User> {
+        return Promise { fulfill, reject in
+            dispatcher.execute(request: self.request).then({ (response) in
+                switch response.responseCode {
+                case 200...299:
+                    guard let userResponse = self.createUserFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Unable To Decode JSON"))
+                        return
+                    }
+                    fulfill(userResponse.data)
+                default:
+                    guard let error = self.createErrorFromData(data: response.data) else {
+                        reject(MessageError("Status Code Unacceptable - \(response.responseCode) - & Internal Error: Unable To Decode JSON"))
+                        return
+                    }
+                    reject(MessageError(error.error))
                 }
-            case .error(let statusCode, let responseError): completion(nil, responseError)
-            }
+            }).catch({ (error) in reject(error)})
         }
     }
+    
+    
+    private func createUserFromData(data: Data) -> UserResponse? {
+        return try? JSONDecoder().decode(UserResponse.self, from: data)
+    }
+    
+    private func createErrorFromData(data: Data) -> NetworkErrorResponse? {
+        return try? JSONDecoder().decode(NetworkErrorResponse.self, from: data)
+    }
+    
     
     
 }

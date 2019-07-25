@@ -9,48 +9,54 @@
 import Foundation
 import Alamofire
 
-public protocol Request {
+protocol Request {
     var path: String { get }
     
     var method: HTTPMethod { get }
     
-    var parameters: [String: String] { get }
+    var parameters: RequestParameters { get }
     
     var headers: [String: String] { get }
 }
 
 
-public enum UserRequests: Request {
+enum RequestParameters {
+    case body(_ : [String:String])
+    case url(_ : [String:String])
+    case none
+}
+
+enum UserRequests: Request {
     
     case login(email: String, password: String)
     case signUp(email: String, username: String, password: String)
-    case updateInfo(previousEmail: String, newEmail: String, previousUsername: String, newUsername: String)
+    case updateInfo(userID: Int, newEmail: String, newUsername: String)
     
-    public var path: String {
+    var path: String {
         switch self {
         case .login(_, _): return "/user/login/"
         case .signUp(_, _, _): return "/user/signup/"
-        case .updateInfo(_, _, _, _): return "/user/updateinfo/"
+        case .updateInfo(_, _, _): return "/user/updateinfo/"
         }
     }
     
-    public var method: HTTPMethod {
+    var method: HTTPMethod {
         switch self {
-        case .login(_, _): return HTTPMethod.put
+        case .login(_, _): return HTTPMethod.post
         case .signUp(_, _, _): return HTTPMethod.post
-        case .updateInfo(_, _, _, _): return HTTPMethod.put
+        case .updateInfo(_, _, _): return HTTPMethod.put
         }
     }
     
-    public var parameters: [String: String] {
+    var parameters: RequestParameters {
         switch self {
-        case .login(let email, let password): return ["email" : email, "password" : password]
-        case .signUp(let email, let username, let password): return ["email" : email, "password" : password, "username": username]
-        case .updateInfo(let previousEmail, let newEmail, let previousUsername, let newUsername): return ["previousEmail": previousEmail, "newEmail": newEmail, "previousUsername": previousUsername, "newUsername": newUsername]
+        case .login(let email, let password): return .body(["email" : email, "password" : password])
+        case .signUp(let email, let username, let password): return .body(["email" : email, "password" : password, "username": username])
+        case .updateInfo(let userID, let newEmail, let newUsername): return .body(["userID": "\(userID)", "newEmail": newEmail, "newUsername": newUsername])
         }
     }
     
-    public var headers: [String : String] {
+    var headers: [String : String] {
         return [:]
     }
     

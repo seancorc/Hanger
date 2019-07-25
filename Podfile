@@ -10,6 +10,7 @@ target 'Hanger' do
     pod 'Koloda'
     pod 'Alamofire'
     pod 'SwiftKeychainWrapper'
+    pod 'Promises'
 
   target 'HangerTests' do
     inherit! :search_paths

@@ -188,19 +188,20 @@ extension AccountViewController {
             present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil)
             return
         }
-        let updateInfoTask = UpdateUserInformationTask(previousEmail: self.userManager.user.email, newEmail: self.newEmail, previousUsername: self.userManager.user.username, newUsername: self.newUsername)
-        updateInfoTask.execute(in: self.networkManager) { (user, responseError) in
-            if let err = responseError {
-                self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
-                return
-            }
-            self.userManager.user.email = self.newEmail
-            self.userManager.user.username = self.newUsername
-            let alert = HelpfulFunctions.createAlert(for: "Changes Saved")
-            self.present(alert, animated: true, completion: nil)
+        let updateInfoTask = UpdateUserInformationTask(userID: userManager.user.id, newEmail: self.newEmail, newUsername: self.newUsername)
+        updateInfoTask.execute(in: self.networkManager).then { (user) in
+            self.userManager.user.email = user.email
+            self.userManager.user.username = user.username
+            self.present(HelpfulFunctions.createAlert(for: "Changes Saved"), animated: true, completion: nil)
             self.navigationItem.rightBarButtonItem = nil
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+        }
+                
         }
     }
-}
+
 
 

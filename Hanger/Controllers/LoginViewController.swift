@@ -56,20 +56,20 @@ class LoginViewController: UIViewController {
             return
         }
         let loginTask = LoginTask(email: email, password: password)
-        loginTask.execute(in: self.networkManager) { (user, responseError) in
-            if let err = responseError {
-                self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
-                return
-            }
+        loginTask.execute(in: self.networkManager).then { (user) in
             self.userManager.user = user
             self.loginView.emailTextField.resignFirstResponder()
             self.loginView.passwordTextField.resignFirstResponder()
             self.userDefaults.set(true, forKey: UserDefaultKeys.loggedIn)
-            self.userDefaults.set(user?.username, forKey: UserDefaultKeys.username)
-            self.userDefaults.set(user?.id, forKey: UserDefaultKeys.userID)
-            self.keychainWrapper.set(user?.email ?? "Error", forKey: KeychainKeys.email)
-            self.keychainWrapper.set(user?.password ?? "Error", forKey: KeychainKeys.password)
+            self.userDefaults.set(user.username, forKey: UserDefaultKeys.username)
+            self.userDefaults.set(user.id, forKey: UserDefaultKeys.userID)
+            self.keychainWrapper.set(user.email, forKey: KeychainKeys.email)
+            self.keychainWrapper.set(user.password, forKey: KeychainKeys.password)
             HelpfulFunctions.signInAnimation()
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
         }
     }
     

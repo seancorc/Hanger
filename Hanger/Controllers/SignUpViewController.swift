@@ -59,32 +59,31 @@ class SignUpViewController: UIViewController {
             return
         }
         let signUpTask = SignUpTask(email: email, username: username, password: password)
-        signUpTask.execute(in: self.networkManager) { (user, responseError) in
-            if let err = responseError {
-                self.present(HelpfulFunctions.createAlert(for: err.message), animated: true, completion: nil)
-                return
-            }
-            self.dismiss(animated: false, completion: nil)
+        signUpTask.execute(in: self.networkManager).then { (user) in
             self.userManager.user = user
             self.signUpView.emailTextField.resignFirstResponder()
             self.signUpView.usernameTextField.resignFirstResponder()
             self.signUpView.passwordTextField.resignFirstResponder()
             self.userDefaults.set(true, forKey: UserDefaultKeys.loggedIn)
-            self.userDefaults.set(user?.username, forKey: UserDefaultKeys.username)
-            self.userDefaults.set(user?.id, forKey: UserDefaultKeys.userID)
-            self.keychainWrapper.set(user?.email ?? "Error", forKey: KeychainKeys.email)
-            self.keychainWrapper.set(user?.password ?? "Error", forKey: KeychainKeys.password)
+            self.userDefaults.set(user.username, forKey: UserDefaultKeys.username)
+            self.userDefaults.set(user.id, forKey: UserDefaultKeys.userID)
+            self.keychainWrapper.set(user.email, forKey: KeychainKeys.email)
+            self.keychainWrapper.set(user.password, forKey: KeychainKeys.password)
             HelpfulFunctions.signInAnimation()
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
         }
-        
     }
 }
-
-extension SignUpViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+    
+    
+    extension SignUpViewController: UITextFieldDelegate {
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
 }
 
 

@@ -9,13 +9,10 @@
 import Foundation
 import UIKit
 
-struct usersResponse: Codable {
-    var data: [User]
-}
-
-struct singleUserResponse: Codable {
+struct UserResponse: Codable {
     var data: User
 }
+
 
 struct User: Codable {
     var id: Int
