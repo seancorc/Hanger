@@ -9,7 +9,6 @@ target 'Hanger' do
     pod 'SnapKit'
     pod 'Koloda'
     pod 'Alamofire'
-    pod 'SwiftKeychainWrapper'
     pod 'Promises'
 
   target 'HangerTests' do

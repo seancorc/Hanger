@@ -5,14 +5,12 @@ PODS:
   - pop (1.0.12)
   - Promises (2.0.4)
   - SnapKit (5.0.0)
-  - SwiftKeychainWrapper (3.4.0)
 
 DEPENDENCIES:
   - Alamofire
   - Koloda
   - Promises
   - SnapKit
-  - SwiftKeychainWrapper
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -21,7 +19,6 @@ SPEC REPOS:
     - pop
     - Promises
     - SnapKit
-    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -29,8 +26,7 @@ SPEC CHECKSUMS:
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   Promises: fcb83dc6be43294a8d30c343636ed1a45a8d2e0a
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
-  SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 8e7dd1ff3b793076f41fd5a54cfec1b17666a3e0
+PODFILE CHECKSUM: dbbae7afb0e3a9038bcc02c4b542f7fc25be0798
 
 COCOAPODS: 1.5.3

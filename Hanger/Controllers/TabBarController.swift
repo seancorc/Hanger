@@ -7,19 +7,16 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
 
 class TabBarController: UITabBarController {
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
-    var keychainWrapper: KeychainWrapper!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard, keychainWrapper: KeychainWrapper = .standard) {
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
         self.userDefaults = userDefaults
-        self.keychainWrapper = keychainWrapper
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,7 +58,7 @@ class TabBarController: UITabBarController {
         let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)
         messagesNavController.tabBarItem = messagesTabItem
         
-        let accountPage = AccountViewController(userManager: self.userManager, networkManager: self.networkManager, userDefaults: self.userDefaults, keychainWrapper: .standard)
+        let accountPage = AccountViewController(userManager: self.userManager, networkManager: self.networkManager, userDefaults: self.userDefaults)
         let accountNavController = UINavigationController(rootViewController: accountPage)
         let accountIcon = UIImage(named: "accounticon")!.withRenderingMode(.alwaysTemplate)
         let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)

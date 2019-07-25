@@ -8,14 +8,12 @@
 
 import UIKit
 import CoreData
-import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var userDefaults = UserDefaults.standard
-    var keychainWrapper = KeychainWrapper.standard
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -23,15 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let loggedIn = userDefaults.value(forKey: UserDefaultKeys.loggedIn) as? Bool ?? false
         //Start dependency injection
         if loggedIn {
-            let email = keychainWrapper.string(forKey: KeychainKeys.email) ?? "Error"
-            let password = keychainWrapper.string(forKey: KeychainKeys.password) ?? "Error"
+            let email = userDefaults.string(forKey: UserDefaultKeys.email) ?? "Error"
             let username = userDefaults.value(forKey: UserDefaultKeys.username) as? String ?? "Error"
             let id = userDefaults.value(forKey: UserDefaultKeys.userID) as? Int ?? -1
-            let user = User(id: id, email: email, password: password, username: username)
+            let user = User(id: id, email: email, username: username)
             UserManager.currentUser().user = user
-            window?.rootViewController = TabBarController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard, keychainWrapper: .standard)
+            window?.rootViewController = TabBarController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
         } else {
-            window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard, keychainWrapper: .standard)
+            window?.rootViewController = LoginViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
         }
         window?.makeKeyAndVisible()
         return true

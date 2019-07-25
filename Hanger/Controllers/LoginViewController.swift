@@ -8,20 +8,17 @@
 
 import Foundation
 import UIKit
-import SwiftKeychainWrapper
 
 class LoginViewController: UIViewController {
     var loginView: LoginView!
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
-    var keychainWrapper: KeychainWrapper!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard, keychainWrapper: KeychainWrapper = .standard) {
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
         self.userDefaults = userDefaults
-        self.keychainWrapper = keychainWrapper
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,8 +60,7 @@ class LoginViewController: UIViewController {
             self.userDefaults.set(true, forKey: UserDefaultKeys.loggedIn)
             self.userDefaults.set(user.username, forKey: UserDefaultKeys.username)
             self.userDefaults.set(user.id, forKey: UserDefaultKeys.userID)
-            self.keychainWrapper.set(user.email, forKey: KeychainKeys.email)
-            self.keychainWrapper.set(user.password, forKey: KeychainKeys.password)
+            self.userDefaults.set(user.email, forKey: UserDefaultKeys.email)
             HelpfulFunctions.signInAnimation()
             }.catch { (error) in
                 var errorText = ""
@@ -74,7 +70,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
-        present(SignUpViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard, keychainWrapper: .standard), animated: true, completion: nil)
+        present(SignUpViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard), animated: true, completion: nil)
     }
 }
 

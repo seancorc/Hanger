@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
 
 /*
  ToDos:
@@ -21,20 +20,18 @@ class AccountViewController: UIViewController {
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
-    var keychainWrapper: KeychainWrapper
     var newEmail: String!
     var newUsername: String!
     var usernameTextFieldIsOriginalUsername = true
     var emailTextFieldIsOriginalEmail = true
     var rightBarButton: UIBarButtonItem!
     
-    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard, keychainWrapper: KeychainWrapper = .standard) {
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared(), userDefaults: UserDefaults = .standard) {
         self.userManager = userManager
         self.networkManager = networkManager
         self.newEmail = userManager.user.email
         self.newUsername = userManager.user.username
         self.userDefaults = userDefaults
-        self.keychainWrapper = keychainWrapper
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -84,8 +81,7 @@ class AccountViewController: UIViewController {
         self.userDefaults.set(false, forKey: UserDefaultKeys.loggedIn)
         self.userDefaults.removeObject(forKey: UserDefaultKeys.userID)
         self.userDefaults.removeObject(forKey: UserDefaultKeys.username)
-        self.keychainWrapper.removeObject(forKey: KeychainKeys.email)
-        self.keychainWrapper.removeObject(forKey: KeychainKeys.password)
+        self.userDefaults.removeObject(forKey: UserDefaultKeys.email)
         HelpfulFunctions.signOutAnimation()
     }
     

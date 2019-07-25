@@ -16,7 +16,10 @@ protocol Operation {
     var request: Request { get }
     
     func execute(in dispatcher: Dispatcher) -> Promise<OutputType>
+    
 }
+
+
 
 class LoginTask: Operation {
     var email: String
@@ -34,21 +37,21 @@ class LoginTask: Operation {
     func execute(in dispatcher: Dispatcher) -> Promise<User> {
         return Promise { fulfill, reject in
             dispatcher.execute(request: self.request).then({ (response) in
-                    switch response.responseCode {
-                    case 200...299:
-                        guard let userResponse = self.createUserFromData(data: response.data) else {
-                            reject(MessageError("Internal Error: Unable To Decode JSON"))
-                            return
-                        }
-                        fulfill(userResponse.data)
-                    default:
-                        guard let error = self.createErrorFromData(data: response.data) else {
-                            reject(MessageError("Internal Error: Unable To Decode JSON"))
-                            return
-                        }
-                        reject(MessageError(error.error))
+                switch response.responseCode {
+                case 200...299:
+                    guard let userResponse = self.createUserFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Unable To Decode JSON"))
+                        return
                     }
-                }).catch({ (error) in reject(error)})
+                    fulfill(userResponse.data)
+                default:
+                    guard let error = self.createErrorFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Response Code-\(response.responseCode)"))
+                        return
+                    }
+                    reject(MessageError(error.error))
+                }
+            }).catch({ (error) in reject(error)})
         }
     }
     
@@ -83,6 +86,7 @@ class SignUpTask: Operation {
             dispatcher.execute(request: self.request).then({ (response) in
                 switch response.responseCode {
                 case 200...299:
+                    print(try! JSONSerialization.jsonObject(with: response.data, options: .allowFragments))
                     guard let userResponse = self.createUserFromData(data: response.data) else {
                         reject(MessageError("Internal Error: Unable To Decode JSON"))
                         return
@@ -90,7 +94,7 @@ class SignUpTask: Operation {
                     fulfill(userResponse.data)
                 default:
                     guard let error = self.createErrorFromData(data: response.data) else {
-                        reject(MessageError("Internal Error: Unable To Decode JSON"))
+                        reject(MessageError("Internal Error: Response Code-\(response.responseCode)"))
                         return
                     }
                     reject(MessageError(error.error))
@@ -138,7 +142,7 @@ class UpdateUserInformationTask: Operation {
                     fulfill(userResponse.data)
                 default:
                     guard let error = self.createErrorFromData(data: response.data) else {
-                        reject(MessageError("Status Code Unacceptable - \(response.responseCode) - & Internal Error: Unable To Decode JSON"))
+                        reject(MessageError("Internal Error: Response Code-\(response.responseCode)"))
                         return
                     }
                     reject(MessageError(error.error))

@@ -17,6 +17,5 @@ struct UserResponse: Codable {
 struct User: Codable {
     var id: Int
     var email: String
-    var password: String
     var username: String
 }
