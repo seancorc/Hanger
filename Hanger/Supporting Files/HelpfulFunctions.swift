@@ -75,9 +75,9 @@ public class HelpfulFunctions {
         }
     }
     
-    static func createAlert(for alert: String) -> UIAlertController  {
+    static func createAlert(for alert: String, okHandler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController  {
         let alertController = UIAlertController(title: nil, message: alert, preferredStyle: UIAlertController.Style.alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: okHandler)
         alertController.addAction(alertAction)
         return alertController
     }

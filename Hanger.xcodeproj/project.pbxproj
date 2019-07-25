@@ -33,6 +33,7 @@
 		D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */; };
 		D6D87E8022E813B4006485BD /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E7F22E813B4006485BD /* SQLite.swift */; };
 		D6D87E8222E9483E006485BD /* NetworkErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8122E9483E006485BD /* NetworkErrorResponse.swift */; };
+		D6D87E8422E99072006485BD /* SupportingDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8322E99072006485BD /* SupportingDataStructures.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
@@ -53,7 +54,7 @@
 		D6F05DAA22D2EFBF00621E36 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DA922D2EFBF00621E36 /* SignUpViewController.swift */; };
 		D6F05DAD22D2F02B00621E36 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DAC22D2F02B00621E36 /* SignUpView.swift */; };
 		D6F05DB222D59F5600621E36 /* RequestCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB122D59F5600621E36 /* RequestCreation.swift */; };
-		D6F05DB622D7018A00621E36 /* PerformOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB522D7018A00621E36 /* PerformOperations.swift */; };
+		D6F05DB622D7018A00621E36 /* UserOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB522D7018A00621E36 /* UserOperations.swift */; };
 		D6F05DB822D707EA00621E36 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB722D707EA00621E36 /* UserManager.swift */; };
 		D6F05DBA22D7120000621E36 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB922D7120000621E36 /* Validator.swift */; };
 		D6F05DBD22DBFE4C00621E36 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DBC22DBFE4C00621E36 /* FilterView.swift */; };
@@ -120,6 +121,7 @@
 		D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6D87E7F22E813B4006485BD /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		D6D87E8122E9483E006485BD /* NetworkErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorResponse.swift; sourceTree = "<group>"; };
+		D6D87E8322E99072006485BD /* SupportingDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingDataStructures.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedMessages.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 		D6F05DA922D2EFBF00621E36 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D6F05DAC22D2F02B00621E36 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		D6F05DB122D59F5600621E36 /* RequestCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreation.swift; sourceTree = "<group>"; };
-		D6F05DB522D7018A00621E36 /* PerformOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformOperations.swift; sourceTree = "<group>"; };
+		D6F05DB522D7018A00621E36 /* UserOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOperations.swift; sourceTree = "<group>"; };
 		D6F05DB722D707EA00621E36 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D6F05DB922D7120000621E36 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D6F05DBC22DBFE4C00621E36 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -384,9 +386,10 @@
 		D6F05DAE22D599B200621E36 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				D6D87E8322E99072006485BD /* SupportingDataStructures.swift */,
 				D6F05DB122D59F5600621E36 /* RequestCreation.swift */,
 				D6F05DA522D2D97700621E36 /* RequestExecution.swift */,
-				D6F05DB522D7018A00621E36 /* PerformOperations.swift */,
+				D6F05DB522D7018A00621E36 /* UserOperations.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 			files = (
 				D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */,
 				D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */,
+				D6D87E8422E99072006485BD /* SupportingDataStructures.swift in Sources */,
 				D6F05D8B22CDEC0B00621E36 /* ChatTableViewCell.swift in Sources */,
 				D6F05DB822D707EA00621E36 /* UserManager.swift in Sources */,
 				D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */,
@@ -679,7 +683,7 @@
 				D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */,
 				D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */,
 				D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */,
-				D6F05DB622D7018A00621E36 /* PerformOperations.swift in Sources */,
+				D6F05DB622D7018A00621E36 /* UserOperations.swift in Sources */,
 				D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */,
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,
 				D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */,

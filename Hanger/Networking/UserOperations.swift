@@ -9,17 +9,6 @@
 import Foundation
 import Promise
 
-protocol Operation {
-    
-    associatedtype OutputType
-    
-    var request: Request { get }
-    
-    func execute(in dispatcher: Dispatcher) -> Promise<OutputType>
-    
-}
-
-
 
 class LoginTask: Operation {
     var email: String
@@ -160,6 +149,47 @@ class UpdateUserInformationTask: Operation {
         return try? JSONDecoder().decode(NetworkErrorResponse.self, from: data)
     }
     
+}
+
+class UpdatePasswordTask: Operation {
+    var userID: Int
+    var currentPassword: String
+    var newPassword: String
     
+    var request: Request {
+        return UserRequests.updatePassword(userID: userID, currentPassword: currentPassword, newPassword: newPassword)
+    }
+    
+    init(userID: Int, currentPassword: String, newPassword: String) {
+        self.userID = userID
+        self.currentPassword = currentPassword
+        self.newPassword = newPassword
+    }
+    
+    func execute(in dispatcher: Dispatcher) -> Promise<()> { //Fulfills with void
+        return Promise { fulfill, reject in
+            dispatcher.execute(request: self.request).then({ (response) in
+                switch response.responseCode {
+                case 200...299:
+                    fulfill(())
+                default:
+                    guard let error = self.createErrorFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Response Code-\(response.responseCode)"))
+                        return
+                    }
+                    reject(MessageError(error.error))
+                }
+            }).catch({ (error) in reject(error)})
+        }
+    }
+    
+    
+    private func createUserFromData(data: Data) -> UserResponse? {
+        return try? JSONDecoder().decode(UserResponse.self, from: data)
+    }
+    
+    private func createErrorFromData(data: Data) -> NetworkErrorResponse? {
+        return try? JSONDecoder().decode(NetworkErrorResponse.self, from: data)
+    }
     
 }

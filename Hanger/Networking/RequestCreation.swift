@@ -9,34 +9,20 @@
 import Foundation
 import Alamofire
 
-protocol Request {
-    var path: String { get }
-    
-    var method: HTTPMethod { get }
-    
-    var parameters: RequestParameters { get }
-    
-    var headers: [String: String] { get }
-}
-
-
-enum RequestParameters {
-    case body(_ : [String:String])
-    case url(_ : [String:String])
-    case none
-}
 
 enum UserRequests: Request {
     
     case login(email: String, password: String)
     case signUp(email: String, username: String, password: String)
     case updateInfo(userID: Int, newEmail: String, newUsername: String)
+    case updatePassword(userID: Int, currentPassword: String, newPassword: String)
     
     var path: String {
         switch self {
         case .login(_, _): return "/user/login/"
         case .signUp(_, _, _): return "/user/signup/"
         case .updateInfo(_, _, _): return "/user/updateinfo/"
+        case .updatePassword(_, _, _): return "/user/updatepassword/"
         }
     }
     
@@ -45,14 +31,16 @@ enum UserRequests: Request {
         case .login(_, _): return HTTPMethod.post
         case .signUp(_, _, _): return HTTPMethod.post
         case .updateInfo(_, _, _): return HTTPMethod.put
+        case .updatePassword(_, _, _): return HTTPMethod.put
         }
     }
     
     var parameters: RequestParameters {
         switch self {
-        case .login(let email, let password): return .body(["email" : email, "password" : password])
-        case .signUp(let email, let username, let password): return .body(["email" : email, "password" : password, "username": username])
-        case .updateInfo(let userID, let newEmail, let newUsername): return .body(["userID": "\(userID)", "newEmail": newEmail, "newUsername": newUsername])
+        case let .login(email, password): return .body(["email" : email, "password" : password])
+        case let .signUp(email, username, password): return .body(["email" : email, "password" : password, "username": username])
+        case let .updateInfo(userID, newEmail, newUsername): return .body(["userID": "\(userID)", "newEmail": newEmail, "newUsername": newUsername])
+        case let .updatePassword(userID, currentPassword, newPassword): return .body(["userID":"\(userID)","currentPassword":currentPassword, "newPassword":newPassword])
         }
     }
     

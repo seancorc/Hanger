@@ -11,9 +11,11 @@ import UIKit
 class ChangePasswordViewController: UIViewController {
     var changePasswordView: ChangePasswordView!
     var userManager: UserManager!
+    var networkManager: NetworkManager!
     
-    init(userManager: UserManager = .currentUser()) {
+    init(userManager: UserManager = .currentUser(), networkManager: NetworkManager = .shared()) {
         self.userManager = userManager
+        self.networkManager = networkManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,7 +39,25 @@ class ChangePasswordViewController: UIViewController {
     }
 
     @objc func changePasswordButtonPressed() {
-        print("change pass")
+        var currentPass: String = ""
+        var newPass: String = ""
+        do {
+            currentPass = try changePasswordView.currentPasswordTextField.text!.validateText(validationType: .password)
+            newPass = try changePasswordView.newPasswordTextField.text!.validateText(validationType: .password)
+        } catch {
+            self.present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil)
+            return
+        }
+        let updatePasswordTask = UpdatePasswordTask(userID: userManager.user.id, currentPassword: currentPass, newPassword: newPass)
+        updatePasswordTask.execute(in: self.networkManager).then { () in
+            let okPressed: (UIAlertAction) -> Void = { _ in self.navigationController?.popViewController(animated: true)}
+            self.present(HelpfulFunctions.createAlert(for: "Password Successfully Changed", okHandler: okPressed), animated: true, completion: nil)
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+        }
+        
     }
     
     

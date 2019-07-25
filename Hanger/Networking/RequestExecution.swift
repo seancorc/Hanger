@@ -10,49 +10,13 @@ import Foundation
 import Alamofire
 import Promise
 
-class MessageError: Error {
-    var message: String
-    
-    init(_ message: String) {
-        self.message = message
-    }
-}
 
-struct AFResponse {
-    let responseCode: Int
-    let data: Data
-}
-
-struct Enviroment {
-    
-    var name: String
-    
-    var baseURL: String
-    
-    var headers: [String:String]
-    
-    init(name: String, baseURL: String, headers: [String : String]) {
-        self.name = name
-        self.baseURL = baseURL
-        self.headers = headers
-    }
-    
-    //Any other env variables and setup...
-}
-
-protocol Dispatcher {
-    init(enviroment: Enviroment)
-    
-    
-    func execute(request: Request) -> Promise<AFResponse>
-    
-}
 
 class NetworkManager: Dispatcher {
     private var enviroment: Enviroment
     
-    private static let sharedNetworkManager = NetworkManager(enviroment: Enviroment(name: "Testing", baseURL: "http://localhost:5000/api", headers: [:]))
-    
+    private static let sharedNetworkManager = NetworkManager(enviroment: Enviroment(name: "Testing", baseURL: "http://localhost:5000/api", headers: ["Content-Type": "application/json", "Accept": "application/json"]))
+
     static func shared() -> NetworkManager {
         return sharedNetworkManager
     }
@@ -66,14 +30,14 @@ class NetworkManager: Dispatcher {
             guard let urlRequest = try? self.prepareURLRequest(for: request) else {reject(MessageError("Bad URL")); return}
             Alamofire.request(urlRequest).responseData { (response) in
                 guard let data = response.data else {
-                    reject(MessageError("Internal Error: Can't Connect To Server"))
+                    reject(MessageError("Internal Error: No Response Data"))
                     return
                 }
                 if let httpResponse = response.response {
                     fulfill(AFResponse(responseCode: httpResponse.statusCode, data: data))
                     return
                 } else {
-                    reject(MessageError("Internal Error: No httpResponse"))
+                    reject(MessageError("Internal Error: Can't Connect To Server"))
                 }
             }
         }
@@ -93,8 +57,7 @@ class NetworkManager: Dispatcher {
         let fullURL = "\(enviroment.baseURL)\(request.path)"
         guard let url = URL(string: fullURL) else {throw MessageError("Bad URL")}
         var urlRequest = URLRequest(url: url)
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+
         
         switch request.parameters {
         case .none: break
