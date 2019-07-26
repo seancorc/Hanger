@@ -9,41 +9,48 @@
 import UIKit
 
 class FilterView: UIView {
-    var applyButtonContainerView: UIView!
-    var applyButton: NiceSpacingButton!
-    var tableView: ContentSizedTableView!
+    
+    lazy var applyButtonContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    lazy var applyButton: NiceSpacingButton = {
+        let button = NiceSpacingButton(widthOffset: UIScreen.main.bounds.width * 0.7, heightOffset: 12, hasCornerRadius: true)
+        button.setupButton(title: "", backgroundColor: Global.ThemeColor) //Text set in controller as it depends on the number of filters selected
+        return button
+    }()
+    
+    lazy var tableView: ContentSizedTableView = {
+        let tv = ContentSizedTableView()
+        tv.isScrollEnabled = false
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        return tv
+    }()
     
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.backgroundColor = .white
-        setupSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func setupSubviews() {
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        tableView = ContentSizedTableView()
-        tableView.isScrollEnabled = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         self.addSubview(tableView)
         
-        applyButtonContainerView = UIView()
-        applyButtonContainerView.backgroundColor = .white
         self.addSubview(applyButtonContainerView)
         
-        applyButton = NiceSpacingButton(widthOffset: UIScreen.main.bounds.width * 0.8, heightOffset: 12, hasCornerRadius: true)
-        applyButton.setupButton(title: "", backgroundColor: Global.ThemeColor) //Text set in controller as it depends on the number of filters selected
         applyButtonContainerView.addSubview(applyButton)
         
         setupConstraints()
     }
-    
     
     func setupConstraints() {
         
@@ -64,10 +71,6 @@ class FilterView: UIView {
         }
         
     }
-
-    
-    
-    
     
 
 }

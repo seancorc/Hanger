@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
         
         signUpView = SignUpView()
         signUpView.translatesAutoresizingMaskIntoConstraints = false
-        signUpView.backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        signUpView.dismissButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
         signUpView.emailTextField.delegate = self
         signUpView.passwordTextField.delegate = self

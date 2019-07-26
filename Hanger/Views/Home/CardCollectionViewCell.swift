@@ -9,12 +9,16 @@
 import UIKit
 
 class CardCollectionViewCell: UICollectionViewCell {
-    var imageView: UIImageView!
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        imageView.contentMode = .scaleToFill
+        return imageView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        initalSetup()
     }
     
     
@@ -23,16 +27,13 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
     
     
-    func initalSetup() {
-        imageView = UIImageView()
-        imageView.backgroundColor = UIColor(white: 0.98, alpha: 1)
-        imageView.contentMode = .scaleToFill
+    override func didMoveToSuperview() {
         contentView.addSubview(imageView)
+        setupConstraints()
     }
     
     func configureCell(image: UIImage) {
         self.imageView.image = image
-        setupConstraints()
     }
     
     func setupConstraints() {

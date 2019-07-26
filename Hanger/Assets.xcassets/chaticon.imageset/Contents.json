@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "fill-1.png",
+      "filename" : "chaticon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "fill-1@2x.png",
+      "filename" : "chaticon copy.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "fill-1@3x.png",
+      "filename" : "noun_chat_137086-2.png",
       "scale" : "3x"
     }
   ],

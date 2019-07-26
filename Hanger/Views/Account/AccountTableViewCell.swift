@@ -9,18 +9,49 @@
 import UIKit
 
 class AccountTableViewCell: UITableViewCell {
-    var textField: UITextField!
-    var label: UILabel!
-    var passwordArrow: UIImageView!
-    var seperatorLineView: UIView!
-    var seperatorLineView2: UIView!
+    
+    lazy var textField: UITextField = {
+        let textField = UITextField()
+        textField.returnKeyType = .done
+        textField.textColor = .gray
+        textField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        return label
+    }()
+    
+    lazy var arrowImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "rightskinnyarrow"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy var seperatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var seperatorLineView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
         self.selectionStyle = .none
-        initalSetup()
         
     }
     
@@ -29,48 +60,31 @@ class AccountTableViewCell: UITableViewCell {
     }
     
     
-    func initalSetup() {
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        
-        seperatorLineView = UIView()
-        seperatorLineView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-        seperatorLineView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(seperatorLineView)
-        seperatorLineView2 = UIView()
-        seperatorLineView2.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-        seperatorLineView2.translatesAutoresizingMaskIntoConstraints = false
+
         contentView.addSubview(seperatorLineView2)
         
-        textField = UITextField()
-        textField.returnKeyType = .done
-        textField.textColor = .gray
-        textField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(textField)
         
-        label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
         contentView.addSubview(label)
         
-        passwordArrow = UIImageView()
-        passwordArrow.translatesAutoresizingMaskIntoConstraints = false
+        setupConstraints()
     }
     
     func configureCell(labelText: String) {
         label.text = labelText
         if labelText == "Password" {
-            passwordArrow.image = UIImage(named: "rightskinnyarrow")
-            contentView.addSubview(passwordArrow)
-            passwordArrow.snp.makeConstraints { (make) in
+            contentView.addSubview(arrowImageView)
+            arrowImageView.snp.makeConstraints { (make) in
                 make.trailing.equalToSuperview().offset(-32 * Global.ScaleFactor)
                 make.centerY.equalToSuperview()
-                make.width.height.equalTo(Global.BackButtonSize)
+                make.width.height.equalTo(35 * Global.ScaleFactor)
             }
         }
         
-        setupConstraints()
     }
     
     func setupConstraints() {

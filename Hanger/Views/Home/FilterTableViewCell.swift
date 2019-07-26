@@ -9,14 +9,29 @@
 import UIKit
 
 class FilterTableViewCell: UITableViewCell {
-    var titleLabel: UILabel!
-    var collectionView: UICollectionView!
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18 * Global.ScaleFactor, weight: .bold)
+        return label
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.showsHorizontalScrollIndicator = false
+        cv.backgroundColor = .white
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        return cv
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
         self.selectionStyle = .none
-        initalSetup()
         
     }
     
@@ -25,27 +40,17 @@ class FilterTableViewCell: UITableViewCell {
     }
     
     
-    func initalSetup() {
+    override func didMoveToSuperview() {
         
-        titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.systemFont(ofSize: 18 * Global.ScaleFactor, weight: .bold)
         contentView.addSubview(titleLabel)
         
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        layout.scrollDirection = .horizontal
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .white
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(collectionView)
         
+        setupConstraints()
     }
     
     func configureCell(labelText: String) {
         self.titleLabel.text = labelText
-        setupConstraints()
     }
     
     func setupConstraints() {

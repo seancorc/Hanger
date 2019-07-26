@@ -10,14 +10,33 @@ import UIKit
 import SnapKit
 
 class AccountView: UIView {
-    var profilePictureButton: UIButton!
-    var logoutButton: NiceSpacingButton!
-    var tableView: ContentSizedTableView!
     
-    init() {
-        super.init(frame: .zero)
-        self.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        setupSubviews()
+    lazy var profilePictureButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "sellerimage"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 75 * Global.ScaleFactor
+        return button
+    }()
+    
+    lazy var logoutButton: NiceSpacingButton = {
+        let button = NiceSpacingButton()
+        button.setupButton(title: "Logout", backgroundColor: #colorLiteral(red: 0.9995071292, green: 0.2495709658, blue: 0.2678492069, alpha: 1))
+        return button
+    }()
+    
+    lazy var tableView: ContentSizedTableView = {
+        let tv = ContentSizedTableView()
+        tv.isScrollEnabled = false
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorStyle = .none
+        return tv
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor(white: 0.97, alpha: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,24 +44,15 @@ class AccountView: UIView {
     }
     
     
-    func setupSubviews() {
-        
-        tableView = ContentSizedTableView()
-        tableView.isScrollEnabled = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
         self.addSubview(tableView)
 
         
-        profilePictureButton = UIButton()
-        profilePictureButton.setBackgroundImage(UIImage(named: "sellerimage"), for: .normal)
-        profilePictureButton.translatesAutoresizingMaskIntoConstraints = false
-        profilePictureButton.clipsToBounds = true
-        profilePictureButton.layer.cornerRadius = 75 * Global.ScaleFactor
         self.addSubview(profilePictureButton)
         
-        logoutButton = NiceSpacingButton()
-        logoutButton.setupButton(title: "Logout", backgroundColor: #colorLiteral(red: 0.9995071292, green: 0.2495709658, blue: 0.2678492069, alpha: 1))
+
         self.addSubview(logoutButton)
         
         setupConstraints()

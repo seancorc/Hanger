@@ -9,14 +9,48 @@
 import UIKit
 
 class ChangePasswordView: UIView {
-    var currentPasswordTextField: UITextField!
-    var newPasswordTextField: UITextField!
-    var changePasswordButton: NiceSpacingButton!
     
-    init() {
-        super.init(frame: .zero)
+    lazy var currentPasswordTextField: UITextField = {
+        let textField = UITextField()
+        textField.clipsToBounds = true
+        textField.backgroundColor = .white
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        textField.placeholder = "Current Password"
+        textField.isSecureTextEntry = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.borderWidth = 2
+        return textField
+    }()
+    
+    lazy var newPasswordTextField: UITextField = {
+        let textField = UITextField()
+        textField.clipsToBounds = true
+        textField.backgroundColor = .white
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        textField.placeholder = "New Password"
+        textField.textAlignment = .center
+        textField.isSecureTextEntry = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.borderWidth = 2
+        return textField
+    }()
+    
+    lazy var changePasswordButton: NiceSpacingButton = {
+        let button = NiceSpacingButton()
+        button.setupButton(title: "Change Password", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+        return button
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        setupSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,38 +63,13 @@ class ChangePasswordView: UIView {
         newPasswordTextField.layer.cornerRadius = newPasswordTextField.frame.width / 10
     }
     
-    func setupSubviews() {
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        currentPasswordTextField = UITextField()
-        currentPasswordTextField.clipsToBounds = true
-        currentPasswordTextField.backgroundColor = .white
-        currentPasswordTextField.returnKeyType = .done
-        currentPasswordTextField.textColor = .black
-        currentPasswordTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
-        currentPasswordTextField.placeholder = "Current Password"
-        currentPasswordTextField.isSecureTextEntry = true
-        currentPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
-        currentPasswordTextField.textAlignment = .center
-        currentPasswordTextField.layer.borderColor = UIColor.gray.cgColor
-        currentPasswordTextField.layer.borderWidth = 2
         self.addSubview(currentPasswordTextField)
-        
-        newPasswordTextField = UITextField()
-        newPasswordTextField.clipsToBounds = true
-        newPasswordTextField.backgroundColor = .white
-        newPasswordTextField.returnKeyType = .done
-        newPasswordTextField.textColor = .black
-        newPasswordTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
-        newPasswordTextField.placeholder = "New Password"
-        newPasswordTextField.textAlignment = .center
-        newPasswordTextField.isSecureTextEntry = true
-        newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
-        newPasswordTextField.layer.borderColor = UIColor.gray.cgColor
-        newPasswordTextField.layer.borderWidth = 2
+
         self.addSubview(newPasswordTextField)
         
-        changePasswordButton = NiceSpacingButton()
-        changePasswordButton.setupButton(title: "Change Password", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
         self.addSubview(changePasswordButton)
         
         setupConstraints()

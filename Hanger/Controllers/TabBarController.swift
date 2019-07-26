@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
@@ -27,17 +27,7 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let redTopView = UIView()
-//        redTopView.translatesAutoresizingMaskIntoConstraints = false
-//        redTopView.backgroundColor = Global.ThemeColor.withAlphaComponent(0.4)
-//        self.tabBar.insertSubview(redTopView, at: 0)
-//        redTopView.snp.makeConstraints { (make) in
-//            make.top.equalToSuperview()
-//            make.centerX.equalToSuperview()
-//            make.width.equalToSuperview()
-//            make.height.equalTo(1)
-//        }
+        self.delegate = self
         
         self.tabBar.backgroundImage = UIImage.image(with: .clear) //Setup for frosty looking tab bar - .image(with: .clear) comes from HelpfulExtensions file
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -48,6 +38,18 @@ class TabBarController: UITabBarController {
         setUpTabBar()
     }
     
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController.isKind(of: SellClothesViewController.self) {
+            let vc =  SellClothesViewController()
+            vc.modalPresentationStyle = .overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+    
+    
     func setUpTabBar() {
         tabBar.tintColor = Global.ThemeColor
         
@@ -55,16 +57,19 @@ class TabBarController: UITabBarController {
         let homeNavController = UINavigationController(rootViewController: homePage)
         let homeIcon = UIImage(named: "homeicon")!.withRenderingMode(.alwaysTemplate)
         let homeTabItem = configureTabItem(title: "Home", icon: homeIcon)
+        homeTabItem.tag = 0
         homeNavController.tabBarItem = homeTabItem
         
         let sellClothesPage = SellClothesViewController()
         let createSaleTabItem = configureCenterTabItem()
+        createSaleTabItem.tag = 1
         sellClothesPage.tabBarItem = createSaleTabItem
         
         let messagesPage = MessageViewController(userManager: self.userManager)
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
         let messagesIcon = UIImage(named: "chaticon")!.withRenderingMode(.alwaysTemplate)
         let messagesTabItem = configureTabItem(title: "Messages", icon: messagesIcon)
+        messagesTabItem.tag = 2
         messagesNavController.tabBarItem = messagesTabItem
         
 //        let accountPage = AccountViewController(userManager: self.userManager, networkManager: self.networkManager, userDefaults: self.userDefaults)
@@ -73,7 +78,7 @@ class TabBarController: UITabBarController {
 //        let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)
 //        accountNavController.tabBarItem = accountTabItem
         
-        let viewsArray = [homeNavController, homeNavController, sellClothesPage, messagesNavController]
+        let viewsArray = [homeNavController, sellClothesPage, messagesNavController]
         self.viewControllers = viewsArray
         
     }
@@ -87,6 +92,7 @@ class TabBarController: UITabBarController {
     
     private func configureCenterTabItem() -> UITabBarItem {
         let tabItem = UITabBarItem(title: nil, image: UIImage(named: "sellclothesicon"), selectedImage: nil)
+        tabItem.imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
         return tabItem
     }
     

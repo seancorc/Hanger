@@ -9,7 +9,14 @@
 import UIKit
 
 class FilterCollectionViewCell: UICollectionViewCell {
-    var label: UILabel!
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 17 * Global.ScaleFactor)
+        label.textAlignment = .center
+        return label
+    }()
+    
     override var isSelected: Bool {
         didSet {
             UIView.animate(withDuration: 0.2) {
@@ -32,26 +39,22 @@ class FilterCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1
     }
     
-    
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        contentView.addSubview(label)
+    }
+    
     
     func initalSetup() {
-        
-        label = UILabel()
-        label.clipsToBounds = true
-        label.font = UIFont.systemFont(ofSize: 17 * Global.ScaleFactor)
-        label.textAlignment = .center
         self.backgroundView = label
-        
     }
     
     func configureCell(labelText: String) {
         self.label.text = labelText
-        setupConstraints()
     }
     
     func setupConstraints() {

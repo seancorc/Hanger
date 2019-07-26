@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "homeicon.png",
+      "filename" : "noun_Money_2732459.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "homeicon copy.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "noun_Home_887592-2.png",
       "scale" : "3x"
     }
   ],

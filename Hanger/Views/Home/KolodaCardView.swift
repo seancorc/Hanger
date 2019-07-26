@@ -10,73 +10,94 @@ import UIKit
 import SnapKit
 
 class KolodaCardView: UIView {
-    var nameLabel: UILabel!
-    var collectionView: UICollectionView!
-    var labelImageCenteringView: UIView!
-    var priceImageCenteringView: UIView!
-    var sellerImageView: UIImageView!
-    var priceLabel: UILabel!
-    var sellerNameLabel: UILabel!
+    override class var requiresConstraintBasedLayout: Bool {return true}
     
-    init() {
-        super.init(frame: UIScreen.main.bounds)
-        
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
+        return label
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.isPagingEnabled = true
+        cv.clipsToBounds = true
+        return cv
+    }()
+    
+    lazy var labelImageCenteringView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    lazy var priceImageCenteringView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var sellerImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    lazy var sellerNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .regular)
+        label.textAlignment = .left
+        label.textColor = .white
+        return label
+    }()
+    
+    lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
+        label.textColor = .white
+        label.textAlignment = .right
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.backgroundColor = Global.ThemeColor
         self.clipsToBounds = true
-        
-        setupSubviews()
-    }
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderWidth = 1
+        }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.layer.cornerRadius = collectionView.frame.height / 16
         sellerImageView.layer.cornerRadius = sellerImageView.frame.width / 2
-    }
+        }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupSubviews() {
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        labelImageCenteringView = UIView()
-        labelImageCenteringView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelImageCenteringView)
-        
-        priceImageCenteringView = UIView()
-        priceImageCenteringView.translatesAutoresizingMaskIntoConstraints = false
+
         self.addSubview(priceImageCenteringView)
         
-        nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.textColor = .white
-        nameLabel.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         self.addSubview(nameLabel)
         
-        let layout = UICollectionViewFlowLayout()
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.isPagingEnabled = true
-        collectionView.clipsToBounds = true
         self.addSubview(collectionView)
         
-        sellerImageView = UIImageView()
-        sellerImageView.translatesAutoresizingMaskIntoConstraints = false
-        sellerImageView.clipsToBounds = true
         self.addSubview(sellerImageView)
         
-        sellerNameLabel = UILabel()
-        sellerNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        sellerNameLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .regular)
-        sellerNameLabel.textAlignment = .left
-        sellerNameLabel.textColor = .white
         self.addSubview(sellerNameLabel)
         
-        priceLabel = UILabel()
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
-        priceLabel.textColor = .white
-        priceLabel.textAlignment = .right
         self.addSubview(priceLabel)
         
         setupConstraints()
@@ -90,6 +111,9 @@ class KolodaCardView: UIView {
     }
     
     func setupConstraints() {
+        let collectionViewCenterYOffset = -36 * Global.ScaleFactor
+        let sellerImageViewLeadingPadding = 24 * Global.ScaleFactor
+        
         labelImageCenteringView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.bottom.equalTo(collectionView.snp.top)
@@ -102,7 +126,7 @@ class KolodaCardView: UIView {
         
         collectionView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-self.frame.height * 0.03)
+            make.centerY.equalToSuperview().offset(collectionViewCenterYOffset)
             make.width.equalToSuperview().multipliedBy(0.75)
             make.height.equalTo(collectionView.snp.width).multipliedBy(16.0/9.0)
         }
@@ -113,9 +137,9 @@ class KolodaCardView: UIView {
         }
         
         sellerImageView.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(self.frame.width * 0.05)
-            make.top.equalTo(priceImageCenteringView.snp.top)
-            make.width.equalToSuperview().multipliedBy(0.2)
+            make.leading.equalToSuperview().offset(sellerImageViewLeadingPadding)
+            make.top.equalTo(priceImageCenteringView.snp.top).offset(4)
+            make.width.equalToSuperview().multipliedBy(0.16)
             make.height.equalTo(sellerImageView.snp.width)
         }
         

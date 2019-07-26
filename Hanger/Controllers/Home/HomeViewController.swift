@@ -57,7 +57,7 @@ extension HomeViewController {
             make.height.equalTo(accountButton.snp.width)
         }
         accountButton.addTarget(self, action: #selector(accountButtonPressed), for: .touchUpInside)
-        accountButton.setImage(UIImage(named: "sellerimage1") ?? UIImage(named: "accounticon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        accountButton.setImage(UIImage(named: "sellerimage") ?? UIImage(named: "accounticon")?.withRenderingMode(.alwaysTemplate), for: .normal)
         accountButton.imageView?.tintColor = .white
         accountButton.imageView?.contentMode = .scaleToFill
         accountButton.imageView?.clipsToBounds = true

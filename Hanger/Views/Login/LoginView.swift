@@ -10,20 +10,72 @@ import UIKit
 import SnapKit
 
 class LoginView: UIView {
-    var hangerView: UIImageView!
-    var loginButton: UIButton!
-    var signUpButton: UIButton!
-    var emailTextField: UITextField!
-    var passwordTextField: UITextField!
-    var divderImageView: UIImageView!
-    var dividerContainerView: UIView!
     
-    init() {
-        super.init(frame: .zero)
+    lazy var hangerView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "Hanger")?.withRenderingMode(.alwaysTemplate))
+        imageView.tintColor = .black
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy var loginButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        button.setTitle("Sign In", for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
+        button.setTitleColor(.white, for: UIControl.State.normal)
+        button.clipsToBounds = true
+        return button
+    }()
+    
+    lazy var signUpButton: UIButton = {
+        let button = UIButton()
+        let topText = NSMutableAttributedString(string: "Don't have an account? \n")
+        let bottomText = NSMutableAttributedString(string: "Sign up for free", attributes: [NSAttributedString.Key.foregroundColor:UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)])
+        topText.append(bottomText)
+        button.setAttributedTitle(topText, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.numberOfLines = 2
+        button.titleLabel?.textAlignment = .center
+        return button
+    }()
+    
+    lazy var emailTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18)
+        textField.placeholder = "Email"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        return textField
+    }()
+    
+    lazy var passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18)
+        textField.placeholder = "Password"
+        textField.textAlignment = .center
+        textField.isSecureTextEntry = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         self.backgroundColor = .white
         
-        setupSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,56 +88,17 @@ class LoginView: UIView {
     }
 
     
-    func setupSubviews() {
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview() //Call super just to be safe
         
-        hangerView = UIImageView(image: UIImage(named: "Hanger")?.withRenderingMode(.alwaysTemplate))
-        hangerView.tintColor = .black
-        hangerView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(hangerView)
         
-        emailTextField = UITextField()
-        emailTextField.autocapitalizationType = .none
-        emailTextField.autocorrectionType = .no
-        emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        emailTextField.returnKeyType = .done
-        emailTextField.textColor = .black
-        emailTextField.font = UIFont(name: "Helvetica", size: 18)
-        emailTextField.placeholder = "Email"
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.textAlignment = .center
         self.addSubview(emailTextField)
         
-        passwordTextField = UITextField()
-        passwordTextField.autocapitalizationType = .none
-        passwordTextField.autocorrectionType = .no
-        passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        passwordTextField.returnKeyType = .done
-        passwordTextField.textColor = .black
-        passwordTextField.font = UIFont(name: "Helvetica", size: 18)
-        passwordTextField.placeholder = "Password"
-        passwordTextField.textAlignment = .center
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
         
-        loginButton = UIButton()
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
-        loginButton.setTitle("Sign In", for: UIControl.State.normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
-        loginButton.setTitleColor(.white, for: UIControl.State.normal)
-        loginButton.clipsToBounds = true
         self.addSubview(loginButton)
         
-        signUpButton = UIButton()
-        let topText = NSMutableAttributedString(string: "Don't have an account? \n")
-        let bottomText = NSMutableAttributedString(string: "Sign up for free", attributes: [NSAttributedString.Key.foregroundColor:UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)])
-        topText.append(bottomText)
-        signUpButton.setAttributedTitle(topText, for: .normal)
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        signUpButton.titleLabel?.numberOfLines = 2
-        signUpButton.titleLabel?.textAlignment = .center
         self.addSubview(signUpButton)
         
         
@@ -93,31 +106,35 @@ class LoginView: UIView {
     }
     
     func setupConstraints() {
+        let hangerViewOffset = 96 * Global.ScaleFactor
+        let emailTextFieldLoginButtonOffset = 80 * Global.ScaleFactor
+        let passwordTextFieldOffset = 64 * Global.ScaleFactor
+        let signUpButtonOffset = 40 * Global.ScaleFactor
         
         hangerView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.5)
             make.height.equalToSuperview().multipliedBy(0.04)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(96 * Global.ScaleFactor)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(hangerViewOffset)
         }
         
         
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(hangerView.snp.bottom).offset(80 * Global.ScaleFactor)
+            make.top.equalTo(hangerView.snp.bottom).offset(emailTextFieldLoginButtonOffset)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(emailTextField.snp.bottom).offset(64 * Global.ScaleFactor)
+            make.top.equalTo(emailTextField.snp.bottom).offset(passwordTextFieldOffset)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         loginButton.snp.makeConstraints { (make) in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(80 * Global.ScaleFactor)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(emailTextFieldLoginButtonOffset)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalToSuperview().multipliedBy(0.08)
@@ -125,7 +142,7 @@ class LoginView: UIView {
         
         signUpButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(loginButton.snp.bottom).offset(40 * Global.ScaleFactor)
+            make.top.equalTo(loginButton.snp.bottom).offset(signUpButtonOffset)
         }
         
     }

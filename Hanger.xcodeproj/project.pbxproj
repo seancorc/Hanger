@@ -34,6 +34,8 @@
 		D6D87E8022E813B4006485BD /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E7F22E813B4006485BD /* SQLite.swift */; };
 		D6D87E8222E9483E006485BD /* NetworkErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8122E9483E006485BD /* NetworkErrorResponse.swift */; };
 		D6D87E8422E99072006485BD /* SupportingDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8322E99072006485BD /* SupportingDataStructures.swift */; };
+		D6D87E8622EACB0B006485BD /* SellClothesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8522EACB0B006485BD /* SellClothesView.swift */; };
+		D6D87E8822EAD293006485BD /* CustomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8722EAD293006485BD /* CustomOverlayView.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
@@ -122,6 +124,8 @@
 		D6D87E7F22E813B4006485BD /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		D6D87E8122E9483E006485BD /* NetworkErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorResponse.swift; sourceTree = "<group>"; };
 		D6D87E8322E99072006485BD /* SupportingDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingDataStructures.swift; sourceTree = "<group>"; };
+		D6D87E8522EACB0B006485BD /* SellClothesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesView.swift; sourceTree = "<group>"; };
+		D6D87E8722EAD293006485BD /* CustomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7122CDD54D00621E36 /* HardcodedMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedMessages.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 				D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */,
 				D6F05DAB22D2EFFC00621E36 /* Login */,
 				D63157E122C9F2EE00571558 /* Home */,
+				D6D87E8522EACB0B006485BD /* SellClothesView.swift */,
 				D6F05D6D22CDD50200621E36 /* Messages */,
 				D6F05DA022D291F300621E36 /* Account */,
 			);
@@ -309,6 +314,7 @@
 				D6F05DBC22DBFE4C00621E36 /* FilterView.swift */,
 				D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */,
 				D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */,
+				D6D87E8722EAD293006485BD /* CustomOverlayView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -683,6 +689,7 @@
 				D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */,
 				D6F05D7222CDD54D00621E36 /* HardcodedMessages.swift in Sources */,
 				D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */,
+				D6D87E8622EACB0B006485BD /* SellClothesView.swift in Sources */,
 				D6F05DB622D7018A00621E36 /* UserOperations.swift in Sources */,
 				D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */,
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,
@@ -707,6 +714,7 @@
 				D6D87E8222E9483E006485BD /* NetworkErrorResponse.swift in Sources */,
 				D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */,
 				D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */,
+				D6D87E8822EAD293006485BD /* CustomOverlayView.swift in Sources */,
 				D6F05DA622D2D97700621E36 /* RequestExecution.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

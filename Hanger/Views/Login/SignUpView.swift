@@ -9,17 +9,80 @@
 import UIKit
 
 class SignUpView: UIView {
-    var backButton: UIButton!
-    var signupLabel: UILabel!
-    var emailTextField: UITextField!
-    var usernameTextField: UITextField!
-    var passwordTextField: UITextField!
-    var signUpButton: UIButton!
     
-    init() {
-        super.init(frame: .zero)
+    lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "downarrow"), for: .normal)
+        return button
+    }()
+    
+    lazy var signupLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Sign Up"
+        label.font = UIFont.systemFont(ofSize: 36 * Global.ScaleFactor, weight: .bold)
+        return label
+    }()
+    
+    lazy var emailTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18)
+        textField.placeholder = "Email"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        return textField
+    }()
+    
+    lazy var usernameTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        textField.placeholder = "Username"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        return textField
+    }()
+    
+    lazy var passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        textField.returnKeyType = .done
+        textField.textColor = .black
+        textField.font = UIFont(name: "Helvetica", size: 18)
+        textField.placeholder = "Password"
+        textField.textAlignment = .center
+        textField.isSecureTextEntry = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    lazy var signUpButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        button.setTitle("Sign Up", for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
+        button.setTitleColor(.white, for: UIControl.State.normal)
+        button.clipsToBounds = true
+        return button
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.backgroundColor = .white
-        setupSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,65 +96,20 @@ class SignUpView: UIView {
     }
     
     
-    func setupSubviews() {
-        backButton = UIButton()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(named: "downarrow"), for: .normal)
-        self.addSubview(backButton)
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        signupLabel = UILabel()
-        signupLabel.textColor = .black
-        signupLabel.translatesAutoresizingMaskIntoConstraints = false
-        signupLabel.text = "Sign Up"
-        signupLabel.font = UIFont.systemFont(ofSize: 36 * Global.ScaleFactor, weight: .bold)
+        self.addSubview(dismissButton)
+        
         self.addSubview(signupLabel)
-        
-        emailTextField = UITextField()
-        emailTextField.autocapitalizationType = .none
-        emailTextField.autocorrectionType = .no
-        emailTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        emailTextField.returnKeyType = .done
-        emailTextField.textColor = .black
-        emailTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
-        emailTextField.placeholder = "Email"
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.textAlignment = .center
+
         self.addSubview(emailTextField)
         
-        usernameTextField = UITextField()
-        usernameTextField.autocapitalizationType = .none
-        usernameTextField.autocorrectionType = .no
-        usernameTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        usernameTextField.returnKeyType = .done
-        usernameTextField.textColor = .black
-        usernameTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
-        usernameTextField.placeholder = "Username"
-        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextField.textAlignment = .center
         self.addSubview(usernameTextField)
         
-        passwordTextField = UITextField()
-        passwordTextField.autocapitalizationType = .none
-        passwordTextField.autocorrectionType = .no
-        passwordTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        passwordTextField.returnKeyType = .done
-        passwordTextField.textColor = .black
-        passwordTextField.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
-        passwordTextField.placeholder = "Password"
-        passwordTextField.textAlignment = .center
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
         
-        signUpButton = UIButton()
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        signUpButton.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
-        signUpButton.setTitle("Sign Up", for: UIControl.State.normal)
-        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
-        signUpButton.setTitleColor(.white, for: UIControl.State.normal)
-        signUpButton.clipsToBounds = true
         self.addSubview(signUpButton)
-        
         
         setupConstraints()
     }
@@ -104,10 +122,10 @@ class SignUpView: UIView {
             make.top.equalToSuperview().offset(128 * Global.ScaleFactor)
         }
         
-        backButton.snp.makeConstraints { (make) in
+        dismissButton.snp.makeConstraints { (make) in
             make.leading.equalTo(self.snp.leading).offset(20 * Global.ScaleFactor)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20 * Global.ScaleFactor)
-            make.width.height.equalTo(Global.BackButtonSize)
+            make.width.height.equalTo(35 * Global.ScaleFactor)
         }
         
         emailTextField.snp.makeConstraints { (make) in
