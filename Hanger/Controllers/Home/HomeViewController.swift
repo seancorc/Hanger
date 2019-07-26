@@ -47,7 +47,22 @@ extension HomeViewController {
         filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
         filterButton.setTitle("Filter", for: .normal)
         filterButton.setTitleColor(.white, for: .normal)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: filterButton)
+        filterButton.setTitleColor(.darkGray, for: .highlighted)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
+        
+        let accountButton = UIButton()
+        accountButton.translatesAutoresizingMaskIntoConstraints = false
+        accountButton.snp.makeConstraints { (make) in
+            make.width.equalTo(self.view.frame.width * 0.08)
+            make.height.equalTo(accountButton.snp.width)
+        }
+        accountButton.addTarget(self, action: #selector(accountButtonPressed), for: .touchUpInside)
+        accountButton.setImage(UIImage(named: "sellerimage1") ?? UIImage(named: "accounticon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        accountButton.imageView?.tintColor = .white
+        accountButton.imageView?.contentMode = .scaleToFill
+        accountButton.imageView?.clipsToBounds = true
+        accountButton.imageView?.layer.cornerRadius = self.view.frame.width * 0.04
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: accountButton)
         
     }
     
@@ -55,6 +70,10 @@ extension HomeViewController {
         present(UINavigationController(rootViewController: FilterViewController()), animated: true, completion: nil)
     }
     
+    @objc func accountButtonPressed() {
+        let accountController = AccountViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
+        present(UINavigationController(rootViewController: accountController), animated: true, completion: nil)
+    }
     
 }
 

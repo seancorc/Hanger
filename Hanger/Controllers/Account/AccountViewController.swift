@@ -174,6 +174,15 @@ extension AccountViewController {
             let navButton = UIBarButtonItem(customView: button)
             return navButton
         }()
+        
+        let backButton = UIButton()
+        backButton.setImage(UIImage(named: "downarrow"), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+    }
+    
+    @objc func backButtonPressed() {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func saveButtonPressed() {

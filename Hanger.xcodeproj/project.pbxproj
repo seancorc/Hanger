@@ -61,7 +61,7 @@
 		D6F05DC022DBFF1B00621E36 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */; };
 		D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */; };
 		D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */; };
-		D6F05DC622DC48F000621E36 /* CreateSaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC522DC48F000621E36 /* CreateSaleViewController.swift */; };
+		D6F05DC622DC48F000621E36 /* SellClothesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */; };
 		EF594054ADAEE109503CB0C0 /* Pods_HangerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70346B35C8A9A9B6F6B02192 /* Pods_HangerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +149,7 @@
 		D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
-		D6F05DC522DC48F000621E36 /* CreateSaleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSaleViewController.swift; sourceTree = "<group>"; };
+		D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesViewController.swift; sourceTree = "<group>"; };
 		DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -284,7 +284,7 @@
 				D6F05DBE22DBFF0700621E36 /* Home */,
 				D6F05D7022CDD52D00621E36 /* Messages */,
 				D6F05DC722DC48F900621E36 /* Account */,
-				D6F05DC522DC48F000621E36 /* CreateSaleViewController.swift */,
+				D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -688,7 +688,7 @@
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,
 				D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */,
 				D63157EA22CB177800571558 /* GlobalConstants.swift in Sources */,
-				D6F05DC622DC48F000621E36 /* CreateSaleViewController.swift in Sources */,
+				D6F05DC622DC48F000621E36 /* SellClothesViewController.swift in Sources */,
 				D63157E022C9F2BC00571558 /* NiceSpacingViews.swift in Sources */,
 				D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */,
 				D6F05DA222D2925700621E36 /* ContentSizedTableView.swift in Sources */,
