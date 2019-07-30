@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+//NEEDS REFACTORING
 class MessageViewController: UIViewController {
     var messageView: MessageView!
     var editButton: UIBarButtonItem!

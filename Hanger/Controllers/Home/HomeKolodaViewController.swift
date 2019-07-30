@@ -54,9 +54,12 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         }
     }
     
-    func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        return CustomOverlayView()
-    }
+//    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
+//        if direction == SwipeResultDirection.right {
+//            guard let card = koloda.viewForCard(at: koloda.currentCardIndex) as? KolodaCardView else {return}
+//            card.priceLabel.textColor = UIColor(red: calculatedValue, green: 1 - ((100 - finishPercentage) / 100.0), blue: calculatedValue, alpha: 1)
+//        }
+//    }
     
 }
 
