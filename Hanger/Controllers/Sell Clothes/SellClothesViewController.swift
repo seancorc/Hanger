@@ -7,13 +7,34 @@
 //
 
 import UIKit
+import YPImagePicker
 
 class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
-
+    var imagePicker: YPImagePicker!
+    var imageArray = [UIImage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(white: 0.6, alpha: 0.6)
+        
+        var config = YPImagePickerConfiguration()
+        config.screens = [.library, .photo]
+        config.library.maxNumberOfItems = 5
+        config.shouldSaveNewPicturesToAlbum = false
+        config.showsPhotoFilters = false
+        imagePicker = YPImagePicker(configuration: config)
+        imagePicker.didFinishPicking {  [weak imagePicker] items, cancelled in
+            if !cancelled {
+                for item in items {
+                    switch item {
+                    case .photo(let photo): self.imageArray.append(photo.image); self.sellClothesView.collectionView.reloadData()
+                    case .video(_): print("No Video!")
+                    }
+                }
+            }
+            imagePicker?.dismiss(animated: true, completion: nil)
+        }
         
         sellClothesView = SellClothesView()
         sellClothesView.dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
@@ -39,31 +60,12 @@ class SellClothesViewController: UIViewController {
         alertController.addAction(nevermindAction)
         present(alertController, animated: true, completion: nil)
     }
-
+    
 }
 
 extension SellClothesViewController: UITextViewDelegate {
-    //fix
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.selectedRange = NSRange()
-        }
-    }
-    
     func textViewDidChange(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.textColor = .black
-            textView.text = ""
-            textView.toggleUnderline(nil)
-        }
-        
-        func textViewDidEndEditing(_ textView: UITextView) {
-            print("here")
-            if textView.text.isEmpty {
-                textView.attributedText = sellClothesView.placeholderTextViewText
-            }
-        }
-        
+        sellClothesView.descriptionPlaceholer.isHidden = !textView.text.isEmpty
     }
 }
 
@@ -73,7 +75,7 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
     func setupCollectionViewControl() {
         sellClothesView.collectionView.delegate = self
         sellClothesView.collectionView.dataSource = self
-        sellClothesView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Global.CellID)
+        sellClothesView.collectionView.register(SellClothesCollectionViewCell.self, forCellWithReuseIdentifier: Global.CellID)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -85,9 +87,20 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Global.CellID, for: indexPath)
-        cell.backgroundColor = .purple
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Global.CellID, for: indexPath) as! SellClothesCollectionViewCell
+        var image: UIImage? = nil
+        if indexPath.row < imageArray.count {
+            image = imageArray[indexPath.row]
+        } else if indexPath.row == imageArray.count {
+            image = UIImage(named: "cameraicon")
+            cell.imageView.backgroundColor = UIColor(white: 0.98, alpha: 1) 
+        }
+        cell.imageView.image = image
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        present(imagePicker, animated: true, completion: nil)
     }
     
     

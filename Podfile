@@ -10,7 +10,7 @@ target 'Hanger' do
     pod 'Koloda'
     pod 'Alamofire'
     pod 'Promises'
-
+    pod 'YPImagePicker', :inhibit_warnings => true
   target 'HangerTests' do
     inherit! :search_paths
     # Pods for testing

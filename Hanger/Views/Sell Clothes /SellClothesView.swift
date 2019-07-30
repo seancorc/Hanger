@@ -9,7 +9,7 @@
 import UIKit
 
 class SellClothesView: UIView {
-    var placeholderTextViewText: NSAttributedString = NSAttributedString(string: "Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+    private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
     
     lazy var dismissButton: UIButton = {
         let button = UIButton()
@@ -49,9 +49,15 @@ class SellClothesView: UIView {
         return view
     }()
     
+    lazy var descriptionPlaceholer: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.textColor = .lightGray
+        textView.textColor = .black
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
         return textView
@@ -103,8 +109,10 @@ class SellClothesView: UIView {
         
         self.addSubview(separatorView2)
         
-        descriptionTextView.attributedText = placeholderTextViewText
         self.addSubview(descriptionTextView)
+        
+        descriptionPlaceholer.attributedText = placeholderAttributedText
+        descriptionTextView.addSubview(descriptionPlaceholer)
         
         self.addSubview(separatorView3)
         
@@ -147,6 +155,11 @@ class SellClothesView: UIView {
             make.width.equalToSuperview().multipliedBy(0.9)
             make.centerX.equalToSuperview()
             make.height.equalTo(1)
+        }
+        
+        descriptionPlaceholer.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(4 * Global.ScaleFactor)
+            make.top.equalToSuperview().offset(8 * Global.ScaleFactor)
         }
         
         descriptionTextView.snp.makeConstraints { (make) in

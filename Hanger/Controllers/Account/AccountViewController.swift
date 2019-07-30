@@ -8,11 +8,7 @@
 
 import UIKit
 
-/*
- ToDos:
- 1. Check if changes made to email and username are valid
- 2. Optimize how much calls to the backend are being made (check if anything has actually changed rather than just if user entered editing mode)
- **/
+
 class AccountViewController: UIViewController {
     var accountView: AccountView!
     var imagePicker: UIImagePickerController!
@@ -95,7 +91,7 @@ class AccountViewController: UIViewController {
 extension AccountViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            accountView.profilePictureButton.setImage(image, for: .normal) //Temporary solution - Backend needed to act properly
+            accountView.profilePictureButton.setImage(image, for: .normal) 
         }
         dismiss(animated: true, completion: nil)
     }

@@ -69,19 +69,19 @@ class KolodaCardView: UIView {
         super.init(frame: frame)
         self.backgroundColor = Global.ThemeColor
         self.clipsToBounds = true
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.borderWidth = 1
         }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        collectionView.layer.cornerRadius = collectionView.frame.height / 16
+        collectionView.layer.cornerRadius = collectionView.frame.height / 35
         sellerImageView.layer.cornerRadius = sellerImageView.frame.width / 2
+        self.layer.cornerRadius = self.frame.height / 50
         }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -113,6 +113,7 @@ class KolodaCardView: UIView {
     func setupConstraints() {
         let collectionViewCenterYOffset = -36 * Global.ScaleFactor
         let sellerImageViewLeadingPadding = 24 * Global.ScaleFactor
+        let sellerImageViewTopPadding = 12 * Global.ScaleFactor
         
         labelImageCenteringView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
@@ -138,7 +139,7 @@ class KolodaCardView: UIView {
         
         sellerImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(sellerImageViewLeadingPadding)
-            make.top.equalTo(priceImageCenteringView.snp.top).offset(4)
+            make.top.equalTo(priceImageCenteringView.snp.top).offset(sellerImageViewTopPadding)
             make.width.equalToSuperview().multipliedBy(0.16)
             make.height.equalTo(sellerImageView.snp.width)
         }
