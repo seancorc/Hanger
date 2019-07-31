@@ -91,7 +91,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.messageView.tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! MessageTableViewCell
-        cell.configureCell(chatName: "Seller Name\nClothing Item", chatImage: #imageLiteral(resourceName: "sellerimage"), dateLastActive: Date().shortDate, previewMessage: "Preview Message")
+        cell.configureCell(chatName: "Seller Name\nClothing Item", chatImage: #imageLiteral(resourceName: "sellerimage"), previewMessage: "Preview Message")
         return cell
     }
     

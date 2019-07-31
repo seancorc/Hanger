@@ -9,29 +9,17 @@
 import UIKit
 
 class MessageView: UIView {
-    var tableView: UITableView!
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorStyle = .none
+        return tv
+    }()
     
-    
-    init() {
-        super.init(frame: .zero)
-        
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         self.backgroundColor = .white
-        
-        setupSubviews()
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupSubviews() {
-        tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
         self.addSubview(tableView)
-        
-        
         setupConstraints()
     }
     

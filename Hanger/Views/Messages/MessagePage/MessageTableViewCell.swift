@@ -9,11 +9,37 @@
 import UIKit
 
 class MessageTableViewCell: UITableViewCell {
-    var chatImageView: UIImageView!
-    var chatLabel: UILabel!
-    var previewMessageLabel: UILabel!
-    var seperatorLineView: UIView!
-    var timeLabel: UILabel!
+    lazy var chatImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = (self.frame.height - 20) / 2
+        return imageView
+    }()
+    
+    lazy var chatLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
+        return label
+    }()
+    
+    lazy var previewMessageLabel: UILabel = {
+        let previewMessageLabel = UILabel()
+        previewMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        previewMessageLabel.textColor = .gray
+        previewMessageLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
+        return previewMessageLabel
+    }()
+    
+    lazy var seperatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,54 +51,21 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     func setup() {
-        chatImageView = UIImageView()
-        chatImageView.translatesAutoresizingMaskIntoConstraints = false
-        chatImageView.clipsToBounds = true
-        chatImageView.layer.cornerRadius = (self.frame.height - 20) / 2
         contentView.addSubview(chatImageView)
         
-        chatLabel = UILabel()
-        chatLabel.numberOfLines = 2
-        chatLabel.translatesAutoresizingMaskIntoConstraints = false
-        chatLabel.textColor = .black
-        chatLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
         contentView.addSubview(chatLabel)
         
-        previewMessageLabel = UILabel()
-        previewMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        previewMessageLabel.textColor = .gray
-        previewMessageLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
         contentView.addSubview(previewMessageLabel)
         
-        timeLabel = UILabel()
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.textColor = .gray
-        timeLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
-        contentView.addSubview(timeLabel)
-        
-        seperatorLineView = UIView()
-        seperatorLineView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-        seperatorLineView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(seperatorLineView)
-        
-    }
+        }
     
-    func configureCell(chatName: String,
-                       chatImage: UIImage?,
-                       dateLastActive: String,
-                       previewMessage: String) {
-        chatLabel.text = nil
-        chatImageView.image = nil
-        timeLabel.text = nil
-        previewMessageLabel.text = nil
-        
+    func configureCell(chatName: String, chatImage: UIImage = UIImage(named: "accounticon")!, previewMessage: String) {
         chatLabel.text = chatName
-        chatImageView.image = chatImage ?? UIImage(named: "profileicon")
-        timeLabel.text = dateLastActive
+        chatImageView.image = chatImage
         previewMessageLabel.text = previewMessage
-        
         setupConstraints()
-    }
+        }
     
     func setupConstraints() {
         
@@ -102,18 +95,7 @@ class MessageTableViewCell: UITableViewCell {
             make.centerY.equalTo(self.snp.centerY).offset(16)
         }
         
-        timeLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
-            make.centerY.equalTo(self.snp.centerY).offset(-16)
-        }
     }
-    
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-    }
-    
 }
 
 

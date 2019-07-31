@@ -47,7 +47,6 @@
 		D6F05D8B22CDEC0B00621E36 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8722CDEC0B00621E36 /* ChatTableViewCell.swift */; };
 		D6F05D8C22CDEC0B00621E36 /* SelectableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */; };
 		D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8922CDEC0B00621E36 /* ChatView.swift */; };
-		D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */; };
 		D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */; };
 		D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9B22D291EB00621E36 /* AccountView.swift */; };
 		D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */; };
@@ -139,7 +138,6 @@
 		D6F05D8722CDEC0B00621E36 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableLabel.swift; sourceTree = "<group>"; };
 		D6F05D8922CDEC0B00621E36 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-		D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMessageHeaderView.swift; sourceTree = "<group>"; };
 		D6F05D9A22D291EA00621E36 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		D6F05D9B22D291EB00621E36 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D6F05D9C22D291EB00621E36 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
@@ -386,7 +384,6 @@
 			children = (
 				D6F05D8722CDEC0B00621E36 /* ChatTableViewCell.swift */,
 				D6F05D8922CDEC0B00621E36 /* ChatView.swift */,
-				D6F05D8A22CDEC0B00621E36 /* DateMessageHeaderView.swift */,
 				D6F05D8822CDEC0B00621E36 /* SelectableLabel.swift */,
 			);
 			path = ChatPage;
@@ -708,7 +705,6 @@
 				D6F05DA422D2937B00621E36 /* ChangePasswordViewController.swift in Sources */,
 				D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */,
 				D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */,
-				D6F05D8E22CDEC0B00621E36 /* DateMessageHeaderView.swift in Sources */,
 				D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */,
 				D63157DC22C9F25D00571558 /* HomeViewController.swift in Sources */,
 				D63157E822CB16C100571558 /* TabBarController.swift in Sources */,

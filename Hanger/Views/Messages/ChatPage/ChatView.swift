@@ -10,74 +10,78 @@ import UIKit
 import SnapKit
 
 class ChatView: UIView {
-    var messageInputContainerView: UIView!
-    var inputTextView: UITextView!
-    var topBorderView: UIView!
-    var tableView: UITableView!
-    var sendButton: UIButton!
-    var mediaButton: UIButton!
+    lazy var messageInputContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    lazy var inputTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isEditable = true
+        textView.textColor = .lightGray
+        textView.font = UIFont(name: "Helvetica", size: 18)
+        textView.text = "Enter Message..."
+        return textView
+    }()
+    
+    var topBorderView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        return view
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.separatorStyle = .none
+        tv.estimatedSectionHeaderHeight = 0
+        tv.estimatedSectionFooterHeight = 0
+        tv.allowsSelection = false
+        tv.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        tv.keyboardDismissMode = .interactive
+        return tv
+    }()
+    
+    lazy var sendButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "sendicon"), for: .normal)
+        return button
+    }()
+    
+    lazy var mediaButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "mediaicon"), for: .normal)
+        return button
+    }()
+    
     let textViewInitalHeight: CGFloat = 64
-
     
-    init() {
-        super.init(frame: .zero)
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        self.backgroundColor = .white
-        
-        setupSubviews()
-        self.bringSubviewToFront(inputTextView)
-        self.bringSubviewToFront(sendButton)
-
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    func setupSubviews() {
-        messageInputContainerView = UIView()
-        messageInputContainerView.backgroundColor = .white
         addSubview(messageInputContainerView)
         
-        inputTextView = UITextView()
-        inputTextView.translatesAutoresizingMaskIntoConstraints = false
-        inputTextView.isEditable = true
-        inputTextView.textColor = .lightGray
-        inputTextView.font = UIFont(name: "Helvetica", size: 18)
-        inputTextView.text = "Enter Message..."
         messageInputContainerView.addSubview(inputTextView)
         
-        sendButton = UIButton()
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.setBackgroundImage(UIImage(named: "sendicon"), for: .normal)
         messageInputContainerView.addSubview(sendButton)
         
-        mediaButton = UIButton()
-        mediaButton.translatesAutoresizingMaskIntoConstraints = false
-        mediaButton.setBackgroundImage(UIImage(named: "mediaicon"), for: .normal)
         messageInputContainerView.addSubview(mediaButton)
         
-        topBorderView = UIView()
-        topBorderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
         messageInputContainerView.addSubview(topBorderView)
         
-        
-        tableView = UITableView(frame: UIApplication.shared.keyWindow?.frame ?? .zero, style: .grouped)
-        tableView.separatorStyle = .none
-        //Disabling tableview cell self-sizing for header and footers because it is not necesary and caused label positioning issues when sending message
-        //Refrence - https://stackoverflow.com/questions/46246924/ios-11-floating-tableview-header/46257601#46257601
-        self.tableView.estimatedSectionHeaderHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
-        tableView.allowsSelection = false
-        tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        tableView.keyboardDismissMode = .interactive
         addSubview(tableView)
         
-    
-        setupConstraints()
+        self.backgroundColor = .white
+        self.bringSubviewToFront(inputTextView)
+        self.bringSubviewToFront(sendButton)
         
+        setupConstraints()
     }
+    
     
     func setupConstraints() {
         tableView.snp.makeConstraints { (make) in

@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Controllers/Home/FilterViewController.swift"
-            timestampString = "586243710.614675"
+            timestampString = "586246154.891095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -208,6 +208,22 @@
             startingLineNumber = "55"
             endingLineNumber = "55"
             landmarkName = "didMoveToSuperview()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hanger/Views/Messages/MessagePage/MessageTableViewCell.swift"
+            timestampString = "586246154.891275"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "setupConstraints()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

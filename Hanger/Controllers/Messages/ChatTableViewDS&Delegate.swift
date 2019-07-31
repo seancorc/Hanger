@@ -32,7 +32,7 @@ class ChatTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50 * Global.ScaleFactor
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
