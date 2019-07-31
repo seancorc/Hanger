@@ -11,7 +11,7 @@ import Koloda
 
 class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
     var homeView: HomeView!
-    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Nike Shirt", clothingImages: [UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Lulu Leggings", clothingImages: [UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Jordan Slip - Velcro", clothingImages: [UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
+    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Shirt", brand: "Nike", clothingImages: [UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Leggings", brand: "LuLu Lemon", clothingImages: [UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Velcro Edition", brand: "Jordan Slip", clothingImages: [UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
     var currentKolodaIndex = 0
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         let kolodaView = KolodaCardView()
         setupCollectionViewControl(collectionView: kolodaView.collectionView, index: index)
         let sellableClothingItem = hardcodedClothingItems[index]
-        kolodaView.configureSubviews(nameLabelText: sellableClothingItem.name, sellerImage: sellableClothingItem.sellerImage, sellerName: sellableClothingItem.sellerName, price: sellableClothingItem.price)
+        kolodaView.configureSubviews(name: sellableClothingItem.name, brand: sellableClothingItem.brand, sellerImage: sellableClothingItem.sellerImage, sellerName: sellableClothingItem.sellerName, price: sellableClothingItem.price)
         return kolodaView
     }
     

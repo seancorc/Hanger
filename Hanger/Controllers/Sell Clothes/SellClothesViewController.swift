@@ -12,6 +12,8 @@ import YPImagePicker
 class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
     var imagePicker: YPImagePicker!
+    let typeTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
+    let categoryTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"])
     var imageArray = [UIImage]()
     
     override func viewDidLoad() {
@@ -20,7 +22,6 @@ class SellClothesViewController: UIViewController {
         
         var config = YPImagePickerConfiguration()
         config.screens = [.library, .photo]
-        config.library.maxNumberOfItems = 5
         config.shouldSaveNewPicturesToAlbum = false
         config.showsPhotoFilters = false
         imagePicker = YPImagePicker(configuration: config)
@@ -37,6 +38,10 @@ class SellClothesViewController: UIViewController {
         }
         
         sellClothesView = SellClothesView()
+        sellClothesView.typeTableView.dataSource = typeTableViewDataSourceAndDelegate
+        sellClothesView.typeTableView.delegate = typeTableViewDataSourceAndDelegate
+        sellClothesView.categoryTableView.dataSource = categoryTableViewDataSourceAndDelegate
+        sellClothesView.categoryTableView.delegate = categoryTableViewDataSourceAndDelegate
         sellClothesView.dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         sellClothesView.translatesAutoresizingMaskIntoConstraints = false
         sellClothesView.descriptionTextView.delegate = self
@@ -93,14 +98,16 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
             image = imageArray[indexPath.row]
         } else if indexPath.row == imageArray.count {
             image = UIImage(named: "cameraicon")
-            cell.imageView.backgroundColor = UIColor(white: 0.98, alpha: 1) 
+            cell.imageView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         }
         cell.imageView.image = image
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        present(imagePicker, animated: true, completion: nil)
+        if indexPath.row == imageArray.count {
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     

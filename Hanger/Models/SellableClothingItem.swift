@@ -11,6 +11,7 @@ import UIKit
 
 struct SellableClothingItem {
     var name: String
+    var brand: String
     var clothingImages: [UIImage]
     var sellerImage: UIImage
     var sellerName: String

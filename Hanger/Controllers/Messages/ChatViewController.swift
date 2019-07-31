@@ -10,10 +10,8 @@ import UIKit
 
 class ChatViewController: UIViewController {
     var chatView: ChatView!
-    var bottomConstraint: NSLayoutConstraint!
-    var cellHeights: [IndexPath: CGFloat] = [:] //Used to store cellHeights in cellWillDisplayAt to fix bug caused by AutomaticDimension and a poor estimated height when sending message
     var imagePicker: UIImagePickerController!
-    var hardCodedMessages: [[ChatMessage]] = [[]]
+    var tableViewDataSourceAndDelegate = ChatTableViewDataSourceAndDelegate(messages: [ChatMessage(text: "Yooooo duder", isMyMessage: true)])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +42,6 @@ class ChatViewController: UIViewController {
             }
         }
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,16 +58,20 @@ class ChatViewController: UIViewController {
     @objc func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-            
             let isKeyboardOpen = notification.name == UIResponder.keyboardWillShowNotification
             let safeAreaOffset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
             chatView.updateConstraintsForKeyboard(amount: isKeyboardOpen ? (safeAreaOffset - keyboardFrame.height) : 0)
-            
             UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
             })
         }
         
+    }
+    
+    func setupTableViewControl() {
+        self.chatView.tableView.delegate = tableViewDataSourceAndDelegate
+        self.chatView.tableView.dataSource = tableViewDataSourceAndDelegate
+        self.chatView.tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: Global.CellID)
     }
     
     @objc func mediaButtonPressed() {
@@ -93,64 +94,8 @@ class ChatViewController: UIViewController {
             chatView.layoutIfNeeded()
         }
     }
-    
 }
 
-
-//Tableview control
-extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
-    func setupTableViewControl() {
-        self.chatView.tableView.delegate = self
-        self.chatView.tableView.dataSource = self
-        self.chatView.tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: Global.CellID)
-    }
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return hardCodedMessages.count
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let dateLabel = DateMessageHeaderView()
-        dateLabel.setupLabel(date: Date().shortDate)
-        let containerView = UIView()
-        containerView.addSubview(dateLabel)
-        containerView.bringSubviewToFront(dateLabel)
-        dateLabel.snp.makeConstraints { (make) in
-            make.center.equalTo(containerView.snp.center)
-        }
-        return containerView
-    }
-    
-    //Used to obtain accurate estimated row height ~ without this scrollToRowAt looks really jumpy and glitchy (https://stackoverflow.com/questions/28244475/reloaddata-of-uitableview-with-dynamic-cell-heights-causes-jumpy-scrolling)
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cellHeights[indexPath] = cell.frame.size.height
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeights[indexPath] ?? 150
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50 * Global.ScaleFactor
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hardCodedMessages[section].count
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = chatView.tableView.dequeueReusableCell(withIdentifier: Global.CellID, for: indexPath) as! ChatTableViewCell
-        let chatMessage = hardCodedMessages[indexPath.section][indexPath.row]
-        switch chatMessage.messageType {
-        case .photo: cell.configureCell(chatMessage: chatMessage)
-        case .text: cell.configureCell(chatMessage: chatMessage)
-        }
-        return cell
-    }
-    
-}
 
 //TextView Control
 extension ChatViewController: UITextViewDelegate {

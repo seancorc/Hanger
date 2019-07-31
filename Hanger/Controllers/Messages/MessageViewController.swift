@@ -84,7 +84,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            //userManager.messageData.hardcodedChats.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
             tableView.endUpdates()
         }
@@ -92,7 +91,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.messageView.tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! MessageTableViewCell
-        //let chat = self.userManager.messageData.hardcodedChats[indexPath.row]
         cell.configureCell(chatName: "Seller Name\nClothing Item", chatImage: #imageLiteral(resourceName: "sellerimage"), dateLastActive: Date().shortDate, previewMessage: "Preview Message")
         return cell
     }

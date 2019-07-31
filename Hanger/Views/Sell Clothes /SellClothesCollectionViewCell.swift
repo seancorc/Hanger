@@ -8,9 +8,7 @@
 
 import UIKit
 
-class SellClothesCollectionViewCell: UICollectionViewCell {
-    var haveDashedBorder: Bool = true
-    
+class SellClothesCollectionViewCell: UICollectionViewCell {    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,23 +28,26 @@ class SellClothesCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.backgroundColor = .white
+    }
+    
     override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         self.backgroundView = imageView
-        
         imageView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.size.equalTo(self.snp.size)
         }
         
         self.layer.addSublayer(imageBorder)
-            
     }
     
     

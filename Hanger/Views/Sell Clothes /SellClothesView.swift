@@ -2,14 +2,14 @@
 //  SellClothesView.swift
 //  Hanger
 //
-//  Created by Sean Corcoran on 7/25/19.
+//  Created by Sean Corcoran on 7/30/19.
 //  Copyright © 2019 SeanCorcoran. All rights reserved.
 //
 
 import UIKit
 
 class SellClothesView: UIView {
-    private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+    private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Brief Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
     
     lazy var dismissButton: UIButton = {
         let button = UIButton()
@@ -37,12 +37,28 @@ class SellClothesView: UIView {
     lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.attributedPlaceholder = NSAttributedString(string: "Name...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 24 * Global.ScaleFactor)])
-        textField.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
+        textField.attributedPlaceholder = NSAttributedString(string: "Title...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)])
+        textField.defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)]
+        textField.font = UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)
         return textField
     }()
     
     lazy var separatorView2: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    lazy var brandTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.attributedPlaceholder = NSAttributedString(string: "Brand...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)])
+        textField.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
+        return textField
+    }()
+    
+    lazy var separatorView3: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
@@ -63,13 +79,53 @@ class SellClothesView: UIView {
         return textView
     }()
     
-    lazy var separatorView3: UIView = {
+    lazy var separatorView4: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
         return view
     }()
     
+    
+    lazy var typeTableView: UITableView = {
+        let tv = UITableView()
+        tv.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        tv.isScrollEnabled = false
+        tv.separatorStyle = .none
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
+    
+    lazy var separatorView5: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    lazy var categoryTableView: UITableView = {
+        let tv = UITableView()
+        tv.separatorStyle = .none
+        tv.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
+    
+    lazy var separatorView6: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .center
+        return stackView
+    }()
+
     lazy var postButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -95,26 +151,30 @@ class SellClothesView: UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
-        postButton.layer.cornerRadius = postButton.frame.width / 10
+        postButton.layer.cornerRadius = postButton.frame.width / 16
+        typeTableView.layer.cornerRadius = self.frame.width / 24
+        categoryTableView.layer.cornerRadius = self.frame.width / 24
     }
     
     override func didMoveToSuperview() {
-        self.addSubview(dismissButton)
-        
-        self.addSubview(collectionView)
-        
-        self.addSubview(separatorView1)
-        
-        self.addSubview(nameTextField)
-        
-        self.addSubview(separatorView2)
-        
-        self.addSubview(descriptionTextView)
-        
+        stackView.addArrangedSubview(collectionView)
+        stackView.addArrangedSubview(separatorView1)
+        stackView.addArrangedSubview(nameTextField)
+        stackView.addArrangedSubview(separatorView2)
+        stackView.addArrangedSubview(brandTextField)
+        stackView.addArrangedSubview(separatorView3)
         descriptionPlaceholer.attributedText = placeholderAttributedText
         descriptionTextView.addSubview(descriptionPlaceholer)
+        stackView.addArrangedSubview(descriptionTextView)
+        stackView.addArrangedSubview(separatorView4)
+        stackView.addArrangedSubview(typeTableView)
+        stackView.addArrangedSubview(separatorView5)
+        stackView.addArrangedSubview(categoryTableView)
+        stackView.addArrangedSubview(separatorView6)
         
-        self.addSubview(separatorView3)
+        self.addSubview(dismissButton)
+
+        self.addSubview(stackView)
         
         self.addSubview(postButton)
         
@@ -123,56 +183,81 @@ class SellClothesView: UIView {
     
     func setupConstraints() {
         let padding = 24 * Global.ScaleFactor
+        
         dismissButton.snp.makeConstraints { (make) in
             make.size.equalTo(35 * Global.ScaleFactor)
             make.leading.equalToSuperview().offset(padding)
             make.top.equalToSuperview().offset(padding)
         }
         
-        collectionView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.95)
-            make.height.equalToSuperview().multipliedBy(0.1)
+        stackView.snp.makeConstraints { (make) in
             make.top.equalTo(dismissButton.snp.bottom).offset(padding)
+            make.bottom.equalTo(postButton.snp.top).offset(-padding)
+            make.leading.trailing.equalToSuperview()
         }
-        
+
+        collectionView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.95)
+            make.height.equalToSuperview().multipliedBy(0.13)
+        }
+
         separatorView1.snp.makeConstraints { (make) in
-            make.bottom.equalTo(nameTextField.snp.top)
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.centerX.equalToSuperview()
             make.height.equalTo(1)
         }
-        
+
         nameTextField.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalToSuperview().multipliedBy(0.1)
-            make.top.equalTo(collectionView.snp.bottom).offset(padding)
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
-        
+
         separatorView2.snp.makeConstraints { (make) in
-            make.top.equalTo(nameTextField.snp.bottom)
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.centerX.equalToSuperview()
             make.height.equalTo(1)
         }
-        
+
+        brandTextField.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.05)
+        }
+
+        separatorView3.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(1)
+        }
+
         descriptionPlaceholer.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(4 * Global.ScaleFactor)
             make.top.equalToSuperview().offset(8 * Global.ScaleFactor)
         }
-        
+
         descriptionTextView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.87)
-            make.height.equalToSuperview().multipliedBy(0.15)
-            make.top.equalTo(nameTextField.snp.bottom).offset(padding)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
         
-        separatorView3.snp.makeConstraints { (make) in
-            make.top.equalTo(descriptionTextView.snp.bottom)
+        separatorView4.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.centerX.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
+        typeTableView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalToSuperview().multipliedBy(0.22)
+        }
+        
+        separatorView5.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(1)
+        }
+        
+        categoryTableView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalToSuperview().multipliedBy(0.22)
+        }
+        
+        separatorView6.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(1)
         }
         
@@ -180,10 +265,13 @@ class SellClothesView: UIView {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-padding)
             make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalToSuperview().multipliedBy(0.08)
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
+        
+        
         
     }
     
     
 }
+

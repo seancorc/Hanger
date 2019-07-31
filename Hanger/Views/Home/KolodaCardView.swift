@@ -12,11 +12,12 @@ import SnapKit
 class KolodaCardView: UIView {
     override class var requiresConstraintBasedLayout: Bool {return true}
     
-    lazy var nameLabel: UILabel = {
+    lazy var nameandBrandLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         return label
     }()
     
@@ -90,7 +91,7 @@ class KolodaCardView: UIView {
 
         self.addSubview(priceImageCenteringView)
         
-        self.addSubview(nameLabel)
+        self.addSubview(nameandBrandLabel)
         
         self.addSubview(collectionView)
         
@@ -103,15 +104,18 @@ class KolodaCardView: UIView {
         setupConstraints()
     }
     
-    func configureSubviews(nameLabelText: String, sellerImage: UIImage, sellerName: String, price: Int) {
-        nameLabel.text = nameLabelText
+    func configureSubviews(name: String, brand: String, sellerImage: UIImage, sellerName: String, price: Int) {
+        let mainString = NSMutableAttributedString(string: "\(name)\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)])
+        let brandString = NSMutableAttributedString(string: brand, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18 * Global.ScaleFactor, weight: .medium)])
+        mainString.append(brandString)
+        nameandBrandLabel.attributedText = mainString
         sellerImageView.image = sellerImage
         sellerNameLabel.text = sellerName
         priceLabel.text = "$\(price)"
     }
     
     func setupConstraints() {
-        let collectionViewCenterYOffset = -36 * Global.ScaleFactor
+        let collectionViewCenterYOffset = -24 * Global.ScaleFactor
         let sellerImageViewLeadingPadding = 24 * Global.ScaleFactor
         let sellerImageViewTopPadding = 12 * Global.ScaleFactor
         
@@ -120,7 +124,7 @@ class KolodaCardView: UIView {
             make.bottom.equalTo(collectionView.snp.top)
         }
         
-        nameLabel.snp.makeConstraints { (make) in
+        nameandBrandLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalTo(labelImageCenteringView.snp.centerY)
         }
@@ -129,7 +133,7 @@ class KolodaCardView: UIView {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(collectionViewCenterYOffset)
             make.width.equalToSuperview().multipliedBy(0.75)
-            make.height.equalTo(collectionView.snp.width).multipliedBy(16.0/9.0)
+            make.height.equalTo(collectionView.snp.width).multipliedBy(15.0/9.0)
         }
         
         priceImageCenteringView.snp.makeConstraints { (make) in

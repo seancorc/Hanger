@@ -132,7 +132,6 @@ extension FilterViewController {
         navigationItem.title = "Filters"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetButtonPressed))
-        
     }
     
     @objc func cancelButtonPressed() {
