@@ -10,12 +10,21 @@ import UIKit
 
 class SellClothesView: UIView {
     private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Brief Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+    private let padding = 24 * Global.ScaleFactor
+
     
     lazy var dismissButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "exiticon"), for: .normal)
         return button
+    }()
+    
+    lazy var sellYourClothesLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.attributedText = NSAttributedString(string: "Sell Your Clothes", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica-Bold", size: 18 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1])
+        return label
     }()
     
     lazy var collectionView: UICollectionView = {
@@ -89,8 +98,12 @@ class SellClothesView: UIView {
     
     lazy var typeTableView: UITableView = {
         let tv = UITableView()
-        tv.backgroundColor = UIColor(white: 0.97, alpha: 1)
-        tv.isScrollEnabled = false
+        let headerView = UILabel()
+        headerView.textAlignment = .center
+        headerView.font = UIFont(name: "Helvetica-Bold", size: 16 * Global.ScaleFactor)
+        headerView.text = "Type"
+        headerView.backgroundColor = .white
+        tv.tableHeaderView = headerView
         tv.separatorStyle = .none
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
@@ -105,8 +118,13 @@ class SellClothesView: UIView {
     
     lazy var categoryTableView: UITableView = {
         let tv = UITableView()
+        let headerView = UILabel()
+        headerView.textAlignment = .center
+        headerView.backgroundColor = .white
+        headerView.font = UIFont(name: "Helvetica-Bold", size: 16 * Global.ScaleFactor)
+        headerView.text = "Category"
+        tv.tableHeaderView = headerView
         tv.separatorStyle = .none
-        tv.backgroundColor = UIColor(white: 0.97, alpha: 1)
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
@@ -151,7 +169,9 @@ class SellClothesView: UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
-        postButton.layer.cornerRadius = postButton.frame.width / 16
+        typeTableView.sizeHeaderToFit(padding: padding)
+        categoryTableView.sizeHeaderToFit(padding: padding)
+        postButton.layer.cornerRadius = postButton.frame.width / 24
         typeTableView.layer.cornerRadius = self.frame.width / 24
         categoryTableView.layer.cornerRadius = self.frame.width / 24
     }
@@ -173,6 +193,8 @@ class SellClothesView: UIView {
         stackView.addArrangedSubview(separatorView6)
         
         self.addSubview(dismissButton)
+        
+        self.addSubview(sellYourClothesLabel)
 
         self.addSubview(stackView)
         
@@ -182,7 +204,11 @@ class SellClothesView: UIView {
     }
     
     func setupConstraints() {
-        let padding = 24 * Global.ScaleFactor
+        
+        sellYourClothesLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(dismissButton.snp.centerY)
+            make.centerX.equalToSuperview()
+        }
         
         dismissButton.snp.makeConstraints { (make) in
             make.size.equalTo(35 * Global.ScaleFactor)
@@ -192,7 +218,7 @@ class SellClothesView: UIView {
         
         stackView.snp.makeConstraints { (make) in
             make.top.equalTo(dismissButton.snp.bottom).offset(padding)
-            make.bottom.equalTo(postButton.snp.top).offset(-padding)
+            make.bottom.equalTo(postButton.snp.top).offset(-padding / 2)
             make.leading.trailing.equalToSuperview()
         }
 
@@ -253,7 +279,7 @@ class SellClothesView: UIView {
         
         categoryTableView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalToSuperview().multipliedBy(0.22)
+            make.height.equalToSuperview().multipliedBy(0.25)
         }
         
         separatorView6.snp.makeConstraints { (make) in

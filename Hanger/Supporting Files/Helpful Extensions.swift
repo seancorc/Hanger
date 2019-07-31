@@ -74,3 +74,19 @@ extension String {
     }
 }
 
+extension UITableView {
+    func sizeHeaderToFit(padding: CGFloat) {
+        guard let headerView = self.tableHeaderView else {return}
+        
+        headerView.setNeedsLayout()
+        headerView.layoutIfNeeded()
+        
+        let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height + padding
+        var frame = headerView.frame
+        frame.size.height = height
+        headerView.frame = frame
+        
+        self.tableHeaderView = headerView
+    }
+}
+

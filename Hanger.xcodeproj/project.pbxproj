@@ -34,7 +34,6 @@
 		D6D87E8022E813B4006485BD /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E7F22E813B4006485BD /* SQLite.swift */; };
 		D6D87E8222E9483E006485BD /* NetworkErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8122E9483E006485BD /* NetworkErrorResponse.swift */; };
 		D6D87E8422E99072006485BD /* SupportingDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8322E99072006485BD /* SupportingDataStructures.swift */; };
-		D6D87E8622EACB0B006485BD /* SellClothesView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8522EACB0B006485BD /* SellClothesView1.swift */; };
 		D6D87E8B22F0D406006485BD /* SellClothesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8A22F0D406006485BD /* SellClothesCollectionViewCell.swift */; };
 		D6D87E9022F139D0006485BD /* SellClothesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8F22F139D0006485BD /* SellClothesView.swift */; };
 		D6D87E9222F14700006485BD /* GeneralTableViewDS&Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9122F14700006485BD /* GeneralTableViewDS&Delegates.swift */; };
@@ -125,7 +124,6 @@
 		D6D87E7F22E813B4006485BD /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		D6D87E8122E9483E006485BD /* NetworkErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorResponse.swift; sourceTree = "<group>"; };
 		D6D87E8322E99072006485BD /* SupportingDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingDataStructures.swift; sourceTree = "<group>"; };
-		D6D87E8522EACB0B006485BD /* SellClothesView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesView1.swift; sourceTree = "<group>"; };
 		D6D87E8A22F0D406006485BD /* SellClothesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6D87E8F22F139D0006485BD /* SellClothesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesView.swift; sourceTree = "<group>"; };
 		D6D87E9122F14700006485BD /* GeneralTableViewDS&Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneralTableViewDS&Delegates.swift"; sourceTree = "<group>"; };
@@ -336,9 +334,8 @@
 		D6D87E8922F0D3DF006485BD /* Sell Clothes  */ = {
 			isa = PBXGroup;
 			children = (
-				D6D87E8522EACB0B006485BD /* SellClothesView1.swift */,
-				D6D87E8A22F0D406006485BD /* SellClothesCollectionViewCell.swift */,
 				D6D87E8F22F139D0006485BD /* SellClothesView.swift */,
+				D6D87E8A22F0D406006485BD /* SellClothesCollectionViewCell.swift */,
 			);
 			path = "Sell Clothes ";
 			sourceTree = "<group>";
@@ -714,7 +711,6 @@
 				D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */,
 				D6D87E9422F15C5F006485BD /* ChatTableViewDS&Delegate.swift in Sources */,
 				D6F05D8D22CDEC0B00621E36 /* ChatView.swift in Sources */,
-				D6D87E8622EACB0B006485BD /* SellClothesView1.swift in Sources */,
 				D6F05DB622D7018A00621E36 /* UserOperations.swift in Sources */,
 				D63157DA22C9F21400571558 /* LoginViewController.swift in Sources */,
 				D6F05D7A22CDD81C00621E36 /* HelpfulFunctions.swift in Sources */,

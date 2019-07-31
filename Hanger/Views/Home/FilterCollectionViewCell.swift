@@ -34,7 +34,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.cornerRadius = self.frame.width / 6
+        self.layer.cornerRadius = self.frame.width / 8
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.borderWidth = 1
     }

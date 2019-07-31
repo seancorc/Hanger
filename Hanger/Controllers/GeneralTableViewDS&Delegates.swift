@@ -32,11 +32,16 @@ class GeneralTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UI
         return stringArray.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45 * Global.ScaleFactor
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: Global.CellID)
         cell.selectionStyle = .none
-        cell.backgroundColor = tableView.backgroundColor
+        cell.backgroundColor = UIColor(white: 0.98, alpha: 1)
         cell.textLabel?.text = stringArray[indexPath.row]
+        cell.textLabel?.font = UIFont(name: "Helvetica", size: 14 * Global.ScaleFactor)
         cell.textLabel?.backgroundColor = .clear
         return cell
     }

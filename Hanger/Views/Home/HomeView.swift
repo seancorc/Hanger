@@ -61,7 +61,7 @@ class HomeView: UIView {
         kolodaView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(kolodaView.snp.width).multipliedBy(16.0/9.0)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.9)
         }
         
         

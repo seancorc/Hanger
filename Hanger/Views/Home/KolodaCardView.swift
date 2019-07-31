@@ -133,7 +133,7 @@ class KolodaCardView: UIView {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(collectionViewCenterYOffset)
             make.width.equalToSuperview().multipliedBy(0.75)
-            make.height.equalTo(collectionView.snp.width).multipliedBy(15.0/9.0)
+            make.height.equalToSuperview().multipliedBy(0.75)
         }
         
         priceImageCenteringView.snp.makeConstraints { (make) in
@@ -144,8 +144,8 @@ class KolodaCardView: UIView {
         sellerImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(sellerImageViewLeadingPadding)
             make.top.equalTo(priceImageCenteringView.snp.top).offset(sellerImageViewTopPadding)
-            make.width.equalToSuperview().multipliedBy(0.16)
-            make.height.equalTo(sellerImageView.snp.width)
+            make.height.equalToSuperview().multipliedBy(0.1)
+            make.width.equalTo(sellerImageView.snp.height)
         }
         
         sellerNameLabel.snp.makeConstraints { (make) in
