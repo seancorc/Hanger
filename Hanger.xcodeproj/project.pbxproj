@@ -41,6 +41,7 @@
 		D6D87E9722FA2BCB006485BD /* SellClothesInitalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */; };
 		D6D87E9922FA3439006485BD /* SellClothesInitalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */; };
 		D6D87E9B22FA5AEB006485BD /* PriceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */; };
+		D6D87E9D22FA5FF2006485BD /* NoSelectionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9C22FA5FF2006485BD /* NoSelectionTextField.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
 		D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */; };
@@ -134,6 +135,7 @@
 		D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalView.swift; sourceTree = "<group>"; };
 		D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalViewController.swift; sourceTree = "<group>"; };
 		D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldDelegate.swift; sourceTree = "<group>"; };
+		D6D87E9C22FA5FF2006485BD /* NoSelectionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSelectionTextField.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			children = (
 				D63157DF22C9F2BC00571558 /* NiceSpacingViews.swift */,
 				D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */,
+				D6D87E9C22FA5FF2006485BD /* NoSelectionTextField.swift */,
 				D6F05DAB22D2EFFC00621E36 /* Login */,
 				D63157E122C9F2EE00571558 /* Home */,
 				D6D87E8922F0D3DF006485BD /* Sell Clothes  */,
@@ -706,6 +709,7 @@
 				D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */,
 				D6F05D8622CDEB4800621E36 /* ChatMessage.swift in Sources */,
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
+				D6D87E9D22FA5FF2006485BD /* NoSelectionTextField.swift in Sources */,
 				D63157DE22C9F28800571558 /* LoginView.swift in Sources */,
 				D63157F422CC906100571558 /* AccountViewController.swift in Sources */,
 				D6D87E9B22FA5AEB006485BD /* PriceTextFieldDelegate.swift in Sources */,

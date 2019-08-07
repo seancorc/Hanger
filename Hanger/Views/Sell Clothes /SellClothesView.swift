@@ -66,8 +66,8 @@ class SellClothesView: UIView {
         return button
     }()
     
-    lazy var priceTextField: UITextField = {
-        let textField = UITextField()
+    lazy var priceTextField: NoSelectTextField = {
+        let textField = NoSelectTextField()
         textField.keyboardType = UIKeyboardType.decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(string: "Price...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)])

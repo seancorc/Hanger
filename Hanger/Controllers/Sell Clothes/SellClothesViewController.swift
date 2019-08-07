@@ -9,6 +9,7 @@
 import UIKit
 import YPImagePicker
 
+//TODO: Adjust view for keyboard 
 class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
     var imagePicker: YPImagePicker!
@@ -73,6 +74,11 @@ extension SellClothesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         sellClothesView.descriptionPlaceholer.isHidden = !textView.text.isEmpty
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        sellClothesView.descriptionPlaceholer.isHidden = !textView.text.isEmpty
+    }
+    
 }
 
 
