@@ -61,11 +61,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         homeTabItem.tag = 0
         homeNavController.tabBarItem = homeTabItem
         
-        let initalSellClothesPage = SellClothesInitalViewController()
-        let navInitalSellClothesController = UINavigationController(rootViewController: initalSellClothesPage)
+        let fillerVC = UIViewController()
         let createSaleTabItem = configureCenterTabItem()
         createSaleTabItem.tag = 1
-        navInitalSellClothesController.tabBarItem = createSaleTabItem
+        fillerVC.tabBarItem = createSaleTabItem
         
         let messagesPage = MessageViewController(userManager: self.userManager)
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
@@ -80,7 +79,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 //        let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)
 //        accountNavController.tabBarItem = accountTabItem
         
-        let viewsArray = [homeNavController, navInitalSellClothesController, messagesNavController]
+        let viewsArray = [homeNavController, fillerVC, messagesNavController]
         self.viewControllers = viewsArray
         
     }

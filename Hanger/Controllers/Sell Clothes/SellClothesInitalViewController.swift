@@ -11,9 +11,13 @@ import YPImagePicker
 
 class SellClothesInitalViewController: UIViewController {
     var sellClothesInitalView: SellClothesInitalView!
-    let typeTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
-    let categoryTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"])
+    var typeTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
+    var categoryTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"])
     var imagePicker: YPImagePicker!
+    
+    deinit {
+        print("inital deinited")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +29,11 @@ class SellClothesInitalViewController: UIViewController {
         config.shouldSaveNewPicturesToAlbum = false
         config.showsPhotoFilters = false
         imagePicker = YPImagePicker(configuration: config)
-        imagePicker.didFinishPicking {  [weak imagePicker, weak self] items, cancelled in
+        imagePicker.didFinishPicking {  [weak imagePicker, unowned self] items, cancelled in
             if !cancelled {
                 for item in items {
                     switch item {
-                    case .photo(let photo): self?.navigationController?.pushViewController(SellClothesViewController(image: photo.image), animated: true);
+                    case .photo(let photo): self.navigationController?.pushViewController(SellClothesViewController(image: photo.image, imagePicker: self.imagePicker), animated: true);
                     case .video(_): print("No Video!")
                     }
                 }

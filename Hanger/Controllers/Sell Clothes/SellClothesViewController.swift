@@ -9,15 +9,19 @@
 import UIKit
 import YPImagePicker
 
-//TODO: Adjust view for keyboard 
 class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
     var imagePicker: YPImagePicker!
     var imageArray = [UIImage]()
     var priceTextFieldDelegate: PriceTextFieldDelegate!
     
-    init(image: UIImage) {
+    deinit {
+        print("regular deinited")
+    }
+    
+    init(image: UIImage, imagePicker: YPImagePicker) {
         imageArray.append(image)
+        self.imagePicker = imagePicker
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,12 +34,12 @@ class SellClothesViewController: UIViewController {
         setupNavBar()
         view.backgroundColor = UIColor(white: 0.6, alpha: 0.6)
         
-        var config = YPImagePickerConfiguration()
-        config.screens = [.library, .photo]
-        config.shouldSaveNewPicturesToAlbum = false
-        config.showsPhotoFilters = false
-        imagePicker = YPImagePicker(configuration: config)
-        imagePicker.didFinishPicking {  [weak imagePicker] items, cancelled in
+//        var config = YPImagePickerConfiguration()
+//        config.screens = [.library, .photo]
+//        config.shouldSaveNewPicturesToAlbum = false
+//        config.showsPhotoFilters = false
+//        imagePicker = YPImagePicker(configuration: config)
+        imagePicker.didFinishPicking {  [weak imagePicker, unowned self] items, cancelled in
             if !cancelled {
                 for item in items {
                     switch item {
@@ -55,6 +59,7 @@ class SellClothesViewController: UIViewController {
         sellClothesView.nameTextField.delegate = self
         sellClothesView.brandTextField.delegate = self
         sellClothesView.keyboardDoneButton.addTarget(self, action: #selector(keyboardDoneButtonPressed), for: .touchUpInside)
+        sellClothesView.postButton.addTarget(self, action: #selector(postButtonPressed), for: .touchUpInside)
         view.addSubview(sellClothesView)
         sellClothesView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -78,9 +83,8 @@ class SellClothesViewController: UIViewController {
             
             let isKeyboardOpen = notification.name == UIResponder.keyboardWillShowNotification
             
-            let safeAreaOffset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
             if sellClothesView.priceTextField.isFirstResponder || sellClothesView.descriptionTextView.isFirstResponder {
-                sellClothesView.updateConstraintsForKeyboard(amount: isKeyboardOpen ? (safeAreaOffset - keyboardFrame.height) : 0)
+                sellClothesView.updateConstraintsForKeyboard(amount: isKeyboardOpen ?  -keyboardFrame.height : 0)
             }
             
             UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -95,6 +99,9 @@ class SellClothesViewController: UIViewController {
 extension SellClothesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         sellClothesView.descriptionPlaceholer.isHidden = !textView.text.isEmpty
+        if textView.layer.borderColor == UIColor.red.cgColor {
+            textView.inputGiven(borderColor: UIColor.lightGray.cgColor, borderWidth: 1)
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -109,6 +116,14 @@ extension SellClothesViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return false
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.layer.borderWidth == 1 {
+            textField.inputGiven()
+        }
+         return true
+    }
+    
 }
 
 
@@ -185,7 +200,14 @@ extension SellClothesViewController {
     }
     
     @objc func postButtonPressed() {
-        
+        for view in sellClothesView.stackView.arrangedSubviews {
+            if let tf = view as? UITextField {
+                if !tf.hasText {tf.needsInputBeforeContinuing()}
+            }
+            if let tv = view as? UITextView {
+                if tv.text.isEmpty {tv.needsInputBeforeContinuing()}
+            }
+        }
     }
     
 }

@@ -104,16 +104,16 @@ extension UIView {
     /**
      Reverses effects of a call to 'needsInputBeforeContinuing'
      */
-    func inputGiven() {
-        self.layer.borderColor = nil
-        self.layer.borderWidth = 0
+    func inputGiven(borderColor: CGColor? = nil, borderWidth: CGFloat = 0) {
+        self.layer.borderColor = borderColor
+        self.layer.borderWidth = borderWidth
     }
     
     func shake() {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.duration = 0.6
-        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        animation.duration = 0.3
+        animation.values = [-10.0, 10.0, -5.0, 5.0, 0.0 ]
         layer.add(animation, forKey: "shake")
     }
 }

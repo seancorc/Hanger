@@ -90,6 +90,9 @@ class SellClothesView: UIView {
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.isScrollEnabled = false
+        textView.layer.borderWidth = 1
         textView.textColor = .black
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
@@ -229,7 +232,7 @@ class SellClothesView: UIView {
 
         descriptionTextView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.87)
-            make.height.equalToSuperview().multipliedBy(0.15)
+            make.height.equalToSuperview().multipliedBy(0.18)
         }
         
         separatorView5.snp.makeConstraints { (make) in
@@ -245,10 +248,12 @@ class SellClothesView: UIView {
     }
     
     func updateConstraintsForKeyboard(amount: CGFloat) {
-        scrollView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(padding + amount)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(amount)
+        stackView.snp.remakeConstraints { (make) in
+            make.top.equalToSuperview().offset(amount)
+            make.bottom.equalToSuperview().offset(amount)
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height)
+            make.width.equalToSuperview()
         }
     }
 
