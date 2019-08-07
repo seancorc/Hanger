@@ -40,10 +40,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController.isKind(of: SellClothesViewController.self) {
-            let vc =  SellClothesViewController()
-            vc.modalPresentationStyle = .overCurrentContext
-            self.present(vc, animated: true, completion: nil)
+        if tabBarController.tabBar.selectedItem?.tag == 1 {
+            let initalSellClothesPage = SellClothesInitalViewController()
+            let navInitalSellClothesController = UINavigationController(rootViewController: initalSellClothesPage)
+            navInitalSellClothesController.modalPresentationStyle = .overCurrentContext
+            present(navInitalSellClothesController, animated: true, completion: nil)
             return false
         }
         return true
@@ -60,10 +61,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         homeTabItem.tag = 0
         homeNavController.tabBarItem = homeTabItem
         
-        let sellClothesPage = SellClothesViewController()
+        let initalSellClothesPage = SellClothesInitalViewController()
+        let navInitalSellClothesController = UINavigationController(rootViewController: initalSellClothesPage)
         let createSaleTabItem = configureCenterTabItem()
         createSaleTabItem.tag = 1
-        sellClothesPage.tabBarItem = createSaleTabItem
+        navInitalSellClothesController.tabBarItem = createSaleTabItem
         
         let messagesPage = MessageViewController(userManager: self.userManager)
         let messagesNavController = UINavigationController(rootViewController: messagesPage)
@@ -78,7 +80,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 //        let accountTabItem = configureTabItem(title: "Account", icon: accountIcon)
 //        accountNavController.tabBarItem = accountTabItem
         
-        let viewsArray = [homeNavController, sellClothesPage, messagesNavController]
+        let viewsArray = [homeNavController, navInitalSellClothesController, messagesNavController]
         self.viewControllers = viewsArray
         
     }

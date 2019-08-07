@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 fileprivate let fade = CABasicAnimation(keyPath: "backgroundColor")
-fileprivate func fadeAnimation(cell: UITableViewCell) {
+fileprivate func selectedAnimation(cell: UITableViewCell) {
     fade.fromValue = cell.backgroundColor?.cgColor
     fade.toValue = UIColor.gray.cgColor
     fade.duration = 0.15
@@ -33,7 +33,7 @@ class GeneralTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45 * Global.ScaleFactor
+        return 75 * Global.ScaleFactor
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,12 +43,14 @@ class GeneralTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UI
         cell.textLabel?.text = stringArray[indexPath.row]
         cell.textLabel?.font = UIFont(name: "Helvetica", size: 14 * Global.ScaleFactor)
         cell.textLabel?.backgroundColor = .clear
+        if tableView.indexPathForSelectedRow == indexPath {cell.accessoryType = .checkmark}
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else {return}
-        fadeAnimation(cell: cell)
+        selectedAnimation(cell: cell)
+        tableView.inputGiven()
         cell.accessoryType = .checkmark
     }
     

@@ -72,7 +72,7 @@ class SignUpView: UIView {
     lazy var signUpButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1)
+        button.backgroundColor = UIColor(red: 28/255, green: 183/255, blue: 1, alpha: 1)
         button.setTitle("Sign Up", for: UIControl.State.normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         button.setTitleColor(.white, for: UIControl.State.normal)

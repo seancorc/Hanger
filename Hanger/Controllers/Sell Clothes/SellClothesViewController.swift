@@ -12,12 +12,20 @@ import YPImagePicker
 class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
     var imagePicker: YPImagePicker!
-    let typeTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
-    let categoryTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"])
     var imageArray = [UIImage]()
+    
+    init(image: UIImage) {
+        imageArray.append(image)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         view.backgroundColor = UIColor(white: 0.6, alpha: 0.6)
         
         var config = YPImagePickerConfiguration()
@@ -38,32 +46,14 @@ class SellClothesViewController: UIViewController {
         }
         
         sellClothesView = SellClothesView()
-        sellClothesView.typeTableView.dataSource = typeTableViewDataSourceAndDelegate
-        sellClothesView.typeTableView.delegate = typeTableViewDataSourceAndDelegate
-        sellClothesView.categoryTableView.dataSource = categoryTableViewDataSourceAndDelegate
-        sellClothesView.categoryTableView.delegate = categoryTableViewDataSourceAndDelegate
-        sellClothesView.dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         sellClothesView.translatesAutoresizingMaskIntoConstraints = false
         sellClothesView.descriptionTextView.delegate = self
         view.addSubview(sellClothesView)
         sellClothesView.snp.makeConstraints { (make) in
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.9)
+            make.edges.equalToSuperview()
         }
         
         setupCollectionViewControl()
-    }
-    
-    @objc func dismissButtonPressed() {
-        let alertController = UIAlertController(title: "Delete Your Masterpiece?", message: nil, preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.view.backgroundColor = .clear //UI Purposes
-            self.dismiss(animated: true, completion: nil)
-        }
-        let nevermindAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
-        alertController.addAction(deleteAction)
-        alertController.addAction(nevermindAction)
-        present(alertController, animated: true, completion: nil)
     }
     
 }
@@ -88,7 +78,7 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 6.5, height: self.view.frame.height * 0.08)
+        return CGSize(width: self.view.frame.width / 6.5, height: self.view.frame.width / 6.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -114,5 +104,25 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    
 }
+
+extension SellClothesViewController {
+    func setupNavBar() {
+        self.navigationItem.title = "Sell Your Clothes"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
+    }
+    
+    @objc func cancelButtonPressed() {
+        let alertController = UIAlertController(title: "Delete Your Masterpiece?", message: nil, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.view.backgroundColor = .clear //UI Purposes
+            self.dismiss(animated: true, completion: nil)
+        }
+        let nevermindAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
+        alertController.addAction(deleteAction)
+        alertController.addAction(nevermindAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+

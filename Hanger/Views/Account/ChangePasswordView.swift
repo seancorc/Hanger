@@ -44,7 +44,7 @@ class ChangePasswordView: UIView {
     
     lazy var changePasswordButton: NiceSpacingButton = {
         let button = NiceSpacingButton()
-        button.setupButton(title: "Change Password", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+        button.setupButton(title: "Change Password", backgroundColor: UIColor(red: 28/255, green: 183/255, blue: 1, alpha: 1))
         return button
     }()
     

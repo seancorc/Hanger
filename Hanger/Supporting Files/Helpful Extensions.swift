@@ -90,3 +90,31 @@ extension UITableView {
     }
 }
 
+extension UIView {
+    
+    /**
+     Changes the view's UI to tell the user that input is needed
+    */
+    func needsInputBeforeContinuing() {
+        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderWidth = 1
+        self.shake()
+    }
+    
+    /**
+     Reverses effects of a call to 'needsInputBeforeContinuing'
+     */
+    func inputGiven() {
+        self.layer.borderColor = nil
+        self.layer.borderWidth = 0
+    }
+    
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        layer.add(animation, forKey: "shake")
+    }
+}
+
