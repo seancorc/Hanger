@@ -61,7 +61,7 @@ class SellClothesView: UIView {
     
     lazy var keyboardDoneButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = Global.ThemeColor
+        button.backgroundColor = UIColor(red: 28/255, green: 183/255, blue: 1, alpha: 1)
         button.setTitle("Done", for: .normal)
         return button
     }()
@@ -103,14 +103,6 @@ class SellClothesView: UIView {
         return view
     }()
     
-    lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .center
-        return stackView
-    }()
-
     lazy var postButton: UIButton = {
         let button = UIButton()
         button.clipsToBounds = true
@@ -119,6 +111,23 @@ class SellClothesView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Global.ThemeColor
         return button
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = UIStackView.Distribution.equalSpacing
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.keyboardDismissMode = .onDrag
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceVertical = true
+        return scrollView
     }()
     
     override init(frame: CGRect) {
@@ -133,12 +142,8 @@ class SellClothesView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: self.frame.width / 10, height: self.frame.height / 10))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
         keyboardDoneButton.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.05)
-        postButton.layer.cornerRadius = postButton.frame.width / 24
+        postButton.layer.cornerRadius = self.frame.width / 24
     }
     
     override func didMoveToSuperview() {
@@ -155,25 +160,31 @@ class SellClothesView: UIView {
         descriptionTextView.addSubview(descriptionPlaceholer)
         stackView.addArrangedSubview(descriptionTextView)
         stackView.addArrangedSubview(separatorView5)
+        stackView.addArrangedSubview(postButton)
         
-        self.addSubview(stackView)
-        
-        self.addSubview(postButton)
+        self.addSubview(scrollView)
+        scrollView.addSubview(stackView)
         
         setupConstraints()
     }
     
     func setupConstraints() {
+        
+        scrollView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(padding)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+        }
     
         stackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(padding * 1.5)
-            make.bottom.equalTo(postButton.snp.top).offset(-padding / 2)
-            make.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height)
+            make.width.equalToSuperview()
         }
 
         collectionView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.95)
-            make.height.equalToSuperview().multipliedBy(0.13)
+            make.height.equalToSuperview().multipliedBy(0.3)
         }
 
         separatorView1.snp.makeConstraints { (make) in
@@ -183,7 +194,7 @@ class SellClothesView: UIView {
 
         nameTextField.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalToSuperview().multipliedBy(0.05)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
 
         separatorView2.snp.makeConstraints { (make) in
@@ -193,7 +204,7 @@ class SellClothesView: UIView {
 
         brandTextField.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalToSuperview().multipliedBy(0.05)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
 
         separatorView3.snp.makeConstraints { (make) in
@@ -203,7 +214,7 @@ class SellClothesView: UIView {
         
         priceTextField.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalToSuperview().multipliedBy(0.05)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
         
         separatorView4.snp.makeConstraints { (make) in
@@ -218,7 +229,7 @@ class SellClothesView: UIView {
 
         descriptionTextView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.87)
-            make.height.equalToSuperview().multipliedBy(0.2)
+            make.height.equalToSuperview().multipliedBy(0.15)
         }
         
         separatorView5.snp.makeConstraints { (make) in
@@ -227,16 +238,20 @@ class SellClothesView: UIView {
         }
         
         postButton.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-padding)
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.06)
         }
         
-        
-        
     }
     
+    func updateConstraintsForKeyboard(amount: CGFloat) {
+        scrollView.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(padding + amount)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(amount)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+
     
 }
 

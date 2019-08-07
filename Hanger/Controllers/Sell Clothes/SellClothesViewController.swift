@@ -60,11 +60,33 @@ class SellClothesViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
+        //Handle keyboard showing - needs to be refined along with constraints for tableview
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         setupCollectionViewControl()
     }
     
     @objc func keyboardDoneButtonPressed() {
         sellClothesView.priceTextField.resignFirstResponder()
+    }
+    
+    @objc func handleKeyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            
+            
+            let isKeyboardOpen = notification.name == UIResponder.keyboardWillShowNotification
+            
+            let safeAreaOffset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+            if sellClothesView.priceTextField.isFirstResponder || sellClothesView.descriptionTextView.isFirstResponder {
+                sellClothesView.updateConstraintsForKeyboard(amount: isKeyboardOpen ? (safeAreaOffset - keyboardFrame.height) : 0)
+            }
+            
+            UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
     }
     
 }
@@ -99,11 +121,11 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 6.5, height: self.view.frame.width / 6.5)
+        return CGSize(width: self.view.frame.width / 4.5, height: self.view.frame.width / 4.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -134,10 +156,23 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
 extension SellClothesViewController {
     func setupNavBar() {
         self.navigationItem.title = "Sell Your Clothes"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
+        
+        let dismissButton: UIButton = {
+            let button = UIButton()
+            button.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.setBackgroundImage(UIImage(named: "exiticon"), for: .normal)
+            button.snp.makeConstraints({ (make) in
+                make.size.equalTo(35 * Global.ScaleFactor)
+            })
+            return button
+        }()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: dismissButton)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(postButtonPressed))
+        
     }
     
-    @objc func cancelButtonPressed() {
+    @objc func dismissButtonPressed() {
         let alertController = UIAlertController(title: "Delete Your Masterpiece?", message: nil, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.view.backgroundColor = .clear //UI Purposes
@@ -148,6 +183,11 @@ extension SellClothesViewController {
         alertController.addAction(nevermindAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    @objc func postButtonPressed() {
+        
+    }
+    
 }
 
 

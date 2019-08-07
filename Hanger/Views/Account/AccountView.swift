@@ -91,8 +91,6 @@ class AccountView: UIView {
             else {make.top.equalTo(profilePictureButton.snp.bottom).offset(35 * Global.ScaleFactor)}
         }
         
-        
-        
     }
         
     

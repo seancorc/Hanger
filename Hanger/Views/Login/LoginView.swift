@@ -32,7 +32,7 @@ class LoginView: UIView {
     lazy var signUpButton: UIButton = {
         let button = UIButton()
         let topText = NSMutableAttributedString(string: "Don't have an account? \n")
-        let bottomText = NSMutableAttributedString(string: "Sign up for free", attributes: [NSAttributedString.Key.foregroundColor:UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)])
+        let bottomText = NSMutableAttributedString(string: "Sign up for free", attributes: [NSAttributedString.Key.foregroundColor:UIColor(red: 28/255, green: 183/255, blue: 1, alpha: 1)])
         topText.append(bottomText)
         button.setAttributedTitle(topText, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -50,6 +50,8 @@ class SellClothesInitalViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.9)
         }
         
+        imagePicker.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: sellClothesInitalView.dismissButton)
+        
     }
     
     @objc func dismissButtonPressed() {

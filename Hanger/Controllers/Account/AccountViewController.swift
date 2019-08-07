@@ -12,7 +12,6 @@ import UIKit
 class AccountViewController: UIViewController {
     var accountView: AccountView!
     var imagePicker: UIImagePickerController!
-    var keyboardFrame: CGRect!
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
@@ -59,7 +58,7 @@ class AccountViewController: UIViewController {
     
     @objc func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             
             let isKeyboardOpen = notification.name == UIResponder.keyboardWillShowNotification
             
