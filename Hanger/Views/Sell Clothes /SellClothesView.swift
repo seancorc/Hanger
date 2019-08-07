@@ -59,6 +59,29 @@ class SellClothesView: UIView {
         return view
     }()
     
+    lazy var keyboardDoneButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = Global.ThemeColor
+        button.setTitle("Done", for: .normal)
+        return button
+    }()
+    
+    lazy var priceTextField: UITextField = {
+        let textField = UITextField()
+        textField.keyboardType = UIKeyboardType.decimalPad
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.attributedPlaceholder = NSAttributedString(string: "Price...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)])
+        textField.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
+        return textField
+    }()
+    
+    lazy var separatorView4: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     lazy var descriptionPlaceholer: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +96,7 @@ class SellClothesView: UIView {
         return textView
     }()
     
-    lazy var separatorView4: UIView = {
+    lazy var separatorView5: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
@@ -114,6 +137,7 @@ class SellClothesView: UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
+        keyboardDoneButton.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.05)
         postButton.layer.cornerRadius = postButton.frame.width / 24
     }
     
@@ -124,10 +148,13 @@ class SellClothesView: UIView {
         stackView.addArrangedSubview(separatorView2)
         stackView.addArrangedSubview(brandTextField)
         stackView.addArrangedSubview(separatorView3)
+        priceTextField.inputAccessoryView = keyboardDoneButton
+        stackView.addArrangedSubview(priceTextField)
+        stackView.addArrangedSubview(separatorView4)
         descriptionPlaceholer.attributedText = placeholderAttributedText
         descriptionTextView.addSubview(descriptionPlaceholer)
         stackView.addArrangedSubview(descriptionTextView)
-        stackView.addArrangedSubview(separatorView4)
+        stackView.addArrangedSubview(separatorView5)
         
         self.addSubview(stackView)
         
@@ -173,6 +200,16 @@ class SellClothesView: UIView {
             make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(1)
         }
+        
+        priceTextField.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.05)
+        }
+        
+        separatorView4.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(1)
+        }
 
         descriptionPlaceholer.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(4 * Global.ScaleFactor)
@@ -184,7 +221,7 @@ class SellClothesView: UIView {
             make.height.equalToSuperview().multipliedBy(0.2)
         }
         
-        separatorView4.snp.makeConstraints { (make) in
+        separatorView5.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(1)
         }

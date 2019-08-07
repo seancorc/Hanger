@@ -13,6 +13,7 @@ class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
     var imagePicker: YPImagePicker!
     var imageArray = [UIImage]()
+    var priceTextFieldDelegate: PriceTextFieldDelegate!
     
     init(image: UIImage) {
         imageArray.append(image)
@@ -48,6 +49,11 @@ class SellClothesViewController: UIViewController {
         sellClothesView = SellClothesView()
         sellClothesView.translatesAutoresizingMaskIntoConstraints = false
         sellClothesView.descriptionTextView.delegate = self
+        priceTextFieldDelegate = PriceTextFieldDelegate()
+        sellClothesView.priceTextField.delegate = priceTextFieldDelegate
+        sellClothesView.nameTextField.delegate = self
+        sellClothesView.brandTextField.delegate = self
+        sellClothesView.keyboardDoneButton.addTarget(self, action: #selector(keyboardDoneButtonPressed), for: .touchUpInside)
         view.addSubview(sellClothesView)
         sellClothesView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -56,11 +62,24 @@ class SellClothesViewController: UIViewController {
         setupCollectionViewControl()
     }
     
+    @objc func keyboardDoneButtonPressed() {
+        sellClothesView.priceTextField.resignFirstResponder()
+    }
+    
 }
+
 
 extension SellClothesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         sellClothesView.descriptionPlaceholer.isHidden = !textView.text.isEmpty
+    }
+}
+
+
+extension SellClothesViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }
 

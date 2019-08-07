@@ -40,6 +40,7 @@
 		D6D87E9422F15C5F006485BD /* ChatTableViewDS&Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9322F15C5F006485BD /* ChatTableViewDS&Delegate.swift */; };
 		D6D87E9722FA2BCB006485BD /* SellClothesInitalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */; };
 		D6D87E9922FA3439006485BD /* SellClothesInitalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */; };
+		D6D87E9B22FA5AEB006485BD /* PriceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
 		D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */; };
@@ -132,6 +133,7 @@
 		D6D87E9322F15C5F006485BD /* ChatTableViewDS&Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatTableViewDS&Delegate.swift"; sourceTree = "<group>"; };
 		D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalView.swift; sourceTree = "<group>"; };
 		D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalViewController.swift; sourceTree = "<group>"; };
+		D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -348,8 +350,9 @@
 		D6D87E8E22F0DD80006485BD /* Sell Clothes */ = {
 			isa = PBXGroup;
 			children = (
-				D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */,
 				D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */,
+				D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */,
+				D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */,
 			);
 			path = "Sell Clothes";
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
 				D63157DE22C9F28800571558 /* LoginView.swift in Sources */,
 				D63157F422CC906100571558 /* AccountViewController.swift in Sources */,
+				D6D87E9B22FA5AEB006485BD /* PriceTextFieldDelegate.swift in Sources */,
 				D6F05DA422D2937B00621E36 /* ChangePasswordViewController.swift in Sources */,
 				D6F05D9F22D291EB00621E36 /* AccountTableViewCell.swift in Sources */,
 				D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */,
