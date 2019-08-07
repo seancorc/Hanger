@@ -34,11 +34,7 @@ class SellClothesViewController: UIViewController {
         setupNavBar()
         view.backgroundColor = UIColor(white: 0.6, alpha: 0.6)
         
-//        var config = YPImagePickerConfiguration()
-//        config.screens = [.library, .photo]
-//        config.shouldSaveNewPicturesToAlbum = false
-//        config.showsPhotoFilters = false
-//        imagePicker = YPImagePicker(configuration: config)
+
         imagePicker.didFinishPicking {  [weak imagePicker, unowned self] items, cancelled in
             if !cancelled {
                 for item in items {
@@ -140,7 +136,7 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 4.5, height: self.view.frame.width / 4.5)
+        return CGSize(width: self.view.frame.width / 5, height: self.view.frame.width / 5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -154,7 +150,7 @@ extension SellClothesViewController: UICollectionViewDelegate, UICollectionViewD
             image = imageArray[indexPath.row]
         } else if indexPath.row == imageArray.count {
             image = UIImage(named: "cameraicon")
-            cell.imageView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            cell.imageView.backgroundColor = .white
         }
         cell.imageView.image = image
         return cell

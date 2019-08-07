@@ -170,9 +170,15 @@ extension AccountViewController {
             return navButton
         }()
         
-        let backButton = UIButton()
-        backButton.setImage(UIImage(named: "downarrow"), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        let backButton: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(named: "downarrow"), for: .normal)
+            button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+            button.snp.makeConstraints({ (make) in
+                make.size.equalTo(45 * Global.ScaleFactor)
+            })
+            return button
+        }()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
     }
     

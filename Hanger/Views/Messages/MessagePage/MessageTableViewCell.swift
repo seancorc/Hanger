@@ -9,11 +9,11 @@
 import UIKit
 
 class MessageTableViewCell: UITableViewCell {
+    
     lazy var chatImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = (self.frame.height - 20) / 2
         return imageView
     }()
     
@@ -22,23 +22,17 @@ class MessageTableViewCell: UITableViewCell {
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
+        label.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
         return label
     }()
     
     lazy var previewMessageLabel: UILabel = {
         let previewMessageLabel = UILabel()
+        previewMessageLabel.numberOfLines = 2
         previewMessageLabel.translatesAutoresizingMaskIntoConstraints = false
         previewMessageLabel.textColor = .gray
-        previewMessageLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor)
+        previewMessageLabel.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
         return previewMessageLabel
-    }()
-    
-    lazy var seperatorLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -50,14 +44,18 @@ class MessageTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        chatImageView.layer.cornerRadius = frame.height / 8
+    }
+    
     func setup() {
         contentView.addSubview(chatImageView)
         
         contentView.addSubview(chatLabel)
         
         contentView.addSubview(previewMessageLabel)
-        
-        contentView.addSubview(seperatorLineView)
         }
     
     func configureCell(chatName: String, chatImage: UIImage = UIImage(named: "accounticon")!, previewMessage: String) {
@@ -68,31 +66,25 @@ class MessageTableViewCell: UITableViewCell {
         }
     
     func setupConstraints() {
-        
-        seperatorLineView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(contentView.snp.bottom)
-            make.leading.equalTo(chatImageView.snp.leading).offset(self.frame.height - 20)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(0.5)
-        }
-        
+        let imagePadding = 16 * Global.ScaleFactor
+        let chatLabelPadding = 16 * Global.ScaleFactor
         
         chatImageView.snp.makeConstraints { (make) in
-            make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.width.height.equalTo(self.frame.height - 20)
-            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalTo(contentView.snp.leading).offset(imagePadding)
+            make.width.height.equalTo(frame.height - imagePadding)
+            make.centerY.equalToSuperview()
         }
         
         chatLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(chatImageView.snp.trailing).offset(16)
-            make.width.lessThanOrEqualTo(UIScreen.main.bounds.width - 200)
-            make.centerY.equalTo(self.snp.centerY).offset(-16)
+            make.leading.equalTo(chatImageView.snp.trailing).offset(chatLabelPadding)
+            make.trailing.equalToSuperview()
+            make.top.equalTo(chatImageView.snp.top)
         }
         
         previewMessageLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(chatImageView.snp.trailing).offset(16)
-            make.width.lessThanOrEqualTo(UIScreen.main.bounds.width - 100)
-            make.centerY.equalTo(self.snp.centerY).offset(16)
+            make.leading.equalTo(chatImageView.snp.trailing).offset(chatLabelPadding)
+            make.trailing.equalToSuperview()
+            make.top.equalTo(chatLabel.snp.bottom)
         }
         
     }

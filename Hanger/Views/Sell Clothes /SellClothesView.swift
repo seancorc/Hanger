@@ -14,18 +14,13 @@ class SellClothesView: UIView {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        let insetPadding = 24 * Global.ScaleFactor
+        layout.sectionInset = UIEdgeInsets(top: insetPadding, left: insetPadding, bottom: insetPadding, right: insetPadding)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
+        cv.backgroundColor = UIColor(white: 0.95, alpha: 1)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isScrollEnabled = false
         return cv
-    }()
-    
-    lazy var separatorView1: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
-        return view
     }()
     
     lazy var nameTextField: UITextField = {
@@ -151,7 +146,7 @@ class SellClothesView: UIView {
     
     override func didMoveToSuperview() {
         stackView.addArrangedSubview(collectionView)
-        stackView.addArrangedSubview(separatorView1)
+        //stackView.addArrangedSubview(separatorView1)
         stackView.addArrangedSubview(nameTextField)
         stackView.addArrangedSubview(separatorView2)
         stackView.addArrangedSubview(brandTextField)
@@ -174,8 +169,8 @@ class SellClothesView: UIView {
     func setupConstraints() {
         
         scrollView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(padding)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-padding * 1.5)
             make.leading.trailing.equalToSuperview()
         }
     
@@ -186,13 +181,8 @@ class SellClothesView: UIView {
         }
 
         collectionView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.95)
-            make.height.equalToSuperview().multipliedBy(0.3)
-        }
-
-        separatorView1.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(1)
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.32)
         }
 
         nameTextField.snp.makeConstraints { (make) in
@@ -248,9 +238,11 @@ class SellClothesView: UIView {
     }
     
     func updateConstraintsForKeyboard(amount: CGFloat) {
+        let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.size.height + self.scrollView.contentInset.bottom)
+        scrollView.setContentOffset(bottomOffset, animated: true)
         stackView.snp.remakeConstraints { (make) in
             make.top.equalToSuperview().offset(amount)
-            make.bottom.equalToSuperview().offset(amount)
+            make.bottom.equalToSuperview().offset(-padding * 1.5 + amount)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height)
             make.width.equalToSuperview()

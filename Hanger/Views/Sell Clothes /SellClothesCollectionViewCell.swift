@@ -36,7 +36,7 @@ class SellClothesCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = UIColor(white: 0.95, alpha: 1)
     }
     
     override func didMoveToSuperview() {

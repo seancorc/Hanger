@@ -12,7 +12,6 @@ class MessageView: UIView {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.separatorStyle = .none
         return tv
     }()
     
