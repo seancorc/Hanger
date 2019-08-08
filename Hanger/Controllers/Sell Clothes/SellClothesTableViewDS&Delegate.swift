@@ -20,7 +20,7 @@ fileprivate func selectedAnimation(cell: UITableViewCell) {
     cell.layer.add(fade, forKey: "fade")
 }
 
-class GeneralTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+class SellClothesTableViewDSAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
     var stringArray = [String]()
     
     init(stringArray: [String]) {

@@ -17,9 +17,6 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         
         
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        
         chatView = ChatView()
         view.addSubview(chatView)
         self.chatView.snp.makeConstraints { (make) -> Void in
@@ -35,7 +32,6 @@ class ChatViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         chatView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
-        chatView.mediaButton.addTarget(self, action: #selector(mediaButtonPressed), for: .touchUpInside)
         
         if let bottomIndexPath = HelpfulFunctions.getBottomMostTableViewIndexPath(tableView: self.chatView.tableView) {
             DispatchQueue.main.async { //Needed to scroll all the way to bottom
@@ -75,15 +71,8 @@ class ChatViewController: UIViewController {
         self.chatView.tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: Global.CellID)
     }
     
-    @objc func mediaButtonPressed() {
-        if chatView.inputTextView.text == "Enter Message..." {chatView.inputTextView.text = ""}
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
     @objc func sendMessage() {
-        if self.chatView.inputTextView.textColor != .lightGray {
+        if self.chatView.inputTextView.textColor != .lightGray &&  !self.chatView.inputTextView.text.isEmpty {
             let messageText = self.chatView.inputTextView.text ?? ""
             tableViewDataSourceAndDelegate.chatMessages.append(ChatMessage(text: messageText, isMyMessage: true))
             DispatchQueue.main.async {
@@ -96,7 +85,6 @@ class ChatViewController: UIViewController {
             textViewHeightConstraint?.constant = chatView.textViewInitalHeight * Global.ScaleFactor
             UIView.animate(withDuration: 0.2) {
                 self.chatView.layoutIfNeeded()
-                self.chatView.tableView.layoutIfNeeded()
             }
         }
     }
@@ -142,29 +130,4 @@ extension ChatViewController: UITextViewDelegate {
     }
 }
 
-//ChatImagePickerControll
-extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        dismiss(animated: true, completion: {
-            if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-                //Resizing image
-                let newSize = CGSize(width: self.chatView.inputTextView.frame.width, height: UIScreen.main.bounds.height / 3)
-                UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
-                image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
-                let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-                UIGraphicsEndImageContext()
-                
-                
-                self.chatView.tableView.reloadData() //Must be called before scrollToRow
-                if let bottomIndexPath = HelpfulFunctions.getBottomMostTableViewIndexPath(tableView: self.chatView.tableView) {
-                    self.chatView.tableView.scrollToRow(at: bottomIndexPath, at: .none, animated: true)
-                }
-                self.chatView.layoutIfNeeded()
-            }
-        } )
-        
-    }
-    
-    
-}
 

@@ -9,11 +9,6 @@
 import Foundation
 import UIKit
 
-enum MessageType {
-    case text
-    case photo
-}
-
 struct Conversation {
     var convoName: String!
     var lastMessage: String!
@@ -31,23 +26,10 @@ struct Conversation {
 struct ChatMessage {
     var text: String?
     let isMyMessage: Bool
-    let messageType: MessageType
-    var photo: UIImage?
-    
-    
-    private init(isMyMessage: Bool, messageType: MessageType) {
-        self.isMyMessage = isMyMessage
-        self.messageType = messageType
-    }
     
     init(text: String, isMyMessage: Bool) {
-        self.init(isMyMessage: isMyMessage, messageType: .text)
         self.text = text
-    }
-    
-    init(isMyMessage: Bool, photo: UIImage) {
-        self.init(isMyMessage: isMyMessage, messageType: .photo)
-        self.photo = photo
+        self.isMyMessage = isMyMessage
     }
     
 }

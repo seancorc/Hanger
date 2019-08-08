@@ -50,12 +50,12 @@ class ChatView: UIView {
         return button
     }()
     
-    lazy var mediaButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "mediaicon"), for: .normal)
-        return button
-    }()
+//    lazy var mediaButton: UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setBackgroundImage(UIImage(named: "mediaicon"), for: .normal)
+//        return button
+//    }()
     
     let textViewInitalHeight: CGFloat = 64 * Global.ScaleFactor
 
@@ -70,7 +70,7 @@ class ChatView: UIView {
         
         messageInputContainerView.addSubview(sendButton)
         
-        messageInputContainerView.addSubview(mediaButton)
+//        messageInputContainerView.addSubview(mediaButton)
         
         messageInputContainerView.addSubview(topBorderView)
         
@@ -85,7 +85,7 @@ class ChatView: UIView {
     
     
     func setupConstraints() {
-        let buttonPadding = 12 * Global.ScaleFactor
+        let padding = 12 * Global.ScaleFactor
         
         tableView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
@@ -107,25 +107,25 @@ class ChatView: UIView {
         }
         
         inputTextView.snp.makeConstraints { (make) in
-            make.leading.equalTo(mediaButton.snp.trailing).offset(12 * Global.ScaleFactor)
-            make.trailing.equalTo(sendButton.snp.leading).offset(-8 * Global.ScaleFactor)
+            make.leading.equalToSuperview().offset(padding)
+            make.trailing.equalTo(sendButton.snp.leading).offset(-padding)
             make.bottom.equalToSuperview()
             make.height.equalTo(textViewInitalHeight)
         }
         
         sendButton.snp.makeConstraints { (make) in
-            make.trailing.equalToSuperview().offset(-buttonPadding)
+            make.trailing.equalToSuperview().offset(-padding)
             make.height.equalTo(self.snp.height).multipliedBy(0.05)
             make.width.equalTo(sendButton.snp.height)
-            make.bottom.equalToSuperview().offset(-buttonPadding)
+            make.bottom.equalToSuperview().offset(-padding)
         }
         
-        mediaButton.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(buttonPadding)
-            make.height.equalTo(self.snp.height).multipliedBy(0.05)
-            make.width.equalTo(mediaButton.snp.height)
-            make.bottom.equalToSuperview().offset(-buttonPadding)
-        }
+//        mediaButton.snp.makeConstraints { (make) in
+//            make.leading.equalToSuperview().offset(buttonPadding)
+//            make.height.equalTo(self.snp.height).multipliedBy(0.05)
+//            make.width.equalTo(mediaButton.snp.height)
+//            make.bottom.equalToSuperview().offset(-buttonPadding)
+//        }
     }
     
     func updateConstraintsForKeyboard(amount: CGFloat) {

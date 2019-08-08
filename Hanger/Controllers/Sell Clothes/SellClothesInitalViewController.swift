@@ -11,8 +11,8 @@ import YPImagePicker
 
 class SellClothesInitalViewController: UIViewController {
     var sellClothesInitalView: SellClothesInitalView!
-    var typeTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
-    var categoryTableViewDataSourceAndDelegate = GeneralTableViewDataSourceAndDelegate(stringArray: ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"])
+    var typeTableViewDataSourceAndDelegate = SellClothesTableViewDSAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
+    var categoryTableViewDataSourceAndDelegate = SellClothesTableViewDSAndDelegate(stringArray: ["Shirts", "Shorts", "Pants", "Shoes", "Hats", "Leggings"])
     var imagePicker: YPImagePicker!
     
     deinit {

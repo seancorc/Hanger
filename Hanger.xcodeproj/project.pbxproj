@@ -35,7 +35,7 @@
 		D6D87E8422E99072006485BD /* NetworkingDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8322E99072006485BD /* NetworkingDataStructures.swift */; };
 		D6D87E8B22F0D406006485BD /* SellClothesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8A22F0D406006485BD /* SellClothesCollectionViewCell.swift */; };
 		D6D87E9022F139D0006485BD /* SellClothesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E8F22F139D0006485BD /* SellClothesView.swift */; };
-		D6D87E9222F14700006485BD /* GeneralTableViewDS&Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9122F14700006485BD /* GeneralTableViewDS&Delegate.swift */; };
+		D6D87E9222F14700006485BD /* SellClothesTableViewDS&Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9122F14700006485BD /* SellClothesTableViewDS&Delegate.swift */; };
 		D6D87E9422F15C5F006485BD /* ChatTableViewDS&Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9322F15C5F006485BD /* ChatTableViewDS&Delegate.swift */; };
 		D6D87E9722FA2BCB006485BD /* SellClothesInitalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */; };
 		D6D87E9922FA3439006485BD /* SellClothesInitalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */; };
@@ -128,7 +128,7 @@
 		D6D87E8322E99072006485BD /* NetworkingDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingDataStructures.swift; sourceTree = "<group>"; };
 		D6D87E8A22F0D406006485BD /* SellClothesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6D87E8F22F139D0006485BD /* SellClothesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesView.swift; sourceTree = "<group>"; };
-		D6D87E9122F14700006485BD /* GeneralTableViewDS&Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneralTableViewDS&Delegate.swift"; sourceTree = "<group>"; };
+		D6D87E9122F14700006485BD /* SellClothesTableViewDS&Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SellClothesTableViewDS&Delegate.swift"; sourceTree = "<group>"; };
 		D6D87E9322F15C5F006485BD /* ChatTableViewDS&Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatTableViewDS&Delegate.swift"; sourceTree = "<group>"; };
 		D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalView.swift; sourceTree = "<group>"; };
 		D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalViewController.swift; sourceTree = "<group>"; };
@@ -332,7 +332,6 @@
 				D63157ED22CB29C900571558 /* Helpful Extensions.swift */,
 				D6F05D7922CDD81C00621E36 /* HelpfulFunctions.swift */,
 				D6F05DB922D7120000621E36 /* Validator.swift */,
-				D6D87E9122F14700006485BD /* GeneralTableViewDS&Delegate.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -353,6 +352,7 @@
 				D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */,
 				D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */,
 				D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */,
+				D6D87E9122F14700006485BD /* SellClothesTableViewDS&Delegate.swift */,
 			);
 			path = "Sell Clothes";
 			sourceTree = "<group>";
@@ -739,7 +739,7 @@
 				D63157E322C9F30400571558 /* KolodaCardView.swift in Sources */,
 				D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */,
 				D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */,
-				D6D87E9222F14700006485BD /* GeneralTableViewDS&Delegate.swift in Sources */,
+				D6D87E9222F14700006485BD /* SellClothesTableViewDS&Delegate.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
 				D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */,
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
