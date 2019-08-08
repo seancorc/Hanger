@@ -94,3 +94,8 @@ protocol Operation {
     
 }
 
+//MARK: ERROR HANDLING
+
+struct NetworkErrorResponse: Codable, Error {
+    var error: String
+}

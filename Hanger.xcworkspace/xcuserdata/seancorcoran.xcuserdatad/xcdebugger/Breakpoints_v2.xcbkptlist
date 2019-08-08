@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Views/Messages/MessagePage/MessageTableViewCell.swift"
-            timestampString = "586906601.674738"
+            timestampString = "586985176.9174401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "setupConstraints()"
             landmarkType = "7">
          </BreakpointContent>

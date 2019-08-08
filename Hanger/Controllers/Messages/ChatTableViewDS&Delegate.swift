@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 class ChatTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
-    var messages = [ChatMessage]()
+    var chatMessages = [ChatMessage]()
     var cellHeights: [IndexPath: CGFloat] = [:]
     
-    init(messages: [ChatMessage]) {
+    init(chatMessages: [ChatMessage]) {
         super.init()
-        self.messages = messages
+        self.chatMessages = chatMessages
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return chatMessages.count
     }
     
     //Used to obtain accurate estimated row height ~ without this scrollToRowAt looks really jumpy and glitchy (https://stackoverflow.com/questions/28244475/reloaddata-of-uitableview-with-dynamic-cell-heights-causes-jumpy-scrolling)
@@ -37,11 +37,8 @@ class ChatTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Global.CellID, for: indexPath) as! ChatTableViewCell
-        let chatMessage = messages[indexPath.row]
-        switch chatMessage.messageType {
-        case .photo: cell.configureCell(chatMessage: chatMessage)
-        case .text: cell.configureCell(chatMessage: chatMessage)
-        }
+        let chatMessage = chatMessages[indexPath.row]
+        cell.configureCell(chatMessage: chatMessage)
         return cell
     }
     

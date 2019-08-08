@@ -38,8 +38,8 @@ class ChatView: UIView {
         tv.estimatedSectionHeaderHeight = 0
         tv.estimatedSectionFooterHeight = 0
         tv.allowsSelection = false
-        tv.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        tv.keyboardDismissMode = .interactive
+        tv.backgroundColor = .white
+        tv.keyboardDismissMode = UITableView.KeyboardDismissMode.onDrag
         return tv
     }()
     
@@ -57,7 +57,8 @@ class ChatView: UIView {
         return button
     }()
     
-    let textViewInitalHeight: CGFloat = 64
+    let textViewInitalHeight: CGFloat = 64 * Global.ScaleFactor
+
     
     
     override func didMoveToSuperview() {
@@ -84,6 +85,8 @@ class ChatView: UIView {
     
     
     func setupConstraints() {
+        let buttonPadding = 12 * Global.ScaleFactor
+        
         tableView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -92,7 +95,7 @@ class ChatView: UIView {
         }
         
         messageInputContainerView.snp.makeConstraints{ (make) in
-            make.width.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
             make.height.equalTo(inputTextView.snp.height)
         }
@@ -107,19 +110,21 @@ class ChatView: UIView {
             make.leading.equalTo(mediaButton.snp.trailing).offset(12 * Global.ScaleFactor)
             make.trailing.equalTo(sendButton.snp.leading).offset(-8 * Global.ScaleFactor)
             make.bottom.equalToSuperview()
-            make.height.equalTo(textViewInitalHeight * Global.ScaleFactor)
+            make.height.equalTo(textViewInitalHeight)
         }
         
         sendButton.snp.makeConstraints { (make) in
-            make.trailing.equalToSuperview().offset(-12 * Global.ScaleFactor)
-            make.width.height.equalTo((textViewInitalHeight - 20) * Global.ScaleFactor)
-            make.bottom.equalToSuperview().offset(-8 * Global.ScaleFactor)
+            make.trailing.equalToSuperview().offset(-buttonPadding)
+            make.height.equalTo(self.snp.height).multipliedBy(0.05)
+            make.width.equalTo(sendButton.snp.height)
+            make.bottom.equalToSuperview().offset(-buttonPadding)
         }
         
         mediaButton.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(12 * Global.ScaleFactor)
-            make.width.height.equalTo((textViewInitalHeight - 20) * Global.ScaleFactor)
-            make.bottom.equalToSuperview().offset(-8 * Global.ScaleFactor)
+            make.leading.equalToSuperview().offset(buttonPadding)
+            make.height.equalTo(self.snp.height).multipliedBy(0.05)
+            make.width.equalTo(mediaButton.snp.height)
+            make.bottom.equalToSuperview().offset(-buttonPadding)
         }
     }
     

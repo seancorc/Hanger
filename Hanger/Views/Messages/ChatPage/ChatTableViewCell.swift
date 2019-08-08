@@ -11,8 +11,8 @@ import UIKit
 class ChatTableViewCell: UITableViewCell {
     lazy var label: SelectableLabel = {
         let label = SelectableLabel()
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.8
+//        label.adjustsFontSizeToFitWidth = true
+//        label.minimumScaleFactor = 0.8 
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -70,26 +70,27 @@ class ChatTableViewCell: UITableViewCell {
         label.isHidden = false
         chatImageView.isHidden = true
         label.text = labelText
-        messageBackgroundView.backgroundColor = isMyMessage ? #colorLiteral(red: 1, green: 0.6321351786, blue: 0.484305679, alpha: 1) : .white
+        messageBackgroundView.backgroundColor = isMyMessage ? #colorLiteral(red: 0.1881278455, green: 0.8716738224, blue: 0.9487171769, alpha: 1) : UIColor(white: 0.9, alpha: 1)
         setupMessageConstraints(isMyMessage: isMyMessage)
     }
     
     private func configureCellForImage(isMyMessage: Bool, image: UIImage) {
         chatImageView.isHidden = false
         label.isHidden = true
-        messageBackgroundView.backgroundColor = isMyMessage ? #colorLiteral(red: 1, green: 0.6321351786, blue: 0.484305679, alpha: 1) : .white
+        messageBackgroundView.backgroundColor = isMyMessage ?  #colorLiteral(red: 0.1881278455, green: 0.8716738224, blue: 0.9487171769, alpha: 1) : UIColor(white: 0.9, alpha: 1)
         chatImageView.image = image
         setupImageConstraints(isMyMessage: isMyMessage)
     }
     
     
     private func setupMessageConstraints(isMyMessage: Bool) {
+        let backgroundViewPadding = 16 * Global.ScaleFactor
 
         messageBackgroundView.snp.remakeConstraints { (make) in
-            make.leading.equalTo(label.snp.leading).offset(-16 * Global.ScaleFactor)
-            make.trailing.equalTo(label.snp.trailing).offset(16 * Global.ScaleFactor)
-            make.top.equalTo(label.snp.top).offset(-16 * Global.ScaleFactor)
-            make.bottom.equalTo(label.snp.bottom).offset(16 * Global.ScaleFactor)
+            make.leading.equalTo(label.snp.leading).offset(-backgroundViewPadding * Global.ScaleFactor)
+            make.trailing.equalTo(label.snp.trailing).offset(backgroundViewPadding * Global.ScaleFactor)
+            make.top.equalTo(label.snp.top).offset(-backgroundViewPadding * Global.ScaleFactor)
+            make.bottom.equalTo(label.snp.bottom).offset(backgroundViewPadding * Global.ScaleFactor)
         }
         
         
@@ -108,7 +109,8 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     private func setupImageConstraints(isMyMessage: Bool) {
-        
+        let backgroundViewPadding = 16 * Global.ScaleFactor
+
         chatImageView.snp.remakeConstraints { (make) in
             if !isMyMessage {
                 make.leading.equalToSuperview().offset(32 * Global.ScaleFactor)
@@ -120,10 +122,10 @@ class ChatTableViewCell: UITableViewCell {
         }
         
         messageBackgroundView.snp.remakeConstraints { (make) in
-            make.leading.equalTo(chatImageView.snp.leading).offset(-16 * Global.ScaleFactor)
-            make.trailing.equalTo(chatImageView.snp.trailing).offset(16 * Global.ScaleFactor)
-            make.top.equalTo(chatImageView.snp.top).offset(-16 * Global.ScaleFactor)
-            make.bottom.equalTo(chatImageView.snp.bottom).offset(16 * Global.ScaleFactor)
+            make.leading.equalTo(label.snp.leading).offset(-backgroundViewPadding * Global.ScaleFactor)
+            make.trailing.equalTo(label.snp.trailing).offset(backgroundViewPadding * Global.ScaleFactor)
+            make.top.equalTo(label.snp.top).offset(-backgroundViewPadding * Global.ScaleFactor)
+            make.bottom.equalTo(label.snp.bottom).offset(backgroundViewPadding * Global.ScaleFactor)
         }
         
         

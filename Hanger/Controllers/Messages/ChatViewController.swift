@@ -11,10 +11,11 @@ import UIKit
 class ChatViewController: UIViewController {
     var chatView: ChatView!
     var imagePicker: UIImagePickerController!
-    var tableViewDataSourceAndDelegate = ChatTableViewDataSourceAndDelegate(messages: [ChatMessage(text: "Yooooo duder", isMyMessage: true)])
+    var tableViewDataSourceAndDelegate = ChatTableViewDataSourceAndDelegate(chatMessages: [ChatMessage(text: "Yooooo duder", isMyMessage: true)])
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -83,15 +84,20 @@ class ChatViewController: UIViewController {
     
     @objc func sendMessage() {
         if self.chatView.inputTextView.textColor != .lightGray {
-            let messageText = self.chatView.inputTextView.text!
-            self.chatView.tableView.reloadData() //Must be called before scrollToRow
-            if let bottomIndexPath = HelpfulFunctions.getBottomMostTableViewIndexPath(tableView: self.chatView.tableView) {
-                self.chatView.tableView.scrollToRow(at: bottomIndexPath, at: .none, animated: true)
+            let messageText = self.chatView.inputTextView.text ?? ""
+            tableViewDataSourceAndDelegate.chatMessages.append(ChatMessage(text: messageText, isMyMessage: true))
+            DispatchQueue.main.async {
+                self.chatView.tableView.reloadData() //Must be called before scrollToRow
+                self.chatView.tableView.layoutIfNeeded()
+                self.chatView.tableView.scroll(to: .bottom, animated: true)
             }
             chatView.inputTextView.text = ""
             let textViewHeightConstraint = HelpfulFunctions.getViewConstraint(attribute: .height, view: chatView.inputTextView)
             textViewHeightConstraint?.constant = chatView.textViewInitalHeight * Global.ScaleFactor
-            chatView.layoutIfNeeded()
+            UIView.animate(withDuration: 0.2) {
+                self.chatView.layoutIfNeeded()
+                self.chatView.tableView.layoutIfNeeded()
+            }
         }
     }
 }

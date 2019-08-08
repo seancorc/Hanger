@@ -26,6 +26,14 @@ class MessageTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var timeLabel: UILabel = {
+        let timeLabel = UILabel()
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.textColor = .gray
+        timeLabel.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        return timeLabel
+    }()
+    
     lazy var previewMessageLabel: UILabel = {
         let previewMessageLabel = UILabel()
         previewMessageLabel.numberOfLines = 2
@@ -56,18 +64,21 @@ class MessageTableViewCell: UITableViewCell {
         contentView.addSubview(chatLabel)
         
         contentView.addSubview(previewMessageLabel)
+        
+        contentView.addSubview(timeLabel)
         }
     
-    func configureCell(chatName: String, chatImage: UIImage = UIImage(named: "accounticon")!, previewMessage: String) {
+    func configureCell(chatName: String, chatImage: UIImage = UIImage(named: "accounticon")!, previewMessage: String, timeLabelText: String) {
         chatLabel.text = chatName
         chatImageView.image = chatImage
         previewMessageLabel.text = previewMessage
+        timeLabel.text = timeLabelText
         setupConstraints()
         }
     
     func setupConstraints() {
         let imagePadding = 16 * Global.ScaleFactor
-        let chatLabelPadding = 16 * Global.ScaleFactor
+        let labelPadding = 16 * Global.ScaleFactor
         
         chatImageView.snp.makeConstraints { (make) in
             make.leading.equalTo(contentView.snp.leading).offset(imagePadding)
@@ -76,13 +87,18 @@ class MessageTableViewCell: UITableViewCell {
         }
         
         chatLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(chatImageView.snp.trailing).offset(chatLabelPadding)
-            make.trailing.equalToSuperview()
+            make.leading.equalTo(chatImageView.snp.trailing).offset(labelPadding)
+            make.trailing.equalTo(timeLabel.snp.leading)
+            make.top.equalTo(chatImageView.snp.top)
+        }
+        
+        timeLabel.snp.makeConstraints { (make) in
+            make.trailing.equalToSuperview().offset(-labelPadding)
             make.top.equalTo(chatImageView.snp.top)
         }
         
         previewMessageLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(chatImageView.snp.trailing).offset(chatLabelPadding)
+            make.leading.equalTo(chatImageView.snp.trailing).offset(labelPadding)
             make.trailing.equalToSuperview()
             make.top.equalTo(chatLabel.snp.bottom)
         }

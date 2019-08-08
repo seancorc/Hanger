@@ -18,6 +18,8 @@ struct Conversation {
     var convoName: String!
     var lastMessage: String!
     var messages: [ChatMessage]!
+    var timeStamp = Int(Date().timeIntervalSince1970)
+    var userIDs = [String]()
 
     init(convoName: String, lastMessage: String, messages: [ChatMessage]) {
         self.convoName = convoName
