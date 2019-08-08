@@ -165,7 +165,7 @@ extension AccountViewController {
         self.rightBarButton = {
             let button = NiceSpacingButton()
             button.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
-            button.setupButton(title: "Save Changes", backgroundColor: #colorLiteral(red: 0.4360119624, green: 0.6691286069, blue: 1, alpha: 1))
+            button.setupButton(title: "Save Changes", backgroundColor: UIColor(red: 28/255, green: 183/255, blue: 1, alpha: 1))
             let navButton = UIBarButtonItem(customView: button)
             return navButton
         }()
@@ -191,7 +191,7 @@ extension AccountViewController {
             try self.newEmail.validateText(validationType: .email)
             try self.newUsername.validateText(validationType: .username)
         } catch {
-            present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil)
+            present(HelpfulFunctions.createAlert(for: (error as! MessageError).message), animated: true, completion: nil) //Change to an animation
             return
         }
         let updateInfoTask = UpdateUserInformationTask(userID: userManager.user.id, newEmail: self.newEmail, newUsername: self.newUsername)
@@ -205,7 +205,7 @@ extension AccountViewController {
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
         }
-                
+
         }
     }
 

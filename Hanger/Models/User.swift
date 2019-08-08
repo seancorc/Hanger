@@ -11,6 +11,7 @@ import UIKit
 
 struct UserResponse: Codable {
     var data: User
+    var accessToken: String?
 }
 
 

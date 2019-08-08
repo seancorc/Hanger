@@ -32,6 +32,8 @@ class LoginTask: Operation {
                         reject(MessageError("Internal Error: Unable To Decode JSON"))
                         return
                     }
+                    print(userResponse)
+                    UserDefaults.standard.set(userResponse.accessToken, forKey: UserDefaultKeys.token) //Change to keychain at some point
                     fulfill(userResponse.data)
                 default:
                     guard let error = self.createErrorFromData(data: response.data) else {
@@ -80,6 +82,7 @@ class SignUpTask: Operation {
                         reject(MessageError("Internal Error: Unable To Decode JSON"))
                         return
                     }
+                    UserDefaults.standard.set(userResponse.accessToken, forKey: UserDefaultKeys.token) //Change to keychain at some point
                     fulfill(userResponse.data)
                 default:
                     guard let error = self.createErrorFromData(data: response.data) else {
@@ -110,7 +113,7 @@ class UpdateUserInformationTask: Operation {
     var newUsername: String
     
     var request: Request {
-        return UserRequests.updateInfo(userID: userID, newEmail: newEmail, newUsername: newUsername)
+        return UserRequests.updateInfo(newEmail: newEmail, newUsername: newUsername)
     }
     
     init(userID: Int, newEmail: String, newUsername: String) {
@@ -157,7 +160,7 @@ class UpdatePasswordTask: Operation {
     var newPassword: String
     
     var request: Request {
-        return UserRequests.updatePassword(userID: userID, currentPassword: currentPassword, newPassword: newPassword)
+        return UserRequests.updatePassword(currentPassword: currentPassword, newPassword: newPassword)
     }
     
     init(userID: Int, currentPassword: String, newPassword: String) {

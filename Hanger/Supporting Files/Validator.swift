@@ -57,14 +57,6 @@ struct UserNameValidator: Validator {
             throw MessageError("Username shoudn't conain more than 18 characters" )
         }
         
-        do {
-            if try NSRegularExpression(pattern: "[A-Z0-9a-z]{1,18}$").firstMatch(in: value, options: [], range: NSRange(location: 0, length: value.count)) == nil {
-                throw MessageError("Username should not contain whitespaces or special characters")
-            }
-        } catch {
-            throw MessageError("Username should not contain whitespaces or special characters")
-        }
-        
         return value
     }
 }
