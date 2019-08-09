@@ -196,14 +196,13 @@ extension SellClothesViewController {
     }
     
     @objc func postButtonPressed() {
+        var postable = true
         for view in sellClothesView.stackView.arrangedSubviews {
             if let tf = view as? UITextField {
-                if !tf.hasText {tf.needsInputBeforeContinuing()}
-            }
-            if let tv = view as? UITextView {
-                if tv.text.isEmpty {tv.needsInputBeforeContinuing()}
+                if !tf.hasText {tf.needsInputBeforeContinuing(); postable = false}
             }
         }
+        if !postable {return}
     }
     
 }

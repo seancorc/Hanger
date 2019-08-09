@@ -198,6 +198,9 @@ extension AccountViewController {
         updateInfoTask.execute(in: self.networkManager).then { (user) in
             self.userManager.user.email = user.email
             self.userManager.user.username = user.username
+            self.userDefaults.set(user.email, forKey: UserDefaultKeys.email)
+            self.userDefaults.set(user.username, forKey: UserDefaultKeys.username)
+            self.accountView.endEditing(true)
             self.present(HelpfulFunctions.createAlert(for: "Changes Saved"), animated: true, completion: nil)
             self.navigationItem.rightBarButtonItem = nil
             }.catch { (error) in
@@ -205,7 +208,6 @@ extension AccountViewController {
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
         }
-
         }
     }
 

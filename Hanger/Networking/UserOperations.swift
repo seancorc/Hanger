@@ -32,7 +32,6 @@ class LoginTask: Operation {
                         reject(MessageError("Internal Error: Unable To Decode JSON"))
                         return
                     }
-                    print(userResponse)
                     UserDefaults.standard.set(userResponse.accessToken, forKey: UserDefaultKeys.token) //Change to keychain at some point
                     fulfill(userResponse.data)
                 default:

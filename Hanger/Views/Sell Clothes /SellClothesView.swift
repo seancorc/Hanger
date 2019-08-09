@@ -9,7 +9,7 @@
 import UIKit
 
 class SellClothesView: UIView {
-    private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Brief Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+    private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Brief Description... (optional)", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
     private let padding = 24 * Global.ScaleFactor
     
     lazy var collectionView: UICollectionView = {

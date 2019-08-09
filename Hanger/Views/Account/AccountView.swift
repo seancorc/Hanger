@@ -79,12 +79,6 @@ class AccountView: UIView {
     }
     
     func updateConstraintsForKeyboard(amount: CGFloat) {
-        profilePictureButton.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(50 + amount * Global.ScaleFactor)
-            make.width.height.equalTo(150 * Global.ScaleFactor)
-            make.centerX.equalTo(self.snp.centerX)
-        }
-        
         tableView.snp.remakeConstraints { (make) in
             make.width.equalTo(self.snp.width)
             if amount != 0 {make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(amount)}
