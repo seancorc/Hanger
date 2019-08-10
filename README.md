@@ -13,18 +13,18 @@
 
 ### Data Management & Networking:  
 **Networking Layer:** 
-I have split the networking layer into 3 parts: 1. Request creation, 2. Request execution, 3. Operations.  
+I have split the networking layer into three parts: 1. Request creation, 2. Request execution, 3. Operations.  
 This separation of concerns paired with the Promises pod allows network requests to be made and handled effortlessly.  
 Example Use: 
 ```Swift
 let loginTask = LoginTask(email: email, password: password)
         loginTask.execute(in: self.networkManager).then { (user) in
-            ... Handle response
+            //Handle response
             }.catch { (error) in
-            ... Handle error
+            //Handle error
         }
 ``` 
 **Persistance:** 
-1. UserDefaults: Using UserDefaults to store small bits of information, such as if a User is logged in.
-2. Keychain: Will use Keychain to store more sensitive information, such as web tokens.
-3. SQLite: Will use SQLite to persist message data.
+1. UserDefaults: UserDefaults is used to store small bits of information, such as if a user is logged in.
+2. Keychain: Keychain will be used to store more sensitive information, such as web tokens.
+3. SQLite: SQLite will be used to persist message data.
