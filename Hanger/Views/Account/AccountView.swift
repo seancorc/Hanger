@@ -12,8 +12,9 @@ import SnapKit
 class AccountView: UIView {
     
     lazy var profilePictureButton: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "sellerimage"), for: .normal)
+        let button = UIButton(type: .custom)
+        button.setBackgroundImage(UIImage(named: "defaultprofilepicture")!, for: .normal)
+        button.backgroundColor = .gray
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.layer.cornerRadius = 75 * Global.ScaleFactor

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
+  - Kingfisher (5.7.0)
   - Koloda (5.0):
     - pop (~> 1.0)
   - pop (1.0.12)
@@ -13,6 +14,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Kingfisher
   - Koloda
   - Promises
   - SnapKit
@@ -21,6 +23,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Kingfisher
     - Koloda
     - pop
     - Promises
@@ -31,6 +34,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
   Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   Promises: fcb83dc6be43294a8d30c343636ed1a45a8d2e0a
@@ -39,6 +43,6 @@ SPEC CHECKSUMS:
   SteviaLayout: 523469269059f2c6da02820bb2ff28a5fe0780aa
   YPImagePicker: 8039f89ad79281545fa868486f32d9bf5d65ede1
 
-PODFILE CHECKSUM: 3517ef6a4c97aa99b2e27ade68a4c8c10159d401
+PODFILE CHECKSUM: bfc48151703450384e8c597096770e5a88c76395
 
 COCOAPODS: 1.5.3

@@ -7,11 +7,12 @@
 //
 
 import UIKit
-
+import YPImagePicker
+import Kingfisher
 
 class AccountViewController: UIViewController {
     var accountView: AccountView!
-    var imagePicker: UIImagePickerController!
+    var imagePicker: YPImagePicker!
     var userManager: UserManager!
     var networkManager: NetworkManager!
     var userDefaults: UserDefaults!
@@ -38,8 +39,33 @@ class AccountViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
+        //CLEAN THIS UP
+        var config = YPImagePickerConfiguration()
+        config.screens = [.library, .photo]
+        config.shouldSaveNewPicturesToAlbum = false
+        config.showsPhotoFilters = false
+        imagePicker = YPImagePicker(configuration: config)
+        imagePicker.didFinishPicking {  [weak imagePicker, unowned self] items, cancelled in
+            if !cancelled {
+                for item in items {
+                    switch item {
+                    case .photo(let photo):
+                        //Upload to S3 and get url...
+                        let fakeS3URLString = "https://picsum.photos/200"
+                        let modifyProfilePictureTask = ModifyProfilePictureTask(url: fakeS3URLString)
+                        modifyProfilePictureTask.execute(in: self.networkManager).then({ _ in
+                            self.handlePictureChange(urlString: fakeS3URLString)
+                        }).catch({ (error) in
+                            var errorText = ""
+                            if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                            self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+                        })
+                    case .video(_): print("No Video!")
+                    }
+                }
+            }
+            imagePicker?.dismiss(animated: true, completion: nil)
+        }
         
         accountView = AccountView()
         accountView.logoutButton.addTarget(self, action: #selector(logoutPressed), for: UIControl.Event.touchUpInside)
@@ -48,10 +74,15 @@ class AccountViewController: UIViewController {
         self.accountView.snp.makeConstraints { (make) -> Void in
             make.edges.equalToSuperview()
         }
+        if let urlString = self.userDefaults.value(forKey: UserDefaultKeys.profilePictureURL) as? String {
+        DispatchQueue.main.async {
+            self.accountView.profilePictureButton.kf.setImage(with: URL(string: urlString), for: .normal)
+        }
+        }
         
         setupTableViewControl() //Must be called after accountView is created
         
-        //Handle keyboard showing - needs to be refined along with constraints for tableview
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -59,12 +90,9 @@ class AccountViewController: UIViewController {
     @objc func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-            
             let isKeyboardOpen = notification.name == UIResponder.keyboardWillShowNotification
-            
             let safeAreaOffset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
             accountView.updateConstraintsForKeyboard(amount: isKeyboardOpen ? (safeAreaOffset - keyboardFrame.height) : 0)
-            
             UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
             })
@@ -77,24 +105,24 @@ class AccountViewController: UIViewController {
         self.userDefaults.removeObject(forKey: UserDefaultKeys.userID)
         self.userDefaults.removeObject(forKey: UserDefaultKeys.username)
         self.userDefaults.removeObject(forKey: UserDefaultKeys.email)
+        self.userDefaults.removeObject(forKey: UserDefaultKeys.profilePictureURL)
         HelpfulFunctions.signOutAnimation()
     }
     
     @objc func changePicture() {
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func handlePictureChange(urlString: String) {
+        self.userManager.user.profilePictureURLString = urlString
+        self.userDefaults.setValue(urlString, forKey: UserDefaultKeys.profilePictureURL)
+        let url = URL(string: urlString)
+        DispatchQueue.main.async {
+            self.accountView.profilePictureButton.kf.setImage(with: url, for: .normal, placeholder: UIImage(named: "sellerimage"), options: [.transition(.fade(0.2))])
+        }
     }
 }
 
-extension AccountViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            accountView.profilePictureButton.setImage(image, for: .normal) 
-        }
-        dismiss(animated: true, completion: nil)
-    }
-}
 
 extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     func setupTableViewControl() {
@@ -133,6 +161,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
 extension AccountViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //Drop keyboard
@@ -155,6 +184,7 @@ extension AccountViewController: UITextFieldDelegate {
     }
 }
 
+
 extension AccountViewController {
     func setupNavBar() {
         //Making nav bar transparent
@@ -175,7 +205,7 @@ extension AccountViewController {
             button.setImage(UIImage(named: "downarrow"), for: .normal)
             button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
             button.snp.makeConstraints({ (make) in
-                make.size.equalTo(45 * Global.ScaleFactor)
+                make.size.equalTo(40 * Global.ScaleFactor)
             })
             return button
         }()

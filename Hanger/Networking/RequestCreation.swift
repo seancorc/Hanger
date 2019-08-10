@@ -15,6 +15,7 @@ enum UserRequests: Request {
     case signUp(email: String, username: String, password: String)
     case updateInfo(newEmail: String, newUsername: String)
     case updatePassword(currentPassword: String, newPassword: String)
+    case modifyProfilePicture(url: String) //-- IMPLEMENT WHEN S3 IS UP (UPLOAD TO S3 AND THEN PUT URL IN DB)
     
     var path: String {
         switch self {
@@ -22,6 +23,7 @@ enum UserRequests: Request {
         case .signUp(_, _, _): return "/user/signup/"
         case .updateInfo(_, _): return "/user/updateinfo/"
         case .updatePassword(_, _): return "/user/updatepassword/"
+        case .modifyProfilePicture(_): return "/user/profilepicture/"
         }
     }
     
@@ -31,6 +33,7 @@ enum UserRequests: Request {
         case .signUp(_, _, _): return HTTPMethod.post
         case .updateInfo(_, _): return HTTPMethod.put
         case .updatePassword(_, _): return HTTPMethod.put
+        case .modifyProfilePicture(_): return HTTPMethod.put
         }
     }
     
@@ -40,6 +43,7 @@ enum UserRequests: Request {
         case let .signUp(email, username, password): return .body(["email" : email, "password" : password, "username": username])
         case let .updateInfo(newEmail, newUsername): return .body(["newEmail": newEmail, "newUsername": newUsername])
         case let .updatePassword(currentPassword, newPassword): return .body(["currentPassword":currentPassword, "newPassword":newPassword])
+        case let .modifyProfilePicture(url): return .body(["url":url])
         }
     }
     
@@ -47,8 +51,28 @@ enum UserRequests: Request {
         switch self {
         case .updateInfo(_, _): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         case .updatePassword(_, _): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
+        case .modifyProfilePicture(_): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         default: return [:]
         }
     }
     
 }
+
+//enum SellClothesRequests: Request {
+//
+//
+//
+//    var path: String {
+//      return "/post/create/"
+//    }
+//
+//    var method: HTTPMethod {
+//        return HTTPMethod.post
+//    }
+//
+//    var parameters: RequestParameters
+//
+//    var headers: [String : String]
+//
+//
+//}

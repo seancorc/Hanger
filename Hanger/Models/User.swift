@@ -19,5 +19,5 @@ struct User: Codable {
     var id: Int
     var email: String
     var username: String
-//    var conversations: [Conversation]
+    var profilePictureURLString: String?
 }

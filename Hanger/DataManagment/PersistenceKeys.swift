@@ -14,6 +14,7 @@ struct UserDefaultKeys {
     static let userID = "UserID"
     static let email = "Email"
     static let token = "Token"
+    static let profilePictureURL = "ProfilePictureURL"
 }
 
 //Implement for security later - https://medium.com/swift2go/application-security-musts-for-every-ios-app-dabf095b9c4f

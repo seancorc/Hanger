@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let email = userDefaults.string(forKey: UserDefaultKeys.email) ?? "Error"
             let username = userDefaults.value(forKey: UserDefaultKeys.username) as? String ?? "Error"
             let id = userDefaults.value(forKey: UserDefaultKeys.userID) as? Int ?? -1
-            let user = User(id: id, email: email, username: username)
+            let profilePictureURLString = userDefaults.value(forKey: UserDefaultKeys.profilePictureURL) as? String
+            let user = User(id: id, email: email, username: username, profilePictureURLString: profilePictureURLString)
             UserManager.currentUser().user = user
             window?.rootViewController = TabBarController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
         } else {

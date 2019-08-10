@@ -50,14 +50,14 @@ extension HomeViewController {
         filterButton.setTitleColor(.darkGray, for: .highlighted)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
         
-        let accountButton = UIButton()
+        let accountButton = UIButton() //TODO: make it small version of profile picture if they have one
         accountButton.translatesAutoresizingMaskIntoConstraints = false
         accountButton.snp.makeConstraints { (make) in
             make.width.equalTo(self.view.frame.width * 0.08)
             make.height.equalTo(accountButton.snp.width)
         }
         accountButton.addTarget(self, action: #selector(accountButtonPressed), for: .touchUpInside)
-        accountButton.setImage(UIImage(named: "sellerimage") ?? UIImage(named: "accounticon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        accountButton.setImage(UIImage(named: "accounticon")!.withRenderingMode(.alwaysTemplate), for: .normal)
         accountButton.imageView?.tintColor = .white
         accountButton.imageView?.contentMode = .scaleToFill
         accountButton.imageView?.clipsToBounds = true

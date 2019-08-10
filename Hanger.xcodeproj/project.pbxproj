@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0808858BB2757088AE0F1F54 /* Pods_HangerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */; };
 		6E29C2ACF53E66BC29A02D62 /* Pods_Hanger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156162595C52A3B271B74D4F /* Pods_Hanger.framework */; };
+		D601954C22FDF97C0020D858 /* SellClothesOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601954B22FDF97C0020D858 /* SellClothesOperations.swift */; };
 		D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157A522C9F1BE00571558 /* AppDelegate.swift */; };
 		D63157AB22C9F1BE00571558 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63157A922C9F1BE00571558 /* Main.storyboard */; };
 		D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D63157AC22C9F1BE00571558 /* Hanger.xcdatamodeld */; };
@@ -27,7 +28,7 @@
 		D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157ED22CB29C900571558 /* Helpful Extensions.swift */; };
 		D63157F222CC896400571558 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F122CC896400571558 /* MessageViewController.swift */; };
 		D63157F422CC906100571558 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F322CC906100571558 /* AccountViewController.swift */; };
-		D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F522CDBFC800571558 /* SellableClothingItem.swift */; };
+		D63157F622CDBFC800571558 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157F522CDBFC800571558 /* Post.swift */; };
 		D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */; };
 		D6A30BD122DEEAB400A18934 /* HomeKolodaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */; };
 		D6A30BD322DEEDE300A18934 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */; };
@@ -96,6 +97,7 @@
 		8A833E33286D5C711673C599 /* Pods-Hanger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hanger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hanger/Pods-Hanger.release.xcconfig"; sourceTree = "<group>"; };
 		AA0B3CD4F8599E9578652B3A /* Pods-HangerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HangerUITests/Pods-HangerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B132446F29337E318629C1AE /* Pods-HangerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HangerTests/Pods-HangerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D601954B22FDF97C0020D858 /* SellClothesOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesOperations.swift; sourceTree = "<group>"; };
 		D63157A222C9F1BE00571558 /* Hanger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hanger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63157A522C9F1BE00571558 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D63157AA22C9F1BE00571558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -120,7 +122,7 @@
 		D63157ED22CB29C900571558 /* Helpful Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helpful Extensions.swift"; sourceTree = "<group>"; };
 		D63157F122CC896400571558 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		D63157F322CC906100571558 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		D63157F522CDBFC800571558 /* SellableClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellableClothingItem.swift; sourceTree = "<group>"; };
+		D63157F522CDBFC800571558 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		D69AE42722E57EFE00129FE4 /* PersistenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceKeys.swift; sourceTree = "<group>"; };
 		D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeKolodaViewController.swift; sourceTree = "<group>"; };
 		D6A30BD222DEEDE300A18934 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -304,7 +306,7 @@
 		D63157D822C9F20600571558 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D63157F522CDBFC800571558 /* SellableClothingItem.swift */,
+				D63157F522CDBFC800571558 /* Post.swift */,
 				D6F05D8522CDEB4800621E36 /* ChatMessage.swift */,
 				D6F05DA722D2E92C00621E36 /* User.swift */,
 			);
@@ -421,6 +423,7 @@
 				D6F05DB122D59F5600621E36 /* RequestCreation.swift */,
 				D6F05DA522D2D97700621E36 /* RequestExecution.swift */,
 				D6F05DB522D7018A00621E36 /* UserOperations.swift */,
+				D601954B22FDF97C0020D858 /* SellClothesOperations.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hanger/Pods-Hanger-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/Promises/Promise.framework",
 				"${BUILT_PRODUCTS_DIR}/PryntTrimmerView/PryntTrimmerView.framework",
@@ -633,6 +637,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promise.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PryntTrimmerView.framework",
@@ -703,7 +708,7 @@
 				D6D87E8B22F0D406006485BD /* SellClothesCollectionViewCell.swift in Sources */,
 				D6F05D8B22CDEC0B00621E36 /* ChatTableViewCell.swift in Sources */,
 				D6F05DB822D707EA00621E36 /* UserManager.swift in Sources */,
-				D63157F622CDBFC800571558 /* SellableClothingItem.swift in Sources */,
+				D63157F622CDBFC800571558 /* Post.swift in Sources */,
 				D6F05D8622CDEB4800621E36 /* ChatMessage.swift in Sources */,
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
 				D6D87E9D22FA5FF2006485BD /* NoSelectionTextField.swift in Sources */,
@@ -740,6 +745,7 @@
 				D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */,
 				D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */,
 				D6D87E9222F14700006485BD /* SellClothesTableViewDS&Delegate.swift in Sources */,
+				D601954C22FDF97C0020D858 /* SellClothesOperations.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
 				D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */,
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
