@@ -1,9 +1,9 @@
 ## Documentation
 
 ### Current Toolkit:
-**Language:** Swift 5.0 
-**Architectural Pattern:** MVC 
-**Pods:** 
+**Language:** Swift 5.0  
+**Architectural Pattern:** MVC  
+**Pods:**  
 1. SnapKit - Simpler Autolayout
 2. Koloda - For Swipe Left/Right Functionality
 3. Alamofire - For making network requests and handling responses
@@ -11,13 +11,13 @@
 5. YPIImagePicker - Easy to use image picker
 6. Kingfisher - For caching profile picture so that a network request does not have to always be made
 
-### Data Management & Networking:
+### Data Management & Networking:  
 **Networking Layer:** 
 I have split the networking layer into 3 parts: 
 1. Request creation
 2. Request execution
 3. Operations  
-This separation of concerns paired with the Promises pod allows network requests to be made and handled effortlessly. 
+This separation of concerns paired with the Promises pod allows network requests to be made and handled effortlessly.  
 Example Use: 
 ```Swift
 let loginTask = LoginTask(email: email, password: password)
