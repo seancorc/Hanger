@@ -1,6 +1,6 @@
 ## Documentation
 
-###Current Toolkit:
+### Current Toolkit:
 Language: Swift 5.0
 Architectural Pattern: MVC
 Pods: 
@@ -11,20 +11,18 @@ Pods:
 5. YPIImagePicker - Easy to use image picker
 6. Kingfisher - For caching profile picture so that a network request does not have to always be made
 
-###Data Management & Networking:
+### Data Management & Networking:
 Networking Layer:
 I have split the networking layer into 3 parts: 1. Request creation, 2. Request execution, 3. Operations. This separation of concerns paired with the Promises pod allows network requests to be made and handled effortlessly.
 Example Use:
-'''Swift
+```Swift
 let loginTask = LoginTask(email: email, password: password)
         loginTask.execute(in: self.networkManager).then { (user) in
             ... Handle response
             }.catch { (error) in
             ... Handle error
         }
-''' 
-	
-
+``` 
 Persistance: 
 1. UserDefaults: Using UserDefaults to store small bits of information, such as if a User is logged in.
 2. Keychain: Will use Keychain to store more sensitive information, such as web tokens.
