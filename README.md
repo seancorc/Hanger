@@ -16,7 +16,7 @@
 I have split the networking layer into 3 parts: 
 1. Request creation
 2. Request execution
-3. Operations 
+3. Operations  
 This separation of concerns paired with the Promises pod allows network requests to be made and handled effortlessly. 
 Example Use: 
 ```Swift
