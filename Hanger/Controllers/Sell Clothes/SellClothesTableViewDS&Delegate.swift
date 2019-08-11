@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol CellSelectedDelegate: class {
+    func cellSelected(indexPath: IndexPath, title: String)
+}
+
 fileprivate let fade = CABasicAnimation(keyPath: "backgroundColor")
 fileprivate func selectedAnimation(cell: UITableViewCell) {
     fade.fromValue = cell.backgroundColor?.cgColor
@@ -22,10 +26,13 @@ fileprivate func selectedAnimation(cell: UITableViewCell) {
 
 class SellClothesTableViewDSAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
     var stringArray = [String]()
+    var title: String!
+    weak var cellSelectedDelegate: CellSelectedDelegate!
     
-    init(stringArray: [String]) {
+    init(stringArray: [String], title: String) {
         super.init()
         self.stringArray = stringArray
+        self.title = title
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +58,9 @@ class SellClothesTableViewDSAndDelegate: NSObject, UITableViewDataSource, UITabl
         guard let cell = tableView.cellForRow(at: indexPath) else {return}
         selectedAnimation(cell: cell)
         tableView.inputGiven()
+        cellSelectedDelegate.cellSelected(indexPath: indexPath, title: self.title)
         cell.accessoryType = .checkmark
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

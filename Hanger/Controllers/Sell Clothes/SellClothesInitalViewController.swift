@@ -11,9 +11,13 @@ import YPImagePicker
 
 class SellClothesInitalViewController: UIViewController {
     var sellClothesInitalView: SellClothesInitalView!
-    var typeTableViewDataSourceAndDelegate = SellClothesTableViewDSAndDelegate(stringArray: ["Male", "Female", "Gender Neutral"])
-    var categoryTableViewDataSourceAndDelegate = SellClothesTableViewDSAndDelegate(stringArray: ["Casual", "Workout", "Swimwear", "Headgear", "Formal", "Footwear", "Accessories"])
+    let types = ["Male", "Female", "Gender Neutral"]
+    let categories = ["Casual", "Workout", "Swimwear", "Headgear", "Formal", "Footwear", "Accessories"]
+    var typeTableViewDataSourceAndDelegate: SellClothesTableViewDSAndDelegate!
+    var categoryTableViewDataSourceAndDelegate: SellClothesTableViewDSAndDelegate!
     var imagePicker: YPImagePicker!
+    var selectedClothingType = ""
+    var selectedClothingCategory = ""
     
     deinit {
         print("inital deinited")
@@ -23,6 +27,10 @@ class SellClothesInitalViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         view.backgroundColor = UIColor(white: 0.6, alpha: 0.6)
+        self.typeTableViewDataSourceAndDelegate =  SellClothesTableViewDSAndDelegate(stringArray: types, title: "type")
+        typeTableViewDataSourceAndDelegate.cellSelectedDelegate = self
+        self.categoryTableViewDataSourceAndDelegate = SellClothesTableViewDSAndDelegate(stringArray: categories, title: "category")
+        categoryTableViewDataSourceAndDelegate.cellSelectedDelegate = self
         
         var config = YPImagePickerConfiguration()
         config.screens = [.library, .photo]
@@ -33,7 +41,8 @@ class SellClothesInitalViewController: UIViewController {
             if !cancelled {
                 for item in items {
                     switch item {
-                    case .photo(let photo): self.navigationController?.pushViewController(SellClothesViewController(image: photo.image, imagePicker: self.imagePicker), animated: true);
+                    case .photo(let photo):
+                        self.navigationController?.pushViewController(SellClothesViewController(image: photo.image, imagePicker: self.imagePicker, selectedClothingType: self.selectedClothingType, selectedClothingCategory: self.selectedClothingCategory), animated: true);
                     case .video(_): print("No Video!")
                     }
                 }
@@ -86,6 +95,18 @@ class SellClothesInitalViewController: UIViewController {
     }
     
 }
+
+extension SellClothesInitalViewController: CellSelectedDelegate {
+    func cellSelected(indexPath: IndexPath, title: String) {
+        switch title {
+            case "type": self.selectedClothingType = types[indexPath.row]
+            case "category": self.selectedClothingCategory = categories[indexPath.row]
+            default: break
+        }
+    }
+}
+
+
 
 extension SellClothesInitalViewController {
     func setupNavBar() {

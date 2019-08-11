@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Controllers/Account/AccountViewController.swift"
-            timestampString = "587110593.2562979"
+            timestampString = "587188063.552318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Views/Account/AccountView.swift"
-            timestampString = "587110593.256994"
+            timestampString = "587199685.565871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "didMoveToSuperview()"
             landmarkType = "7">
          </BreakpointContent>

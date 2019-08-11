@@ -58,21 +58,28 @@ enum UserRequests: Request {
     
 }
 
-//enum SellClothesRequests: Request {
-//
-//
-//
-//    var path: String {
-//      return "/post/create/"
-//    }
-//
-//    var method: HTTPMethod {
-//        return HTTPMethod.post
-//    }
-//
-//    var parameters: RequestParameters
-//
-//    var headers: [String : String]
-//
-//
-//}
+enum SellClothesRequests: Request {
+    case createPost(clothingType: String, category: String, name: String, brand: String, price: String, description: String?, imageURLs: [String])
+
+    var path: String {
+        switch self {
+            case .createPost(_,_,_,_,_,_,_): return "/post/create/"
+        }
+    }
+
+    var method: HTTPMethod {
+        return HTTPMethod.post
+    }
+
+    var parameters: RequestParameters {
+        switch self {
+        case let .createPost(type, category, name, brand, price, description, imageURLs): return .body(["clothingType": type, "category": category, "name": name, "brand": brand, "price": price, "description": description, "imageURLs": imageURLs])
+        }
+    }
+
+    var headers: [String : String] {
+        return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
+    }
+
+
+}

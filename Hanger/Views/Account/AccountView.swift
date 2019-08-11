@@ -11,6 +11,25 @@ import SnapKit
 
 class AccountView: UIView {
     
+    lazy var dimView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        return view
+    }()
+    
+    lazy var editLabel: UILabel = {
+        let label = UILabel()
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Edit"
+        label.textColor = .white
+        label.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
+        return label
+    }()
+    
     lazy var profilePictureButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setBackgroundImage(UIImage(named: "defaultprofilepicture")!, for: .normal)
@@ -52,6 +71,8 @@ class AccountView: UIView {
 
         
         self.addSubview(profilePictureButton)
+        profilePictureButton.addSubview(dimView)
+        dimView.addSubview(editLabel)
         
 
         self.addSubview(logoutButton)
@@ -66,6 +87,17 @@ class AccountView: UIView {
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(50 * Global.ScaleFactor) 
             make.width.height.equalTo(150 * Global.ScaleFactor)
             make.centerX.equalTo(self.snp.centerX)
+        }
+        
+        dimView.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.25)
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        editLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
         }
         
         tableView.snp.makeConstraints { (make) in

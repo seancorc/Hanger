@@ -9,19 +9,29 @@
 import UIKit
 import YPImagePicker
 
+fileprivate let fakeS3URLString = "https://picsum.photos/200"
+
 class SellClothesViewController: UIViewController {
     var sellClothesView: SellClothesView!
     var imagePicker: YPImagePicker!
+    var networkManager: NetworkManager!
     var imageArray = [UIImage]()
+    var imageURLs = [String]()
+    var selectedClothingType: String!
+    var selectedClothingCategory: String!
     var priceTextFieldDelegate: PriceTextFieldDelegate!
     
     deinit {
         print("regular deinited")
     }
     
-    init(image: UIImage, imagePicker: YPImagePicker) {
+    init(image: UIImage, imagePicker: YPImagePicker, networkManager: NetworkManager = .shared(), selectedClothingType: String, selectedClothingCategory: String) {
         imageArray.append(image)
+        imageURLs.append(fakeS3URLString)
         self.imagePicker = imagePicker
+        self.selectedClothingType = selectedClothingType
+        self.selectedClothingCategory = selectedClothingCategory
+        self.networkManager = networkManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,7 +49,11 @@ class SellClothesViewController: UIViewController {
             if !cancelled {
                 for item in items {
                     switch item {
-                    case .photo(let photo): self.imageArray.append(photo.image); self.sellClothesView.collectionView.reloadData()
+                    case .photo(let photo):
+                        //Beep boop upload to S3
+                        self.imageURLs.append(fakeS3URLString)
+                        self.imageArray.append(photo.image)
+                        self.sellClothesView.collectionView.reloadData()
                     case .video(_): print("No Video!")
                     }
                 }
@@ -203,6 +217,15 @@ extension SellClothesViewController {
             }
         }
         if !postable {return}
+        let possibleDescriptionText = sellClothesView.descriptionTextView.hasText ? sellClothesView.descriptionTextView.text : nil
+        let createPostTask = CreatePostTask(clothingType: self.selectedClothingType, category: self.selectedClothingCategory, name: sellClothesView.nameTextField.text ?? "", brand: sellClothesView.brandTextField.text ?? "",price: sellClothesView.priceTextField.text ?? "", description: possibleDescriptionText, imageURLs: self.imageURLs)
+        createPostTask.execute(in: self.networkManager).then { (clothingPost) in
+            print(clothingPost)
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+        }
     }
     
 }

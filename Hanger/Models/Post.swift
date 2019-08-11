@@ -18,13 +18,20 @@ struct SellableClothingItem {
     var price: Int
 }
 
-//In Development
-struct Post {
+struct ClothingPostResponse: Codable {
+    var data: ClothingPost
+}
+
+
+struct ClothingPost: Codable {
+    var id: Int
     var clothingType: String
     var category: String
     var name: String
     var brand: String
-    var clothingImageURLS: [String]
+    var price: String
     var description: String?
     var user: User
+    var imageURLs: [String]
+    
 }

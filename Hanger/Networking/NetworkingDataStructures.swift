@@ -35,7 +35,7 @@ protocol Request {
 
 
 enum RequestParameters {
-    case body(_ : [String:String])
+    case body(_ : [String:Any])
     case url(_ : [String:String])
     case none
 }
