@@ -11,8 +11,18 @@ import Koloda
 
 class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
     var homeView: HomeView!
-    let hardcodedClothingItems: [SellableClothingItem] = [SellableClothingItem(name: "Black Shirt", brand: "Nike", clothingImages: [UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!, UIImage(named: "clothingitem1")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Josh Smith", price: 25), SellableClothingItem(name: "Barley Worn Leggings", brand: "LuLu Lemon", clothingImages: [UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!, UIImage(named: "clothingitem2")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Sarah Belmont", price: 33), SellableClothingItem(name: "Velcro Edition", brand: "Jordan Slip", clothingImages: [UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!, UIImage(named: "clothingitem3")!], sellerImage: #imageLiteral(resourceName: "sellerimage"), sellerName: "Jeffery Guthantam Haag", price: 100000)]
+    var clothingPosts = [ClothingPost]()
     var currentKolodaIndex = 0
+    var networkManager: NetworkManager!
+    
+    init(networkManager: NetworkManager = .shared()) {
+        self.networkManager = networkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,23 +30,33 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         homeView = HomeView()
         homeView.kolodaView.delegate = self
         homeView.kolodaView.dataSource = self
+        
+        let getPostsForUserTask = GetUserPostsTask()
+        getPostsForUserTask.execute(in: networkManager).then { (clothingPosts) in
+            self.clothingPosts = clothingPosts
+            self.homeView.kolodaView.reloadData()
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+        }
     }
     
     func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-        return hardcodedClothingItems.count
+        return clothingPosts.count
     }
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let kolodaView = KolodaCardView()
         setupCollectionViewControl(collectionView: kolodaView.collectionView, index: index)
-        let sellableClothingItem = hardcodedClothingItems[index]
-        kolodaView.configureSubviews(name: sellableClothingItem.name, brand: sellableClothingItem.brand, sellerImage: sellableClothingItem.sellerImage, sellerName: sellableClothingItem.sellerName, price: sellableClothingItem.price)
+        let clothingPost = clothingPosts[index]
+        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: clothingPost.price)
         return kolodaView
     }
     
     
     func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
-        self.homeView.pagingControl.numberOfPages = hardcodedClothingItems[index].clothingImages.count
+        self.homeView.pagingControl.numberOfPages = clothingPosts[index].imageURLs.count
         self.homeView.pagingControl.currentPage = 0
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.layoutIfNeeded()
@@ -81,7 +101,7 @@ extension HomeKolodaViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hardcodedClothingItems[collectionView.tag].clothingImages.count
+        return clothingPosts[collectionView.tag].imageURLs.count
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -91,8 +111,8 @@ extension HomeKolodaViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Global.CellID, for: indexPath) as! CardCollectionViewCell
-        let clothingImage = hardcodedClothingItems[collectionView.tag].clothingImages[indexPath.row]
-        cell.configureCell(image: clothingImage)
+        let clothingImageURL = clothingPosts[collectionView.tag].imageURLs[indexPath.row]
+        cell.configureCell(imageURL: clothingImageURL)
         return cell
     }
     

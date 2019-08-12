@@ -43,6 +43,8 @@ class KolodaCardView: UIView {
     
     lazy var sellerImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .lightGray
+        imageView.image = UIImage(named: "defaultprofilepicture")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         return imageView
@@ -104,12 +106,14 @@ class KolodaCardView: UIView {
         setupConstraints()
     }
     
-    func configureSubviews(name: String, brand: String, sellerImage: UIImage, sellerName: String, price: Int) {
+    func configureSubviews(name: String, brand: String, sellerProfilePicURL: String?, sellerName: String, price: String) {
         let mainString = NSMutableAttributedString(string: "\(name)\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)])
         let brandString = NSMutableAttributedString(string: brand, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18 * Global.ScaleFactor, weight: .medium)])
         mainString.append(brandString)
         nameandBrandLabel.attributedText = mainString
-        sellerImageView.image = sellerImage
+        if let url = sellerProfilePicURL {
+            let success = sellerImageView.loadFromURL(photoUrl: url)
+        }
         sellerNameLabel.text = sellerName
         priceLabel.text = "$\(price)"
     }

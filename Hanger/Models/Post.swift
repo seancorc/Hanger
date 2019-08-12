@@ -22,6 +22,9 @@ struct ClothingPostResponse: Codable {
     var data: ClothingPost
 }
 
+struct ClothingPostsResponse: Codable {
+    var data: [ClothingPost]
+}
 
 struct ClothingPost: Codable {
     var id: Int

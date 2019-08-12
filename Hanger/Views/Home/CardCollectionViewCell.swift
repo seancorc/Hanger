@@ -32,8 +32,8 @@ class CardCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    func configureCell(image: UIImage) {
-        self.imageView.image = image
+    func configureCell(imageURL: String) {
+        self.imageView.loadFromURL(photoUrl: imageURL)
     }
     
     func setupConstraints() {

@@ -16,6 +16,7 @@ enum UserRequests: Request {
     case updateInfo(newEmail: String, newUsername: String)
     case updatePassword(currentPassword: String, newPassword: String)
     case modifyProfilePicture(url: String) //-- IMPLEMENT WHEN S3 IS UP (UPLOAD TO S3 AND THEN PUT URL IN DB)
+    case getPostsForUser
     
     var path: String {
         switch self {
@@ -24,6 +25,7 @@ enum UserRequests: Request {
         case .updateInfo(_, _): return "/user/updateinfo/"
         case .updatePassword(_, _): return "/user/updatepassword/"
         case .modifyProfilePicture(_): return "/user/profilepicture/"
+        case .getPostsForUser: return "/user/posts/"
         }
     }
     
@@ -34,6 +36,7 @@ enum UserRequests: Request {
         case .updateInfo(_, _): return HTTPMethod.put
         case .updatePassword(_, _): return HTTPMethod.put
         case .modifyProfilePicture(_): return HTTPMethod.put
+        case .getPostsForUser: return HTTPMethod.get
         }
     }
     
@@ -44,6 +47,7 @@ enum UserRequests: Request {
         case let .updateInfo(newEmail, newUsername): return .body(["newEmail": newEmail, "newUsername": newUsername])
         case let .updatePassword(currentPassword, newPassword): return .body(["currentPassword":currentPassword, "newPassword":newPassword])
         case let .modifyProfilePicture(url): return .body(["url":url])
+        case .getPostsForUser: return .body([:])
         }
     }
     
@@ -52,6 +56,7 @@ enum UserRequests: Request {
         case .updateInfo(_, _): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         case .updatePassword(_, _): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         case .modifyProfilePicture(_): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
+        case .getPostsForUser: return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         default: return [:]
         }
     }

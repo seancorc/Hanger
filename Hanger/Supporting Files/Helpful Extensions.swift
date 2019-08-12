@@ -67,6 +67,31 @@ extension UIImage { //Used to make frosty tabBar
     }
 }
 
+extension UIImageView {
+    
+    func loadFromURL(photoUrl:String) -> Bool {
+        
+        guard let url = URL(string: photoUrl) else {return false}
+        
+        let request = URLRequest(url: url)
+        
+        let session = URLSession.shared
+        
+        var successful = false
+        let datatask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
+            DispatchQueue.main.async() {
+                self.image = UIImage(data: data!)
+                successful = true
+            }
+        }
+        datatask.resume()
+        return successful
+    }
+}
+
 extension String {
     func validateText(validationType: ValidatorType) throws -> String {
         let validator = AppValidator.validatorFor(type: validationType)

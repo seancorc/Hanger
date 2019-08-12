@@ -14,7 +14,6 @@ struct UserResponse: Codable {
     var accessToken: String?
 }
 
-
 struct User: Codable {
     var id: Int
     var email: String

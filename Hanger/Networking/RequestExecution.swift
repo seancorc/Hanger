@@ -60,7 +60,7 @@ class NetworkManager: Dispatcher {
 
         
         switch request.parameters {
-        case .none: break
+        case .none: urlRequest.httpBody = nil
         case .body(let params):
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             
