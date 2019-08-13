@@ -17,6 +17,10 @@ fileprivate func createErrorFromData(data: Data) -> NetworkErrorResponse? {
     return try? JSONDecoder().decode(NetworkErrorResponse.self, from: data)
 }
 
+fileprivate func createClothingPostArrayFromData(data: Data) -> ClothingPostsResponse? {
+    return try? JSONDecoder().decode(ClothingPostsResponse.self, from: data)
+}
+
 class CreatePostTask: Operation {
     var clothingType: String
     var category: String
@@ -62,5 +66,40 @@ class CreatePostTask: Operation {
         
     }
 }
+
+class GetNearbyPostsTask: Operation {
+    var radius: Int
+    
+    init(radius: Int) {
+        self.radius = radius
+    }
+    
+    var request: Request {
+        return SellClothesRequests.getNearbyPosts(radius: radius)
+    }
+    
+    func execute(in dispatcher: Dispatcher) -> Promise<[ClothingPost]> {
+        return Promise { fulfill, reject in
+            dispatcher.execute(request: self.request).then({ (response) in
+                switch response.responseCode {
+                case 200...299: guard let clothingPostsResponse = createClothingPostArrayFromData(data: response.data) else {
+                    reject(MessageError("Internal Error: Unable To Decode JSON"))
+                    return
+                }
+                fulfill(clothingPostsResponse.data)
+                default:
+                    guard let error = createErrorFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Response Code-\(response.responseCode)"))
+                        return
+                    }
+                    reject(MessageError(error.error))
+                }
+            }).catch({ (error) in reject(error)})
+        }
+        
+    }
+    
+}
+
 
 

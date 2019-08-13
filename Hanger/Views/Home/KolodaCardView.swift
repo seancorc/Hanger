@@ -43,7 +43,6 @@ class KolodaCardView: UIView {
     
     lazy var sellerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
         imageView.image = UIImage(named: "defaultprofilepicture")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true

@@ -17,6 +17,7 @@ enum UserRequests: Request {
     case updatePassword(currentPassword: String, newPassword: String)
     case modifyProfilePicture(url: String) //-- IMPLEMENT WHEN S3 IS UP (UPLOAD TO S3 AND THEN PUT URL IN DB)
     case getPostsForUser
+    case updateUserLocation(lat: Float, longt: Float)
     
     var path: String {
         switch self {
@@ -26,6 +27,7 @@ enum UserRequests: Request {
         case .updatePassword(_, _): return "/user/updatepassword/"
         case .modifyProfilePicture(_): return "/user/profilepicture/"
         case .getPostsForUser: return "/user/posts/"
+        case .updateUserLocation(_, _): return "/user/location/"
         }
     }
     
@@ -37,6 +39,7 @@ enum UserRequests: Request {
         case .updatePassword(_, _): return HTTPMethod.put
         case .modifyProfilePicture(_): return HTTPMethod.put
         case .getPostsForUser: return HTTPMethod.get
+        case .updateUserLocation(_, _): return HTTPMethod.put
         }
     }
     
@@ -48,6 +51,7 @@ enum UserRequests: Request {
         case let .updatePassword(currentPassword, newPassword): return .body(["currentPassword":currentPassword, "newPassword":newPassword])
         case let .modifyProfilePicture(url): return .body(["url":url])
         case .getPostsForUser: return .body([:])
+        case let .updateUserLocation(lat, longt): return .body(["lat": lat, "longt": longt])
         }
     }
     
@@ -57,6 +61,7 @@ enum UserRequests: Request {
         case .updatePassword(_, _): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         case .modifyProfilePicture(_): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         case .getPostsForUser: return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
+        case .updateUserLocation(_, _): return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
         default: return [:]
         }
     }
@@ -65,20 +70,26 @@ enum UserRequests: Request {
 
 enum SellClothesRequests: Request {
     case createPost(clothingType: String, category: String, name: String, brand: String, price: String, description: String?, imageURLs: [String])
+    case getNearbyPosts(radius: Int)
 
     var path: String {
         switch self {
-            case .createPost(_,_,_,_,_,_,_): return "/post/create/"
+        case .createPost(_,_,_,_,_,_,_): return "/post/create/"
+        case .getNearbyPosts(_): return "/posts/nearby"
         }
     }
 
     var method: HTTPMethod {
-        return HTTPMethod.post
+        switch self {
+        case .createPost(_,_,_,_,_,_,_): return HTTPMethod.post
+        case .getNearbyPosts(_): return HTTPMethod.get
+        }
     }
 
     var parameters: RequestParameters {
         switch self {
         case let .createPost(type, category, name, brand, price, description, imageURLs): return .body(["clothingType": type, "category": category, "name": name, "brand": brand, "price": price, "description": description, "imageURLs": imageURLs])
+        case let .getNearbyPosts(radius): return .url(["radius":"\(radius)"])
         }
     }
 

@@ -13,6 +13,19 @@ import MapKit
 class HomeViewController: HomeKolodaViewController {
     var locationManager: CLLocationManager!
     var geoCoder: CLGeocoder!
+    var networkManager: NetworkManager!
+    var userManager: UserManager!
+    var updateLocationTask: UpdateUserLocationTask!
+    
+    init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
+        self.networkManager = networkManager
+        self.userManager = userManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +38,18 @@ class HomeViewController: HomeKolodaViewController {
             make.edges.equalToSuperview()
         }
         
+        updateLocationTask = UpdateUserLocationTask(lat: 34.0522, longt: 118.2437) //Default lat and long
         setupLocationManagment()
+        
+        let getNearbyPosts = GetNearbyPostsTask(radius: 10)
+        getNearbyPosts.execute(in: networkManager).then { (clothingPosts) in
+            self.clothingPosts = clothingPosts
+            self.homeView.kolodaView.reloadData()
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+        }
         
     }
     
@@ -85,6 +109,7 @@ extension HomeViewController: CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.distanceFilter = CLLocationDistance(floatLiteral: 1609.34)
             locationManager.startUpdatingLocation()
         }
     }
@@ -101,9 +126,15 @@ extension HomeViewController: CLLocationManagerDelegate {
                     self.homeView.layoutIfNeeded()
                 }
             }
-        }
-        
-        
+        let lat = Float(location.coordinate.latitude)
+        let longt = Float(location.coordinate.longitude)
+        updateLocationTask.lat = lat
+        updateLocationTask.longt = longt
+            updateLocationTask.execute(in: self.networkManager).then { (user) in
+                print(user)
+                }.catch { (error) in
+                   print(error.localizedDescription)
+            }
+    }
     }
 }
-

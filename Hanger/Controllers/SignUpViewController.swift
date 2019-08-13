@@ -33,6 +33,7 @@ class SignUpViewController: UIViewController {
         signUpView.dismissButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
         signUpView.emailTextField.delegate = self
+        signUpView.usernameTextField.delegate = self
         signUpView.passwordTextField.delegate = self
         view.addSubview(signUpView)
         signUpView.snp.makeConstraints { (make) in

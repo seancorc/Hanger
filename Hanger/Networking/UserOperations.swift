@@ -229,3 +229,39 @@ class GetUserPostsTask: Operation {
     }
 }
 
+class UpdateUserLocationTask: Operation {
+    var lat: Float
+    var longt: Float
+    
+    init(lat: Float, longt: Float) {
+        self.lat = lat
+        self.longt = longt
+    }
+    
+    var request: Request {
+        return UserRequests.updateUserLocation(lat: lat, longt: longt)
+    }
+    
+    func execute(in dispatcher: Dispatcher) -> Promise<User> {
+        return Promise { fulfill, reject in
+            dispatcher.execute(request: self.request).then({ (response) in
+                switch response.responseCode {
+                case 200...299:
+                    guard let userResponse = createUserFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Unable To Decode JSON"))
+                        return
+                    }
+                    fulfill(userResponse.data)
+                default:
+                    guard let error = createErrorFromData(data: response.data) else {
+                        reject(MessageError("Internal Error: Response Code-\(response.responseCode)"))
+                        return
+                    }
+                    reject(MessageError(error.error))
+                }
+            }).catch({ (error) in reject(error)})
+        }
+    }
+    
+}
+

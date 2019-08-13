@@ -13,16 +13,6 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     var homeView: HomeView!
     var clothingPosts = [ClothingPost]()
     var currentKolodaIndex = 0
-    var networkManager: NetworkManager!
-    
-    init(networkManager: NetworkManager = .shared()) {
-        self.networkManager = networkManager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +21,6 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         homeView.kolodaView.delegate = self
         homeView.kolodaView.dataSource = self
         
-        let getPostsForUserTask = GetUserPostsTask()
-        getPostsForUserTask.execute(in: networkManager).then { (clothingPosts) in
-            self.clothingPosts = clothingPosts
-            self.homeView.kolodaView.reloadData()
-            }.catch { (error) in
-                var errorText = ""
-                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
-                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
-        }
     }
     
     func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {

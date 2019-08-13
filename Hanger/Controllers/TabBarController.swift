@@ -54,7 +54,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     func setUpTabBar() {
         tabBar.tintColor = Global.ThemeColor
         
-        let homePage = HomeViewController()
+        let homePage = HomeViewController(networkManager: self.networkManager, userManager: self.userManager)
         let homeNavController = UINavigationController(rootViewController: homePage)
         let homeIcon = UIImage(named: "homeicon")!.withRenderingMode(.alwaysTemplate)
         let homeTabItem = configureTabItem(title: "Home", icon: homeIcon)
