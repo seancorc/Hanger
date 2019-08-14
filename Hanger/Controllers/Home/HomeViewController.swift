@@ -15,7 +15,7 @@ class HomeViewController: HomeKolodaViewController {
     var geoCoder: CLGeocoder!
     var networkManager: NetworkManager!
     var userManager: UserManager!
-    var updateLocationTask: UpdateUserLocationTask!
+    var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
     
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
         self.networkManager = networkManager
@@ -37,15 +37,20 @@ class HomeViewController: HomeKolodaViewController {
         homeView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        homeView.fireLoadingAnimaton()
         
-        updateLocationTask = UpdateUserLocationTask(lat: 34.0522, longt: 118.2437) //Default lat and long
+        
+        updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long
         setupLocationManagment()
         
         let getNearbyPosts = GetNearbyPostsTask(radius: 10)
         getNearbyPosts.execute(in: networkManager).then { (clothingPosts) in
+            print(clothingPosts)
             self.clothingPosts = clothingPosts
             self.homeView.kolodaView.reloadData()
+            self.homeView.dismissLoadingAnimaton()
             }.catch { (error) in
+                self.homeView.dismissLoadingAnimaton()
                 var errorText = ""
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
@@ -126,15 +131,20 @@ extension HomeViewController: CLLocationManagerDelegate {
                     self.homeView.layoutIfNeeded()
                 }
             }
-        let lat = Float(location.coordinate.latitude)
-        let longt = Float(location.coordinate.longitude)
-        updateLocationTask.lat = lat
-        updateLocationTask.longt = longt
+            let lat = Float(location.coordinate.latitude)
+            let longt = Float(location.coordinate.longitude)
+            updateLocationTask.lat = lat
+            updateLocationTask.longt = longt
             updateLocationTask.execute(in: self.networkManager).then { (user) in
+                self.userManager.user.lat = user.lat //Make sure DB and user are consistent
+                self.userManager.user.longt = user.longt
                 print(user)
                 }.catch { (error) in
-                   print(error.localizedDescription)
+                    var errorText = ""
+                    if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                    print(errorText)
             }
-    }
+            
+        }
     }
 }

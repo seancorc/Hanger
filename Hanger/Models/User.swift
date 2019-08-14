@@ -19,4 +19,6 @@ struct User: Codable {
     var email: String
     var username: String
     var profilePictureURLString: String?
+    var lat: Float?
+    var longt: Float?
 }

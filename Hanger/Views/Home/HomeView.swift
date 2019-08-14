@@ -14,6 +14,8 @@ class HomeView: UIView {
     var kolodaView: KolodaView!
     var cityLabel: UILabel!
     var pagingControl: UIPageControl!
+    var loadingLayer: CAShapeLayer!
+    var backgroundLoadingLayer: CAShapeLayer!
     
     init() {
         super.init(frame: .zero)
@@ -47,7 +49,6 @@ class HomeView: UIView {
         pagingControl.currentPageIndicatorTintColor = .white
         self.addSubview(pagingControl)
         
-        
         setupConstraints()
     }
     
@@ -72,4 +73,71 @@ class HomeView: UIView {
         }
     }
     
+    
+}
+
+extension HomeView: CAAnimationDelegate {
+    func fireLoadingAnimaton() {
+        let radius = UIScreen.main.bounds.width / 6
+        backgroundLoadingLayer = CAShapeLayer()
+        loadingLayer = CAShapeLayer()
+        backgroundLoadingLayer.removeAnimation(forKey: "fade")
+        loadingLayer.removeAnimation(forKey: "fade")
+        let circularPath = UIBezierPath(arcCenter: UIApplication.shared.keyWindow!.center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 3 * CGFloat.pi / 2, clockwise: true)
+        backgroundLoadingLayer.path = circularPath.cgPath
+        
+        backgroundLoadingLayer.strokeColor = UIColor.black.cgColor
+        backgroundLoadingLayer.lineWidth = 10
+        backgroundLoadingLayer.fillColor = UIColor.clear.cgColor
+        backgroundLoadingLayer.lineCap = CAShapeLayerLineCap.round
+        
+        loadingLayer.path = circularPath.cgPath
+        loadingLayer.strokeColor = Global.ThemeColor.cgColor
+        loadingLayer.lineWidth = 10
+        loadingLayer.fillColor = UIColor.clear.cgColor
+        loadingLayer.lineCap = CAShapeLayerLineCap.round
+        loadingLayer.strokeEnd = 0
+        
+        let circle1Animation = CABasicAnimation(keyPath: "strokeEnd")
+        circle1Animation.fromValue = 0
+        circle1Animation.toValue = 1
+        circle1Animation.duration = 1.5
+        circle1Animation.fillMode = CAMediaTimingFillMode.forwards
+        circle1Animation.isRemovedOnCompletion = false
+        
+        let circle2Animation = CABasicAnimation(keyPath: "strokeStart")
+        circle2Animation.fromValue = 0
+        circle2Animation.toValue = 1
+        circle2Animation.duration = 1.5
+        circle2Animation.beginTime = 1.5
+        circle2Animation.fillMode = CAMediaTimingFillMode.forwards
+        circle2Animation.isRemovedOnCompletion = false
+        
+        let animGroup = CAAnimationGroup()
+        animGroup.duration = 3
+        animGroup.repeatCount = .infinity
+        animGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animGroup.animations = [circle2Animation, circle1Animation]
+        
+        self.layer.addSublayer(backgroundLoadingLayer)
+        self.layer.addSublayer(loadingLayer)
+        loadingLayer.add(animGroup, forKey: "loading")
+    }
+    
+    func dismissLoadingAnimaton() {
+        let fade = CABasicAnimation(keyPath: "opacity")
+        fade.delegate = self
+        fade.fromValue = 1
+        fade.toValue = 0
+        fade.duration = 0.5
+        fade.fillMode = CAMediaTimingFillMode.forwards
+        fade.isRemovedOnCompletion = false
+        
+        loadingLayer.add(fade, forKey: "fade")
+        backgroundLoadingLayer.add(fade, forKey: "fade")
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        loadingLayer.removeAnimation(forKey: "loading")
+    }
 }

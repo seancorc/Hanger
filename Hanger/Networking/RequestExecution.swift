@@ -28,7 +28,6 @@ class NetworkManager: Dispatcher {
     func execute(request: Request) -> Promise<AFResponse> {
         return Promise<AFResponse>() { fulfill, reject in
             guard let urlRequest = try? self.prepareURLRequest(for: request) else {reject(MessageError("Bad URL")); return}
-            print(urlRequest.url)
             Alamofire.request(urlRequest).responseData { (response) in
                 guard let data = response.data else {
                     reject(MessageError("Internal Error: No Response Data"))
