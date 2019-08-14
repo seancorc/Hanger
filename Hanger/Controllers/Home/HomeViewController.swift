@@ -45,7 +45,6 @@ class HomeViewController: HomeKolodaViewController {
         
         let getNearbyPosts = GetNearbyPostsTask(radius: 10)
         getNearbyPosts.execute(in: networkManager).then { (clothingPosts) in
-            print(clothingPosts)
             self.clothingPosts = clothingPosts
             self.homeView.kolodaView.reloadData()
             self.homeView.dismissLoadingAnimaton()

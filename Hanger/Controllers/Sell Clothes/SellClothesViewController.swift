@@ -220,7 +220,10 @@ extension SellClothesViewController {
         let possibleDescriptionText = sellClothesView.descriptionTextView.hasText ? sellClothesView.descriptionTextView.text : nil
         let createPostTask = CreatePostTask(clothingType: self.selectedClothingType, category: self.selectedClothingCategory, name: sellClothesView.nameTextField.text ?? "", brand: sellClothesView.brandTextField.text ?? "",price: sellClothesView.priceTextField.text ?? "", description: possibleDescriptionText, imageURLs: self.imageURLs)
         createPostTask.execute(in: self.networkManager).then { (clothingPost) in
-            print(clothingPost)
+            let okPressed: ((UIAlertAction) -> Void) = { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.present(HelpfulFunctions.createAlert(for: "Post Created!", okHandler: okPressed), animated: true, completion: nil)
             }.catch { (error) in
                 var errorText = ""
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
