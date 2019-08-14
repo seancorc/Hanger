@@ -9,7 +9,8 @@
 import UIKit
 
 class SellClothesView: UIView {
-    private var placeholderAttributedText: NSAttributedString = NSAttributedString(string: "Brief Description... (optional)", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor), NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+    private var placeholderAttributedText: NSMutableAttributedString = NSMutableAttributedString(string: "Brief Description...", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor) as Any, NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+    private var placeholderAttributedText2: NSMutableAttributedString = NSMutableAttributedString(string: " (optional)", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor) as Any, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
     private let padding = 24 * Global.ScaleFactor
     
     lazy var collectionView: UICollectionView = {
@@ -26,8 +27,8 @@ class SellClothesView: UIView {
     lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.attributedPlaceholder = NSAttributedString(string: "Title...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)])
-        textField.defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)]
+        textField.attributedPlaceholder = NSAttributedString(string: "Title...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor) as Any])
+        textField.defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor) as Any]
         textField.font = UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)
         return textField
     }()
@@ -42,7 +43,7 @@ class SellClothesView: UIView {
     lazy var brandTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.attributedPlaceholder = NSAttributedString(string: "Brand...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)])
+        textField.attributedPlaceholder = NSAttributedString(string: "Brand...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor) as Any])
         textField.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
         return textField
     }()
@@ -65,7 +66,7 @@ class SellClothesView: UIView {
         let textField = NoSelectTextField()
         textField.keyboardType = UIKeyboardType.numberPad
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.attributedPlaceholder = NSAttributedString(string: "Price...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)])
+        textField.attributedPlaceholder = NSAttributedString(string: "Price...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor) as Any])
         textField.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
         return textField
     }()
@@ -79,6 +80,7 @@ class SellClothesView: UIView {
     
     lazy var descriptionPlaceholer: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -146,7 +148,6 @@ class SellClothesView: UIView {
     
     override func didMoveToSuperview() {
         stackView.addArrangedSubview(collectionView)
-        //stackView.addArrangedSubview(separatorView1)
         stackView.addArrangedSubview(nameTextField)
         stackView.addArrangedSubview(separatorView2)
         stackView.addArrangedSubview(brandTextField)
@@ -154,6 +155,7 @@ class SellClothesView: UIView {
         priceTextField.inputAccessoryView = keyboardDoneButton
         stackView.addArrangedSubview(priceTextField)
         stackView.addArrangedSubview(separatorView4)
+        placeholderAttributedText.append(placeholderAttributedText2)
         descriptionPlaceholer.attributedText = placeholderAttributedText
         descriptionTextView.addSubview(descriptionPlaceholer)
         stackView.addArrangedSubview(descriptionTextView)

@@ -10,12 +10,15 @@ import UIKit
 import Koloda
 import MapKit
 
+//TODO: Manage stream of cards, don't present ones already seen, don't present ones already bought, use filters
 class HomeViewController: HomeKolodaViewController {
     var locationManager: CLLocationManager!
     var geoCoder: CLGeocoder!
     var networkManager: NetworkManager!
     var userManager: UserManager!
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
+    var getNearbyPostsTask: GetNearbyPostsTask!
+    var noPostsView: NoPostsView!
     
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
         self.networkManager = networkManager
@@ -29,7 +32,6 @@ class HomeViewController: HomeKolodaViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavBar()
         
         homeView.translatesAutoresizingMaskIntoConstraints = false        
@@ -37,24 +39,60 @@ class HomeViewController: HomeKolodaViewController {
         homeView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        homeView.fireLoadingAnimaton()
         
         
         updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long
         setupLocationManagment()
         
-        let getNearbyPosts = GetNearbyPostsTask(radius: 10)
-        getNearbyPosts.execute(in: networkManager).then { (clothingPosts) in
-            self.clothingPosts = clothingPosts
-            self.homeView.kolodaView.reloadData()
-            self.homeView.dismissLoadingAnimaton()
+        getNearbyPostsTask = GetNearbyPostsTask(radius: 10)
+        self.getNearbyPosts()
+        
+    }
+    
+    private func getNearbyPosts(radius: Int = 10, silent: Bool = false) {
+        if !silent {homeView.fireLoadingAnimaton()}
+        getNearbyPostsTask.radius = radius
+        getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
+            if clothingPosts.count == 0 {
+                self.addNoPostView()
+            } else {
+                self.clothingPosts = clothingPosts
+                self.homeView.kolodaView.reloadData()
+            }
+            if !silent {self.homeView.dismissLoadingAnimaton()}
             }.catch { (error) in
-                self.homeView.dismissLoadingAnimaton()
+                if !silent {self.homeView.dismissLoadingAnimaton()}
                 var errorText = ""
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
         }
-        
+    }
+    
+    private func addNoPostView() {
+        noPostsView = NoPostsView()
+        noPostsView.refreshButton.addTarget(self, action: #selector(refreshButtonPressed), for: .touchUpInside)
+        noPostsView.translatesAutoresizingMaskIntoConstraints = false
+        noPostsView.alpha = 0
+        self.view.addSubview(noPostsView)
+        noPostsView.snp.makeConstraints({ (make) in
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.4)
+            make.center.equalToSuperview()
+        })
+        UIView.animate(withDuration: 0.2, animations: {
+            self.noPostsView.alpha = 1
+        })
+    }
+    
+    private func hideNoPostView() {
+        UIView.animate(withDuration: 0.2) {
+            self.noPostsView.alpha = 0
+        }
+    }
+    
+    @objc func refreshButtonPressed() {
+        self.hideNoPostView()
+        self.getNearbyPosts()
     }
     
 }

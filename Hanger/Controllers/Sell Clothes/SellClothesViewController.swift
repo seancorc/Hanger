@@ -218,7 +218,7 @@ extension SellClothesViewController {
         }
         if !postable {return}
         let possibleDescriptionText = sellClothesView.descriptionTextView.hasText ? sellClothesView.descriptionTextView.text : nil
-        let createPostTask = CreatePostTask(clothingType: self.selectedClothingType, category: self.selectedClothingCategory, name: sellClothesView.nameTextField.text ?? "", brand: sellClothesView.brandTextField.text ?? "",price: sellClothesView.priceTextField.text ?? "", description: possibleDescriptionText, imageURLs: self.imageURLs)
+        let createPostTask = CreatePostTask(clothingType: self.selectedClothingType, category: self.selectedClothingCategory, name: sellClothesView.nameTextField.text!, brand: sellClothesView.brandTextField.text!,price: getPriceFromText(text: sellClothesView.priceTextField.text!) ?? 0, description: possibleDescriptionText, imageURLs: self.imageURLs)
         createPostTask.execute(in: self.networkManager).then { (clothingPost) in
             let okPressed: ((UIAlertAction) -> Void) = { _ in
                 self.dismiss(animated: true, completion: nil)
@@ -229,6 +229,11 @@ extension SellClothesViewController {
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
         }
+    }
+    
+    private func getPriceFromText(text: String) -> Int? {
+        let priceString = String(text[text.index(after: text.startIndex)...])
+        return Int(priceString)
     }
     
 }

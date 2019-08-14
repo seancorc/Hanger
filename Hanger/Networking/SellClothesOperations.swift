@@ -26,11 +26,11 @@ class CreatePostTask: Operation {
     var category: String
     var name: String
     var brand: String
-    var price: String
+    var price: Int
     var description: String?
     var imageURLs: [String]
     
-    init(clothingType: String, category: String, name: String, brand: String, price: String, description: String?, imageURLs: [String]) {
+    init(clothingType: String, category: String, name: String, brand: String, price: Int, description: String?, imageURLs: [String]) {
         self.clothingType = clothingType
         self.category = category
         self.name = name

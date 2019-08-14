@@ -69,7 +69,7 @@ enum UserRequests: Request {
 }
 
 enum SellClothesRequests: Request {
-    case createPost(clothingType: String, category: String, name: String, brand: String, price: String, description: String?, imageURLs: [String])
+    case createPost(clothingType: String, category: String, name: String, brand: String, price: Int, description: String?, imageURLs: [String])
     case getNearbyPosts(radius: Int)
 
     var path: String {

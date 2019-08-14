@@ -22,8 +22,9 @@ class PriceTextFieldDelegate: NSObject, UITextFieldDelegate {
         if textField.layer.borderWidth == 1 {
             textField.inputGiven()
         }
-        
-        return range != NSRange(location: 0, length: 1)
+        if range == NSRange(location: 0, length: 1) {return false}
+        if range == NSRange(location: 5, length: 0) {return false}
+        return true
     }
 }
 

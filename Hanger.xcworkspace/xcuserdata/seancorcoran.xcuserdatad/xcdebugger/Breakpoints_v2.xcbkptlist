@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Controllers/Account/AccountViewController.swift"
-            timestampString = "587188063.552318"
+            timestampString = "587507795.811543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Views/Sell Clothes /SellClothesView.swift"
-            timestampString = "587361450.872393"
+            timestampString = "587511111.930015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "SellClothesView"
             landmarkType = "3">
          </BreakpointContent>

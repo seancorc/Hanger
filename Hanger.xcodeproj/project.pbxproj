@@ -10,6 +10,7 @@
 		0808858BB2757088AE0F1F54 /* Pods_HangerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */; };
 		6E29C2ACF53E66BC29A02D62 /* Pods_Hanger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156162595C52A3B271B74D4F /* Pods_Hanger.framework */; };
 		D601954C22FDF97C0020D858 /* SellClothesOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601954B22FDF97C0020D858 /* SellClothesOperations.swift */; };
+		D601954E2304A2A60020D858 /* NoPostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601954D2304A2A60020D858 /* NoPostsView.swift */; };
 		D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157A522C9F1BE00571558 /* AppDelegate.swift */; };
 		D63157AB22C9F1BE00571558 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63157A922C9F1BE00571558 /* Main.storyboard */; };
 		D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D63157AC22C9F1BE00571558 /* Hanger.xcdatamodeld */; };
@@ -98,6 +99,7 @@
 		AA0B3CD4F8599E9578652B3A /* Pods-HangerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HangerUITests/Pods-HangerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B132446F29337E318629C1AE /* Pods-HangerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HangerTests/Pods-HangerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D601954B22FDF97C0020D858 /* SellClothesOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesOperations.swift; sourceTree = "<group>"; };
+		D601954D2304A2A60020D858 /* NoPostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPostsView.swift; sourceTree = "<group>"; };
 		D63157A222C9F1BE00571558 /* Hanger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hanger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63157A522C9F1BE00571558 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D63157AA22C9F1BE00571558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				D6F05DBC22DBFE4C00621E36 /* FilterView.swift */,
 				D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */,
 				D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */,
+				D601954D2304A2A60020D858 /* NoPostsView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6F05D9D22D291EB00621E36 /* ChangePasswordView.swift in Sources */,
+				D601954E2304A2A60020D858 /* NoPostsView.swift in Sources */,
 				D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */,
 				D6D87E8422E99072006485BD /* NetworkingDataStructures.swift in Sources */,
 				D6D87E8B22F0D406006485BD /* SellClothesCollectionViewCell.swift in Sources */,

@@ -31,7 +31,7 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         let kolodaView = KolodaCardView()
         setupCollectionViewControl(collectionView: kolodaView.collectionView, index: index)
         let clothingPost = clothingPosts[index]
-        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: clothingPost.price)
+        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: String(clothingPost.price))
         return kolodaView
     }
     
@@ -61,6 +61,10 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
 //            card.priceLabel.textColor = UIColor(red: calculatedValue, green: 1 - ((100 - finishPercentage) / 100.0), blue: calculatedValue, alpha: 1)
 //        }
 //    }
+    
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        return
+    } //Method in HomeViewController won't work unless it is overriding the one in here
     
 }
 

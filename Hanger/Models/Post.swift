@@ -32,7 +32,7 @@ struct ClothingPost: Codable {
     var category: String
     var name: String
     var brand: String
-    var price: String
+    var price: Int
     var description: String?
     var user: User
     var imageURLs: [String]
