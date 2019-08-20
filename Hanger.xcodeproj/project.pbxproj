@@ -11,6 +11,7 @@
 		6E29C2ACF53E66BC29A02D62 /* Pods_Hanger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156162595C52A3B271B74D4F /* Pods_Hanger.framework */; };
 		D601954C22FDF97C0020D858 /* SellClothesOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601954B22FDF97C0020D858 /* SellClothesOperations.swift */; };
 		D601954E2304A2A60020D858 /* NoPostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601954D2304A2A60020D858 /* NoPostsView.swift */; };
+		D6019550230614DA0020D858 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601954F230614DA0020D858 /* Filters.swift */; };
 		D63157A622C9F1BE00571558 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63157A522C9F1BE00571558 /* AppDelegate.swift */; };
 		D63157AB22C9F1BE00571558 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63157A922C9F1BE00571558 /* Main.storyboard */; };
 		D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D63157AC22C9F1BE00571558 /* Hanger.xcdatamodeld */; };
@@ -100,6 +101,7 @@
 		B132446F29337E318629C1AE /* Pods-HangerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HangerTests/Pods-HangerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D601954B22FDF97C0020D858 /* SellClothesOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesOperations.swift; sourceTree = "<group>"; };
 		D601954D2304A2A60020D858 /* NoPostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPostsView.swift; sourceTree = "<group>"; };
+		D601954F230614DA0020D858 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		D63157A222C9F1BE00571558 /* Hanger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hanger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63157A522C9F1BE00571558 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D63157AA22C9F1BE00571558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */,
 				D63157DB22C9F25D00571558 /* HomeViewController.swift */,
 				D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */,
+				D601954F230614DA0020D858 /* Filters.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */,
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
 				D6D87E9022F139D0006485BD /* SellClothesView.swift in Sources */,
+				D6019550230614DA0020D858 /* Filters.swift in Sources */,
 				D6F05DAA22D2EFBF00621E36 /* SignUpViewController.swift in Sources */,
 				D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */,
 				D6F05DB222D59F5600621E36 /* RequestCreation.swift in Sources */,

@@ -9,11 +9,12 @@
 import UIKit
 
 class FilterTableViewCell: UITableViewCell {
+    static let titleFontSize = 18 * Global.ScaleFactor
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18 * Global.ScaleFactor, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: FilterTableViewCell.titleFontSize, weight: .bold)
         return label
     }()
     
@@ -62,9 +63,10 @@ class FilterTableViewCell: UITableViewCell {
         collectionView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(24 * Global.ScaleFactor)
+            make.top.equalTo(titleLabel.snp.bottom).offset(24 * Global.ScaleFactor) //For automatic TV dimension
             make.height.equalToSuperview().multipliedBy(0.35)
-            make.bottom.equalToSuperview().offset(-32 * Global.ScaleFactor)
+            make.bottom.equalToSuperview().offset(-32 * Global.ScaleFactor) //For automatic TV dimension
+            make.centerX.equalToSuperview()
         }
         
         

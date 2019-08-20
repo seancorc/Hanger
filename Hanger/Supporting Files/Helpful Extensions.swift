@@ -79,12 +79,16 @@ extension UIImageView {
         
         var successful = false
         let datatask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            if error != nil {
-                print(error?.localizedDescription as Any)
+            if let error = error {
+                print(error.localizedDescription as Any)
             }
+            if let data = data {
             DispatchQueue.main.async() {
-                self.image = UIImage(data: data!)
+                self.image = UIImage(data: data)
                 successful = true
+                }
+            } else {
+                successful = false
             }
         }
         datatask.resume()
@@ -145,18 +149,16 @@ extension UIView {
     /**
      Changes the view's UI to tell the user that input is needed
     */
-    func needsInputBeforeContinuing() {
-        self.layer.borderColor = UIColor.red.cgColor
-        self.layer.borderWidth = 1
+    func needsInputBeforeContinuing(color: UIColor = .red, alpha: CGFloat = 0.1) {
+        self.backgroundColor = color.withAlphaComponent(alpha)
         self.shake()
     }
     
     /**
      Reverses effects of a call to 'needsInputBeforeContinuing'
      */
-    func inputGiven(borderColor: CGColor? = nil, borderWidth: CGFloat = 0) {
-        self.layer.borderColor = borderColor
-        self.layer.borderWidth = borderWidth
+    func inputGiven(color: UIColor = .white) {
+        self.backgroundColor = color
     }
     
     func shake() {

@@ -53,6 +53,8 @@ class HomeView: UIView {
     }
     
     func setupConstraints() {
+        let padding = 8 * Global.ScaleFactor
+        
         cityLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
@@ -60,9 +62,10 @@ class HomeView: UIView {
         }
         
         kolodaView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.9)
+            make.top.equalTo(cityLabel.snp.bottom).offset(padding)
         }
         
         

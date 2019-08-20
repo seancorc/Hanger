@@ -24,8 +24,8 @@ class SellClothesView: UIView {
         return cv
     }()
     
-    lazy var nameTextField: UITextField = {
-        let textField = UITextField()
+    lazy var nameTextField: NiceSpacingTextField = {
+        let textField = NiceSpacingTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(string: "Title...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor) as Any])
         textField.defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor) as Any]
@@ -40,8 +40,8 @@ class SellClothesView: UIView {
         return view
     }()
     
-    lazy var brandTextField: UITextField = {
-        let textField = UITextField()
+    lazy var brandTextField: NiceSpacingTextField = {
+        let textField = NiceSpacingTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(string: "Brand...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor) as Any])
         textField.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
@@ -62,8 +62,8 @@ class SellClothesView: UIView {
         return button
     }()
     
-    lazy var priceTextField: NoSelectTextField = {
-        let textField = NoSelectTextField()
+    lazy var priceTextField: NiceSpacingTextField = {
+        let textField = NiceSpacingTextField(selectable: false)
         textField.keyboardType = UIKeyboardType.numberPad
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(string: "Price...", attributes: [NSAttributedString.Key.underlineStyle : 1, NSAttributedString.Key.foregroundColor : UIColor.lightGray,NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor) as Any])
@@ -188,7 +188,7 @@ class SellClothesView: UIView {
         }
 
         nameTextField.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.85)
+            make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
         }
 
@@ -198,7 +198,7 @@ class SellClothesView: UIView {
         }
 
         brandTextField.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.85)
+            make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
         }
 
@@ -208,7 +208,7 @@ class SellClothesView: UIView {
         }
         
         priceTextField.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.85)
+            make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
         }
         

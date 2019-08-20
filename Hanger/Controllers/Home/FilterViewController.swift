@@ -8,14 +8,14 @@
 
 import UIKit
 
+//TODO: Put a space to choose more specific filters
 class FilterViewController: UIViewController {
     var filterView: FilterView!
-    var numberOfSelectedFilters: Int = 1
-    var firstCellTexts = ["$", "$$", "$$$", "$$$$"]
-    var secondCellTexts = ["1 Mi", "5 Mi", "10 Mi", "15 Mi", "25 Mi"]
-    var thirdCellTexts = ["Male", "Female", "Gender Neutral"]
-    //TODO: Put a space to choose more specific filters
-    var fourthCellGeneralTexts = ["Casual", "Workout", "Swimwear", "Headgear", "Formal", "Footwear", "Accessories"]
+    var numberOfSelectedFilters: Int = 2
+    var firstCellTexts =  Prices.allCases.map { $0.rawValue}
+    var secondCellTexts = Distances.allCases.map { $0.rawValue}
+    var thirdCellTexts = Types.allCases.map { $0.rawValue}
+    var fourthCellGeneralTexts = Categories.allCases.map { $0.rawValue}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,16 +93,17 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var text: String = ""
         var widthMultiplier: CGFloat = 0.2
+        let padding = 12 * Global.ScaleFactor
         switch collectionView.tag {
         case 0: text = firstCellTexts[indexPath.row]; widthMultiplier = 0.22
         case 1: text = secondCellTexts[indexPath.row]; widthMultiplier = 0.2
         case 2: text = thirdCellTexts[indexPath.row]; widthMultiplier = 0.3
         case 3: text = fourthCellGeneralTexts[indexPath.row]; widthMultiplier = 0.25
-        default: text = "ahhhh"
+        default: break
         }
         let NSText = NSString(string: text)
-        let size = NSText.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17 * Global.ScaleFactor)])
-        return CGSize(width: (size.width + 12) > self.view.frame.width * widthMultiplier ? (size.width + 12) : self.view.frame.width * widthMultiplier, height: size.height * 2)
+        let size = NSText.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: FilterTableViewCell.titleFontSize)])
+        return CGSize(width: (size.width + padding) > self.view.frame.width * widthMultiplier ? (size.width + padding) : self.view.frame.width * widthMultiplier, height: size.height * 2) //If the text with padding is bigger then the selected width multiplier 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

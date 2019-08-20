@@ -19,9 +19,7 @@ class PriceTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField.layer.borderWidth == 1 {
-            textField.inputGiven()
-        }
+        textField.inputGiven()
         if range == NSRange(location: 0, length: 1) {return false}
         if range == NSRange(location: 5, length: 0) {return false}
         return true

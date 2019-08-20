@@ -72,5 +72,46 @@ class NiceSpacingLabel: UILabel {
     }
 }
 
+class NiceSpacingTextField: UITextField {
+    var textInset: CGFloat = 24 * Global.ScaleFactor
+    var selectable: Bool = true
+    
+    convenience init(textInset: CGFloat = 24 * Global.ScaleFactor, selectable: Bool = true) {
+        self.init()
+        self.textInset = textInset
+        self.selectable = selectable
+    }
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        super.textRect(forBounds: bounds)
+        return CGRect(x: bounds.minX + textInset, y: bounds.minY, width: bounds.width, height: bounds.height)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        super.editingRect(forBounds: bounds)
+        return CGRect(x: bounds.minX + textInset, y: bounds.minY, width: bounds.width, height: bounds.height)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if !selectable {
+            if action == #selector(paste(_:)) ||
+                action == #selector(cut(_:)) ||
+                action == #selector(copy(_:)) ||
+                action == #selector(select(_:)) ||
+                action == #selector(selectAll(_:)) ||
+                action == #selector(delete(_:)) ||
+                action == #selector(makeTextWritingDirectionLeftToRight(_:)) ||
+                action == #selector(makeTextWritingDirectionRightToLeft(_:)) ||
+                action == #selector(toggleBoldface(_:)) ||
+                action == #selector(toggleItalics(_:)) ||
+                action == #selector(toggleUnderline(_:)) {
+                return false
+            }
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+    
+}
+
 
 

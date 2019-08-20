@@ -31,7 +31,7 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         let kolodaView = KolodaCardView()
         setupCollectionViewControl(collectionView: kolodaView.collectionView, index: index)
         let clothingPost = clothingPosts[index]
-        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: String(clothingPost.price))
+        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: String(clothingPost.price), isDescriptionPresent: clothingPost.description == nil)
         return kolodaView
     }
     

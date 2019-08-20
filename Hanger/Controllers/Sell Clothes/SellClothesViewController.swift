@@ -44,7 +44,7 @@ class SellClothesViewController: UIViewController {
         setupNavBar()
         view.backgroundColor = UIColor(white: 0.6, alpha: 0.6)
         
-
+        
         imagePicker.didFinishPicking {  [weak imagePicker, unowned self] items, cancelled in
             if !cancelled {
                 for item in items {
@@ -109,9 +109,6 @@ class SellClothesViewController: UIViewController {
 extension SellClothesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         sellClothesView.descriptionPlaceholer.isHidden = !textView.text.isEmpty
-        if textView.layer.borderColor == UIColor.red.cgColor {
-            textView.inputGiven(borderColor: UIColor.lightGray.cgColor, borderWidth: 1)
-        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -128,10 +125,8 @@ extension SellClothesViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField.layer.borderWidth == 1 {
-            textField.inputGiven()
-        }
-         return true
+        textField.inputGiven()
+        return true
     }
     
 }
