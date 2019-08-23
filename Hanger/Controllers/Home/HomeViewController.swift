@@ -20,7 +20,6 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
     var getNearbyPostsTask: GetNearbyPostsTask!
     var noPostsView: NoPostsView!
-    var tapGestureRecognizer: UITapGestureRecognizer!
     
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
         self.networkManager = networkManager
@@ -56,27 +55,24 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        print(gestureRecognizer.debugDescription)
-        print(touch.view.debugDescription)
+    //Satisfies conflict between koloda draggable card view pan gesture recognizer and tap gesture recognizer
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        print(gestureRecognizer.debugDescription) //My gesture recognizer
-        print(otherGestureRecognizer.debugDescription) //Koloda draggable card view
-        return false
-    }
-    
-    
     @objc func tapped() {
-        homeView.descriptionButtonPressed()
+        print(tapGestureRecognizer.isEnabled)
+        homeView.dismissDescription()
         tapGestureRecognizer.isEnabled = false
     }
     
     @objc func descriptionButtonPressed(_ sender: Any) {
         tapGestureRecognizer.isEnabled = !tapGestureRecognizer.isEnabled
-        homeView.descriptionButtonPressed() //Handles UI
+        if homeView.descriptionLabel.transform.ty > 0 {
+            homeView.deployDescription()
+        } else {
+            homeView.dismissDescription()
+        }
     }
     
     private func getNearbyPosts(radius: Int = 10, silent: Bool = false) {

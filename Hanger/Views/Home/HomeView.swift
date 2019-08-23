@@ -11,6 +11,7 @@ import Koloda
 import SnapKit
 
 class HomeView: UIView {
+    static let defaultDescriptionText = NSMutableAttributedString(string: "Description\n", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 24 * Global.ScaleFactor) as Any, NSAttributedString.Key.underlineStyle: 1])
     
     lazy var kolodaView: KolodaView = {
         let kolodaView = KolodaView()
@@ -45,7 +46,7 @@ class HomeView: UIView {
     lazy var descriptionLabel: DescriptionLabel = {
         let label = DescriptionLabel()
         label.numberOfLines = 0
-        label.attributedText = NSMutableAttributedString(string: "Description\n", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 24 * Global.ScaleFactor) as Any, NSAttributedString.Key.underlineStyle: 1])
+        label.attributedText = HomeView.defaultDescriptionText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
@@ -53,7 +54,6 @@ class HomeView: UIView {
     
     lazy var labelTransform: CGAffineTransform = {
         let trans1 =  CGAffineTransform(scaleX: 0, y: 0)
-        print(descriptionLabel.intrinsicContentSize.height)
         let trans2 =  CGAffineTransform(translationX: 0, y: descriptionLabel.intrinsicContentSize.height)
         return trans1.concatenating(trans2)
     }()
@@ -143,6 +143,21 @@ extension HomeView: CAAnimationDelegate {
                 self.descriptionLabel.alpha = 1
             })
         }
+    }
+    
+    func deployDescription() {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut], animations: {
+            self.descriptionLabel.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
+    
+    func dismissDescription() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: {
+            self.descriptionLabel.alpha = 0
+        }, completion: {_ in
+            self.descriptionLabel.transform = self.labelTransform
+            self.descriptionLabel.alpha = 1
+        })
     }
     
     

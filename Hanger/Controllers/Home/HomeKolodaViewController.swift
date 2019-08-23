@@ -13,6 +13,7 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     var homeView: HomeView!
     var clothingPosts = [ClothingPost]()
     var currentKolodaIndex = 0
+    var tapGestureRecognizer: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,8 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
             self.homeView.pagingControl.alpha = 0
             self.homeView.descriptionButton.alpha = 0
         }
+        homeView.dismissDescription()
+        tapGestureRecognizer.isEnabled = false
     }
     
     func kolodaPanFinished(_ koloda: KolodaView, card: DraggableCardView) {
@@ -73,8 +76,8 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
 //    }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        return
-    } //Method in HomeViewController won't work unless it is overriding the one in here
+        homeView.descriptionLabel.attributedText = HomeView.defaultDescriptionText
+    } 
     
 }
 
