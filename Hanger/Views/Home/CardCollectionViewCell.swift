@@ -11,6 +11,7 @@ import UIKit
 class CardCollectionViewCell: UICollectionViewCell {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.isUserInteractionEnabled = true
         imageView.image = UIImage(named: "exiticon") //Default image
         imageView.backgroundColor = UIColor(white: 0.98, alpha: 1)
         imageView.contentMode = .scaleToFill

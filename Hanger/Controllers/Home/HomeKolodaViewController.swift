@@ -29,16 +29,23 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let kolodaView = KolodaCardView()
+        kolodaView.isUserInteractionEnabled = true
         setupCollectionViewControl(collectionView: kolodaView.collectionView, index: index)
         let clothingPost = clothingPosts[index]
-        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: String(clothingPost.price), isDescriptionPresent: clothingPost.description == nil)
+        kolodaView.configureSubviews(name: clothingPost.name, brand: clothingPost.brand, sellerProfilePicURL: clothingPost.user.profilePictureURLString, sellerName: clothingPost.user.username, price: String(clothingPost.price))
         return kolodaView
     }
     
     
     func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
-        self.homeView.pagingControl.numberOfPages = clothingPosts[index].imageURLs.count
-        self.homeView.pagingControl.currentPage = 0
+        print(koloda.isUserInteractionEnabled)
+        homeView.descriptionButton.isHidden = clothingPosts[index].description == nil
+        let description = clothingPosts[homeView.kolodaView.currentCardIndex].description ?? ""
+        let attrText = NSMutableAttributedString(attributedString: homeView.descriptionLabel.attributedText ?? NSAttributedString())
+        attrText.append(NSAttributedString(string: description, attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 20 * Global.ScaleFactor) as Any]))
+        homeView.descriptionLabel.attributedText = attrText
+        homeView.pagingControl.numberOfPages = clothingPosts[index].imageURLs.count
+        homeView.pagingControl.currentPage = 0
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.layoutIfNeeded()
         }
@@ -47,11 +54,14 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     func kolodaPanBegan(_ koloda: KolodaView, card: DraggableCardView) {
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.alpha = 0
+            self.homeView.descriptionButton.alpha = 0
         }
     }
+    
     func kolodaPanFinished(_ koloda: KolodaView, card: DraggableCardView) {
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.alpha = 1
+            self.homeView.descriptionButton.alpha = 1
         }
     }
     

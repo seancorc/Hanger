@@ -11,43 +11,78 @@ import Koloda
 import SnapKit
 
 class HomeView: UIView {
-    var kolodaView: KolodaView!
-    var cityLabel: UILabel!
-    var pagingControl: UIPageControl!
+    
+    lazy var kolodaView: KolodaView = {
+        let kolodaView = KolodaView()
+        kolodaView.translatesAutoresizingMaskIntoConstraints = false
+        kolodaView.backgroundColor = .clear
+        return kolodaView
+    }()
+    
+    var cityLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .bold)
+        return label
+    }()
+    
+    var pagingControl: UIPageControl = {
+        let pagingControl = UIPageControl()
+        pagingControl.currentPage = 0
+        pagingControl.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        pagingControl.pageIndicatorTintColor = UIColor.darkGray
+        pagingControl.currentPageIndicatorTintColor = .white
+        return pagingControl
+    }()
+    
+    lazy var descriptionButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "description"), for: .normal)
+        return button
+    }()
+    
+    lazy var descriptionLabel: DescriptionLabel = {
+        let label = DescriptionLabel()
+        label.numberOfLines = 0
+        label.attributedText = NSMutableAttributedString(string: "Description\n", attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 24 * Global.ScaleFactor) as Any, NSAttributedString.Key.underlineStyle: 1])
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var labelTransform: CGAffineTransform = {
+        let trans1 =  CGAffineTransform(scaleX: 0, y: 0)
+        print(descriptionLabel.intrinsicContentSize.height)
+        let trans2 =  CGAffineTransform(translationX: 0, y: descriptionLabel.intrinsicContentSize.height)
+        return trans1.concatenating(trans2)
+    }()
+    
     var loadingLayer: CAShapeLayer!
     var backgroundLoadingLayer: CAShapeLayer!
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         self.backgroundColor = .white
-        
-        setupSubviews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func setupSubviews() {
-        cityLabel = UILabel()
-        cityLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityLabel.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .bold)
+    override func didMoveToSuperview() {
+        
         self.addSubview(cityLabel)
         
-        kolodaView = KolodaView()
-        kolodaView.translatesAutoresizingMaskIntoConstraints = false
-        kolodaView.backgroundColor = .clear
         self.addSubview(kolodaView)
         
-        pagingControl = UIPageControl()
-        pagingControl.currentPage = 0
-        pagingControl.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-        pagingControl.pageIndicatorTintColor = UIColor.darkGray
-        pagingControl.currentPageIndicatorTintColor = .white
         self.addSubview(pagingControl)
+        
+        self.addSubview(descriptionButton)
+        
+        descriptionLabel.transform = labelTransform
+        self.addSubview(descriptionLabel)
         
         setupConstraints()
     }
@@ -68,18 +103,49 @@ class HomeView: UIView {
             make.top.equalTo(cityLabel.snp.bottom).offset(padding)
         }
         
-        
         pagingControl.snp.makeConstraints { (make) in
             make.leading.equalTo(kolodaView.snp.leading).offset(16 * Global.ScaleFactor)
             make.width.equalToSuperview().multipliedBy(0.015) //Need to set width or else width increases with number of pages
             make.centerY.equalToSuperview()
         }
+        
+        descriptionButton.snp.makeConstraints { (make) in
+            make.trailing.equalTo(kolodaView.snp.trailing).offset(-padding * 3)
+            make.bottom.equalTo(kolodaView.snp.bottom).offset(-padding * 3)
+            make.size.equalTo(65 * Global.ScaleFactor)
+        }
+        
+        descriptionLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(descriptionButton.snp.top)
+            make.width.equalTo(kolodaView.snp.width).multipliedBy(0.8)
+            make.trailing.equalTo(descriptionButton.snp.trailing).offset(padding)
+        }
+        
     }
     
     
 }
 
 extension HomeView: CAAnimationDelegate {
+    
+    func descriptionButtonPressed() {
+        if descriptionLabel.transform.ty > 0 {
+            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut], animations: {
+                self.descriptionLabel.transform = CGAffineTransform.identity
+            }, completion: nil)
+            
+        }
+        else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: {
+                self.descriptionLabel.alpha = 0
+            }, completion: {_ in
+                self.descriptionLabel.transform = self.labelTransform
+                self.descriptionLabel.alpha = 1
+            })
+        }
+    }
+    
+    
     func fireLoadingAnimaton() {
         let radius = UIScreen.main.bounds.width / 6
         backgroundLoadingLayer = CAShapeLayer()

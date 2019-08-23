@@ -63,19 +63,11 @@ class KolodaCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)
         label.textColor = .white
-        label.textAlignment = .center
         return label
     }()
     
-    lazy var descriptionButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "description"), for: .normal)
-        return button
-    }()
-    
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: UIScreen.main.bounds)
         self.backgroundColor = Global.ThemeColor
         self.clipsToBounds = true
         }
@@ -108,13 +100,11 @@ class KolodaCardView: UIView {
         self.addSubview(sellerNameLabel)
         
         self.addSubview(priceLabel)
-        
-        self.addSubview(descriptionButton)
-        
+                
         setupConstraints()
     }
     
-    func configureSubviews(name: String, brand: String, sellerProfilePicURL: String?, sellerName: String, price: String, isDescriptionPresent: Bool) {
+    func configureSubviews(name: String, brand: String, sellerProfilePicURL: String?, sellerName: String, price: String) {
         let mainString = NSMutableAttributedString(string: "\(name)\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)])
         let brandString = NSMutableAttributedString(string: brand, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18 * Global.ScaleFactor, weight: .medium)])
         mainString.append(brandString)
@@ -124,7 +114,6 @@ class KolodaCardView: UIView {
         }
         sellerNameLabel.text = sellerName
         priceLabel.text = "$\(price)"
-        descriptionButton.isHidden = !isDescriptionPresent
     }
     
     func setupConstraints() {
@@ -169,14 +158,7 @@ class KolodaCardView: UIView {
         
         priceLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(sellerImageView.snp.centerY)
-            make.leading.equalTo(sellerImageView.snp.trailing)
-            make.trailing.equalTo(descriptionButton.snp.leading)
-        }
-        
-        descriptionButton.snp.makeConstraints { (make) in
-            make.trailing.equalToSuperview().offset(-sellerImageViewLeadingPadding)
-            make.centerY.equalTo(priceLabel.snp.centerY)
-            make.size.equalTo(65 * Global.ScaleFactor)
+            make.centerX.equalToSuperview()
         }
         
     }

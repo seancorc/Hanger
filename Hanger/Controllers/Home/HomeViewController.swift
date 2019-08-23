@@ -10,8 +10,9 @@ import UIKit
 import Koloda
 import MapKit
 
-//TODO: Manage stream of cards, don't present ones already seen, don't present ones already bought, use filters
-class HomeViewController: HomeKolodaViewController {
+//TODO: Figure out gesture recognizer conflicts
+//Manage stream of cards, don't present ones already seen, don't present ones already bought, use filters
+class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate {
     var locationManager: CLLocationManager!
     var geoCoder: CLGeocoder!
     var networkManager: NetworkManager!
@@ -19,6 +20,7 @@ class HomeViewController: HomeKolodaViewController {
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
     var getNearbyPostsTask: GetNearbyPostsTask!
     var noPostsView: NoPostsView!
+    var tapGestureRecognizer: UITapGestureRecognizer!
     
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
         self.networkManager = networkManager
@@ -34,19 +36,47 @@ class HomeViewController: HomeKolodaViewController {
         super.viewDidLoad()
         setupNavBar()
         
-        homeView.translatesAutoresizingMaskIntoConstraints = false        
+        homeView.translatesAutoresizingMaskIntoConstraints = false
+        homeView.descriptionButton.addTarget(self, action: #selector(descriptionButtonPressed), for: .touchUpInside)
         view.addSubview(homeView)
         homeView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
-        
-        updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long
+        updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long - Palos Verdes, CA
         setupLocationManagment()
         
-        getNearbyPostsTask = GetNearbyPostsTask(radius: 10)
+        getNearbyPostsTask = GetNearbyPostsTask(radius: 10) //(Default Radius in Miles)
         self.getNearbyPosts()
         
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tapGestureRecognizer.isEnabled = false
+        tapGestureRecognizer.delegate = self
+        view.addGestureRecognizer(tapGestureRecognizer)
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        print(gestureRecognizer.debugDescription)
+        print(touch.view.debugDescription)
+        return true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        print(gestureRecognizer.debugDescription) //My gesture recognizer
+        print(otherGestureRecognizer.debugDescription) //Koloda draggable card view
+        return false
+    }
+    
+    
+    @objc func tapped() {
+        homeView.descriptionButtonPressed()
+        tapGestureRecognizer.isEnabled = false
+    }
+    
+    @objc func descriptionButtonPressed(_ sender: Any) {
+        tapGestureRecognizer.isEnabled = !tapGestureRecognizer.isEnabled
+        homeView.descriptionButtonPressed() //Handles UI
     }
     
     private func getNearbyPosts(radius: Int = 10, silent: Bool = false) {
@@ -54,7 +84,7 @@ class HomeViewController: HomeKolodaViewController {
         getNearbyPostsTask.radius = radius
         getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
             if clothingPosts.count == 0 {
-                self.addNoPostView()
+                self.addNoPostsView()
             } else {
                 self.clothingPosts = clothingPosts
                 self.homeView.kolodaView.reloadData()
@@ -68,7 +98,7 @@ class HomeViewController: HomeKolodaViewController {
         }
     }
     
-    private func addNoPostView() {
+    private func addNoPostsView() {
         noPostsView = NoPostsView()
         noPostsView.refreshButton.addTarget(self, action: #selector(refreshButtonPressed), for: .touchUpInside)
         noPostsView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,7 +181,7 @@ extension HomeViewController: CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.distanceFilter = CLLocationDistance(floatLiteral: 1609.34)
+            locationManager.distanceFilter = CLLocationDistance(floatLiteral: 1609.34 * 3) //3 miles
             locationManager.startUpdatingLocation()
         }
     }
@@ -170,18 +200,23 @@ extension HomeViewController: CLLocationManagerDelegate {
             }
             let lat = Float(location.coordinate.latitude)
             let longt = Float(location.coordinate.longitude)
-            updateLocationTask.lat = lat
-            updateLocationTask.longt = longt
-            updateLocationTask.execute(in: self.networkManager).then { (user) in
-                self.userManager.user.lat = user.lat //Make sure DB and user are consistent
-                self.userManager.user.longt = user.longt
-                print(user)
-                }.catch { (error) in
-                    var errorText = ""
-                    if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
-                    print(errorText)
-            }
+            updateUserLocation(lat: lat, longt: longt)
             
         }
     }
+    
+    private func updateUserLocation(lat: Float, longt: Float) {
+        updateLocationTask.lat = lat
+        updateLocationTask.longt = longt
+        updateLocationTask.execute(in: self.networkManager).then { (user) in
+            self.userManager.user.lat = user.lat //Make sure DB and user are consistent
+            self.userManager.user.longt = user.longt
+            print(user)
+            }.catch { (error) in
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                print(errorText)
+        }
+    }
+    
 }
