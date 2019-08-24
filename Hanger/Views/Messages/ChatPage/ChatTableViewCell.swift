@@ -11,12 +11,11 @@ import UIKit
 class ChatTableViewCell: UITableViewCell {
     lazy var label: SelectableLabel = {
         let label = SelectableLabel()
-//        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.8 
+        label.adjustsFontSizeToFitWidth = true //Needed to fix bug where text doesnt fill label
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20 * Global.ScaleFactor)
+        label.font = UIFont.systemFont(ofSize: 24 * Global.ScaleFactor)
         return label
     }()
     
@@ -54,7 +53,7 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     func setupMessageConstraints(isMyMessage: Bool) {
-        let backgroundViewPadding = 16 * Global.ScaleFactor
+        let backgroundViewPadding = 24 * Global.ScaleFactor
         let labelPadding = 32 * Global.ScaleFactor
 
         messageBackgroundView.snp.remakeConstraints { (make) in

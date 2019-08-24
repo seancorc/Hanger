@@ -306,9 +306,9 @@
 				D6F05DA922D2EFBF00621E36 /* SignUpViewController.swift */,
 				D63157E722CB16C100571558 /* TabBarController.swift */,
 				D6F05DBE22DBFF0700621E36 /* Home */,
-				D6F05D7022CDD52D00621E36 /* Messages */,
 				D6F05DC722DC48F900621E36 /* Account */,
 				D6D87E8E22F0DD80006485BD /* Sell Clothes */,
+				D6F05D7022CDD52D00621E36 /* Messages */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

@@ -82,7 +82,7 @@ class ChatViewController: UIViewController {
             }
             chatView.inputTextView.text = ""
             let textViewHeightConstraint = HelpfulFunctions.getViewConstraint(attribute: .height, view: chatView.inputTextView)
-            textViewHeightConstraint?.constant = chatView.textViewInitalHeight * Global.ScaleFactor
+            textViewHeightConstraint?.constant = chatView.textViewInitalHeight
             UIView.animate(withDuration: 0.2) {
                 self.chatView.layoutIfNeeded()
             }
@@ -125,7 +125,8 @@ extension ChatViewController: UITextViewDelegate {
             textView.isScrollEnabled = true
         } else {
             textView.isScrollEnabled = false
-            heightConstraint?.constant = (estimatedSize.height > heightConstraint?.constant ?? 0) ? estimatedSize.height : heightConstraint?.constant ?? 0
+            //heightConstraint?.constant = (estimatedSize.height > heightConstraint?.constant ?? 0) ? estimatedSize.height : heightConstraint?.constant ?? 0
+            heightConstraint?.constant = estimatedSize.height
         }
     }
 }
