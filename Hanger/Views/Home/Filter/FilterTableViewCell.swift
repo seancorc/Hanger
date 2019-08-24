@@ -30,6 +30,7 @@ class FilterTableViewCell: UITableViewCell {
         let allSwitch = UISwitch()
         allSwitch.translatesAutoresizingMaskIntoConstraints = false
         allSwitch.isOn = true
+        allSwitch.transform = CGAffineTransform(scaleX: Global.ScaleFactor, y: Global.ScaleFactor)
         return allSwitch
     }()
     

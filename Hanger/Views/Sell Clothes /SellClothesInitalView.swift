@@ -29,7 +29,6 @@ class SellClothesInitalView: UIView {
     
     lazy var typeTableView: UITableView = {
         let tv = UITableView()
-        tv.isScrollEnabled = false
         let headerView = UILabel()
         headerView.textAlignment = .center
         headerView.font = UIFont(name: "Helvetica-Bold", size: 20 * Global.ScaleFactor)
