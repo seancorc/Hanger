@@ -9,10 +9,11 @@
 import Foundation
 
 enum Prices: String, CaseIterable {
-    case one = "$"
-    case two = "$$"
-    case three = "$$$"
-    case four = "$$$$"
+    case one = "$0 - $25"
+    case two = "$25 - $50"
+    case three = "$50 - $150"
+    case four = "$150 - $300"
+    case five = "$300+"
 }
 
 enum Distances: String, CaseIterable {
@@ -21,21 +22,24 @@ enum Distances: String, CaseIterable {
     case fifteen = "15 Mi"
     case twentyfive = "25 Mi"
     case fifty = "50 Mi"
+    case onehundred = "100 Mi"
+    case threehundred = "300 Mi"
 }
 
 enum Types: String, CaseIterable {
-    case men = "Men"
-    case women = "Women"
-    case neutral = "Gender Neutral"
+    case men = "For Men"
+    case women = "For Women"
+    case neutral = "Neutral"
+    case kids = "Kids"
 }
 
-enum Categories: String, CaseIterable { //Collegiate apparel
-    case casual = "Casual"
+enum Categories: String, CaseIterable { //Possbile Idea: Focus on Collegiate apparel
     case workout = "Workout"
     case swimwear = "Swimwear"
     case headgear = "Headgear"
-    case formal = "Formal"
     case footwear = "Footwear"
+    case casual = "Casual"
+    case formal = "Formal"
     case accesssories = "Accessories"
     case other = "Other"
 }

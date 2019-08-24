@@ -18,13 +18,12 @@ class FilterView: UIView {
     
     lazy var applyButton: NiceSpacingButton = {
         let button = NiceSpacingButton(widthOffset: UIScreen.main.bounds.width * 0.7, heightOffset: 12, hasCornerRadius: true)
-        button.setupButton(title: "", backgroundColor: Global.ThemeColor) //Text set in controller as it depends on the number of filters selected
+        button.setupButton(title: "Apply", backgroundColor: Global.ThemeColor) //Text set in controller as it depends on the number of filters selected
         return button
     }()
     
     lazy var tableView: ContentSizedTableView = {
         let tv = ContentSizedTableView()
-        tv.isScrollEnabled = false
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         return tv
@@ -57,7 +56,7 @@ class FilterView: UIView {
         tableView.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(applyButtonContainerView.snp.bottom)
+            make.bottom.equalTo(applyButtonContainerView.snp.top)
         }
         
         applyButtonContainerView.snp.makeConstraints { (make) in

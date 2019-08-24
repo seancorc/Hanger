@@ -10,9 +10,9 @@ import UIKit
 import Koloda
 import MapKit
 
-//TODO: Figure out gesture recognizer conflicts
-//Manage stream of cards, don't present ones already seen, don't present ones already bought, use filters
+//TODO: Manage stream of cards, don't present ones already bought, use filters
 class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate {
+    var filterViewController: FilterViewController! //Purposefully creating retain cycle to save state of FilterViewController 
     var locationManager: CLLocationManager!
     var geoCoder: CLGeocoder!
     var networkManager: NetworkManager!
@@ -21,9 +21,11 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     var getNearbyPostsTask: GetNearbyPostsTask!
     var noPostsView: NoPostsView!
     
+    
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
         self.networkManager = networkManager
         self.userManager = userManager
+        self.filterViewController = FilterViewController()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,7 +63,6 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     }
     
     @objc func tapped() {
-        print(tapGestureRecognizer.isEnabled)
         homeView.dismissDescription()
         tapGestureRecognizer.isEnabled = false
     }
@@ -123,52 +124,6 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     
 }
 
-extension HomeViewController {
-    func setupNavBar() {
-        
-        let titleImageView = UIImageView(image: UIImage(named: "Hanger"))
-        titleImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleImageView.snp.makeConstraints { (make) in
-            make.width.equalTo(self.view.frame.width * 0.4)
-            make.height.equalTo(self.view.frame.height * 0.03)
-        }
-        self.navigationItem.titleView = titleImageView
-        navigationController?.navigationBar.barTintColor = Global.ThemeColor
-        
-        let filterButton = UIButton()
-        filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
-        filterButton.setTitle("Filter", for: .normal)
-        filterButton.setTitleColor(.white, for: .normal)
-        filterButton.setTitleColor(.darkGray, for: .highlighted)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
-        
-        let accountButton = UIButton() //TODO: make it small version of profile picture if they have one
-        accountButton.translatesAutoresizingMaskIntoConstraints = false
-        accountButton.snp.makeConstraints { (make) in
-            make.width.equalTo(self.view.frame.width * 0.08)
-            make.height.equalTo(accountButton.snp.width)
-        }
-        accountButton.addTarget(self, action: #selector(accountButtonPressed), for: .touchUpInside)
-        accountButton.setImage(UIImage(named: "accounticon")!.withRenderingMode(.alwaysTemplate), for: .normal)
-        accountButton.imageView?.tintColor = .white
-        accountButton.imageView?.contentMode = .scaleToFill
-        accountButton.imageView?.clipsToBounds = true
-        accountButton.imageView?.layer.cornerRadius = self.view.frame.width * 0.04
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: accountButton)
-        
-    }
-    
-    @objc func filterButtonPressed() {
-        present(UINavigationController(rootViewController: FilterViewController()), animated: true, completion: nil)
-    }
-    
-    @objc func accountButtonPressed() {
-        let accountController = AccountViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
-        present(UINavigationController(rootViewController: accountController), animated: true, completion: nil)
-    }
-    
-}
-
 extension HomeViewController: CLLocationManagerDelegate {
     func setupLocationManagment() {
         locationManager = CLLocationManager()
@@ -213,6 +168,50 @@ extension HomeViewController: CLLocationManagerDelegate {
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 print(errorText)
         }
+    }
+    
+}
+
+extension HomeViewController {
+    func setupNavBar() {
+        
+        let titleImageView = UIImageView(image: UIImage(named: "Hanger"))
+        titleImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(self.view.frame.width * 0.4)
+            make.height.equalTo(self.view.frame.height * 0.03)
+        }
+        self.navigationItem.titleView = titleImageView
+        navigationController?.navigationBar.barTintColor = Global.ThemeColor
+        
+        let filterButton = UIButton()
+        filterButton.translatesAutoresizingMaskIntoConstraints = false
+        filterButton.snp.makeConstraints { (make) in
+            make.size.equalTo(35 * Global.ScaleFactor)
+        }
+        filterButton.setBackgroundImage(UIImage(named: "filtericon"), for: .normal)
+        filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
+        
+        let accountButton = UIButton() //TODO: make it small version of profile picture if they have one
+        accountButton.translatesAutoresizingMaskIntoConstraints = false
+        accountButton.snp.makeConstraints { (make) in
+            make.size.equalTo(35 * Global.ScaleFactor)
+        }
+        accountButton.addTarget(self, action: #selector(accountButtonPressed), for: .touchUpInside)
+        accountButton.setImage(UIImage(named: "accounticon"), for: .normal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: accountButton)
+        
+    }
+    
+    @objc func filterButtonPressed() {
+        present(UINavigationController(rootViewController: self.filterViewController), animated: true, completion: nil)
+    }
+    
+    @objc func accountButtonPressed() {
+        let accountController = AccountViewController(userManager: .currentUser(), networkManager: .shared(), userDefaults: .standard)
+        present(UINavigationController(rootViewController: accountController), animated: true, completion: nil)
     }
     
 }

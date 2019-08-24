@@ -71,6 +71,8 @@
 		D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */; };
 		D6F05DC622DC48F000621E36 /* SellClothesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */; };
 		D6FF0DCD230FA0270084A356 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DCC230FA0270084A356 /* DescriptionView.swift */; };
+		D6FF0DD02310C57C0084A356 /* FilterTVDelegate&DS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DCF2310C57C0084A356 /* FilterTVDelegate&DS.swift */; };
+		D6FF0DD22310DC130084A356 /* FilterCVDelegate&DS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DD12310DC130084A356 /* FilterCVDelegate&DS.swift */; };
 		EF594054ADAEE109503CB0C0 /* Pods_HangerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70346B35C8A9A9B6F6B02192 /* Pods_HangerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +170,8 @@
 		D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesViewController.swift; sourceTree = "<group>"; };
 		D6FF0DCC230FA0270084A356 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		D6FF0DCF2310C57C0084A356 /* FilterTVDelegate&DS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterTVDelegate&DS.swift"; sourceTree = "<group>"; };
+		D6FF0DD12310DC130084A356 /* FilterCVDelegate&DS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterCVDelegate&DS.swift"; sourceTree = "<group>"; };
 		DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -450,6 +454,8 @@
 				D6A30BD022DEEAB400A18934 /* HomeKolodaViewController.swift */,
 				D63157DB22C9F25D00571558 /* HomeViewController.swift */,
 				D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */,
+				D6FF0DCF2310C57C0084A356 /* FilterTVDelegate&DS.swift */,
+				D6FF0DD12310DC130084A356 /* FilterCVDelegate&DS.swift */,
 				D601954F230614DA0020D858 /* Filters.swift */,
 			);
 			path = Home;
@@ -763,6 +769,7 @@
 				D6F05D9E22D291EB00621E36 /* AccountView.swift in Sources */,
 				D69AE42822E57EFE00129FE4 /* PersistenceKeys.swift in Sources */,
 				D6D87E9222F14700006485BD /* SellClothesTableViewDS&Delegate.swift in Sources */,
+				D6FF0DD02310C57C0084A356 /* FilterTVDelegate&DS.swift in Sources */,
 				D601954C22FDF97C0020D858 /* SellClothesOperations.swift in Sources */,
 				D6FF0DCD230FA0270084A356 /* DescriptionView.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
@@ -770,6 +777,7 @@
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
 				D6D87E9022F139D0006485BD /* SellClothesView.swift in Sources */,
 				D6019550230614DA0020D858 /* Filters.swift in Sources */,
+				D6FF0DD22310DC130084A356 /* FilterCVDelegate&DS.swift in Sources */,
 				D6F05DAA22D2EFBF00621E36 /* SignUpViewController.swift in Sources */,
 				D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */,
 				D6F05DB222D59F5600621E36 /* RequestCreation.swift in Sources */,

@@ -48,7 +48,6 @@ class FilterCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(label)
     }
     
-    
     func initalSetup() {
         self.backgroundView = label
     }

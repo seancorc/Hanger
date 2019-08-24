@@ -9,6 +9,7 @@
 import UIKit
 import Koloda
 
+//Todo: What happens when user swipes right
 class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
     var homeView: HomeView!
     var clothingPosts = [ClothingPost]()
@@ -39,7 +40,6 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     
     
     func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
-        print(koloda.isUserInteractionEnabled)
         homeView.descriptionButton.isHidden = clothingPosts[index].description == nil
         let description = clothingPosts[homeView.kolodaView.currentCardIndex].description ?? ""
         let attrText = NSMutableAttributedString(attributedString: homeView.descriptionLabel.attributedText ?? NSAttributedString())
