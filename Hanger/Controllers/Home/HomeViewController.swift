@@ -52,7 +52,6 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         self.getNearbyPosts()
         
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        tapGestureRecognizer.isEnabled = false
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
         
@@ -64,12 +63,12 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     }
     
     @objc func tapped() {
-        homeView.dismissDescription()
-        tapGestureRecognizer.isEnabled = false
+        if homeView.locationView.transform.ty >= 0 {homeView.dismissLocation()}
+        if homeView.descriptionLabel.transform.ty <= 0 {homeView.dismissDescription()}
     }
     
     @objc func descriptionButtonPressed(_ sender: Any) {
-        tapGestureRecognizer.isEnabled = !tapGestureRecognizer.isEnabled
+        if homeView.locationView.transform.ty >= 0 {homeView.dismissLocation()}
         if homeView.descriptionLabel.transform.ty > 0 {
             homeView.deployDescription()
         } else {
@@ -78,6 +77,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     }
     
     @objc func locationButtonPressed() {
+        if homeView.descriptionLabel.transform.ty <= 0 {homeView.dismissDescription()}
         if homeView.locationView.transform.ty < 0 {
             homeView.deployLocation()
         } else {

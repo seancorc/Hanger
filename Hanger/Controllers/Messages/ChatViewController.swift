@@ -125,8 +125,7 @@ extension ChatViewController: UITextViewDelegate {
             textView.isScrollEnabled = true
         } else {
             textView.isScrollEnabled = false
-            //heightConstraint?.constant = (estimatedSize.height > heightConstraint?.constant ?? 0) ? estimatedSize.height : heightConstraint?.constant ?? 0
-            heightConstraint?.constant = estimatedSize.height
+            heightConstraint?.constant = (estimatedSize.height > heightConstraint?.constant ?? 0) ? estimatedSize.height : heightConstraint?.constant ?? 0
         }
     }
 }

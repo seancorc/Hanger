@@ -71,7 +71,8 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
             } else {
                 let city = placemark?[0].locality ?? ""
                 let state = placemark?[0].administrativeArea ?? ""
-                self.homeView.locationView.configureSubviews(labelText: "\(city), \(state)", mapViewCameraCoords: clothingPostLocation)
+                let postalCode = placemark?[0].postalCode ?? ""
+                self.homeView.locationView.configureSubviews(labelText: "\(city), \(state)\n\(postalCode)", mapViewCameraCoords: clothingPostLocation)
                 self.homeView.locationView.layoutIfNeeded()
             }
         }

@@ -31,6 +31,10 @@ class LocationView: UIView {
     
     lazy var cityLabel: UILabel = {
         let label = UILabel()
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor =  0.5
+        label.textAlignment = .center
+        label.numberOfLines = 2
         label.text = "Location"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Helvetica", size: 24 * Global.ScaleFactor)
@@ -70,13 +74,14 @@ class LocationView: UIView {
         cityLabel.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(padding)
             make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         mapView.snp.makeConstraints { (make) in
             make.top.equalTo(cityLabel.snp.bottom).offset(padding / 4)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalToSuperview().multipliedBy(0.7)
+            make.height.equalToSuperview().multipliedBy(0.6)
         }
     }
     

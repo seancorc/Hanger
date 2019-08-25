@@ -21,7 +21,7 @@ class DescriptionLabel: UILabel {
     }
     
     override func draw(_ rect: CGRect) {
-        roundRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height * 7/8)
+        roundRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height - 16)
         let roundRectBez = UIBezierPath(roundedRect: roundRect, cornerRadius: 10.0)
         let triangleBez = UIBezierPath()
         let padding = roundRect.width / 12

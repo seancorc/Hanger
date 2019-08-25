@@ -8,7 +8,8 @@
 
 import UIKit
 
-//TODO: Put a space to choose more specific filters
+//TODO: When cancel is pressed revert to previous state of filters
+//Put a space to choose more specific filters
 class FilterViewController: UIViewController {
     var filterView: FilterView!
     var numberOfSelectedFilters: Int = 0
@@ -17,15 +18,13 @@ class FilterViewController: UIViewController {
     var thirdCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var fourthCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var tvDelegateAndDS: FilterTVDelegateAndDS!
-    var previousSelectionState = [Int:[IndexPath]]()
-    var currentSelectionState = [Int:[IndexPath]]()
+    var currentSelectionState = [Int: [IndexPath]]()
+    var previousSelectionState = [Int: [IndexPath]]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        for i in 0...3 {
-            currentSelectionState[i] = []
-        }
     
         firstCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray:  Prices.allCases.map { $0.rawValue}, widthMultiplier: 0.22)
         seconndCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { $0.rawValue}, widthMultiplier: 0.2)
@@ -83,14 +82,6 @@ extension FilterViewController {
     
     @objc func cancelButtonPressed() {
         dismiss(animated: true, completion: nil)
-        resetButtonPressed()
-        for i in 0...3 {
-            previousSelectionState[i]?.forEach({ (indexPath) in
-                if let cell = self.filterView.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? FilterTableViewCell {
-                    cell.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
-                }
-            })
-        }
     }
     
     @objc func resetButtonPressed() {
