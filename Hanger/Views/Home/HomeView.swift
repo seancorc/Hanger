@@ -20,14 +20,29 @@ class HomeView: UIView {
         return kolodaView
     }()
     
-    var cityLabel: UILabel = {
+    lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16 * Global.ScaleFactor, weight: .bold)
         return label
     }()
     
-    var pagingControl: UIPageControl = {
+    lazy var locationButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "locationicon"), for: .normal)
+        return button
+    }()
+    
+    lazy var locationView: LocationView = {
+        let locationView = LocationView()
+        locationView.isUserInteractionEnabled = false
+        locationView.backgroundColor = .clear
+        locationView.translatesAutoresizingMaskIntoConstraints = false
+        return locationView
+    }()
+    
+    lazy var pagingControl: UIPageControl = {
         let pagingControl = UIPageControl()
         pagingControl.currentPage = 0
         pagingControl.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -52,14 +67,42 @@ class HomeView: UIView {
         return label
     }()
     
-    lazy var labelTransform: CGAffineTransform = {
+    lazy var descriptionLabelTransform: CGAffineTransform = {
         let trans1 =  CGAffineTransform(scaleX: 0, y: 0)
-        let trans2 =  CGAffineTransform(translationX: 0, y: descriptionLabel.intrinsicContentSize.height)
+        let trans2 =  CGAffineTransform(translationX: descriptionLabel.intrinsicContentSize.width, y: descriptionLabel.intrinsicContentSize.height)
         return trans1.concatenating(trans2)
     }()
     
-    var loadingLayer: CAShapeLayer!
-    var backgroundLoadingLayer: CAShapeLayer!
+    lazy var locationViewTransform: CGAffineTransform = {
+        let trans1 =  CGAffineTransform(scaleX: 0, y: 0)
+        let trans2 =  CGAffineTransform(translationX: -descriptionLabel.intrinsicContentSize.width, y: -descriptionLabel.intrinsicContentSize.height)
+        return trans1.concatenating(trans2)
+    }()
+    
+    lazy var loadingLayer: CAShapeLayer = {
+        let radius = UIScreen.main.bounds.width / 6
+        let circularPath = UIBezierPath(arcCenter: UIApplication.shared.keyWindow!.center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 3 * CGFloat.pi / 2, clockwise: true)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = Global.ThemeColor.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.strokeEnd = 0
+        return shapeLayer
+    }()
+    
+    var backgroundLoadingLayer: CAShapeLayer = {
+        let radius = UIScreen.main.bounds.width / 6
+        let circularPath = UIBezierPath(arcCenter: UIApplication.shared.keyWindow!.center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 3 * CGFloat.pi / 2, clockwise: true)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        return shapeLayer
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,11 +120,16 @@ class HomeView: UIView {
         
         self.addSubview(kolodaView)
         
+        self.addSubview(locationButton)
+        
         self.addSubview(pagingControl)
+        
+        locationView.transform = locationViewTransform
+        self.addSubview(locationView)
         
         self.addSubview(descriptionButton)
         
-        descriptionLabel.transform = labelTransform
+        descriptionLabel.transform = descriptionLabelTransform
         self.addSubview(descriptionLabel)
         
         setupConstraints()
@@ -101,6 +149,20 @@ class HomeView: UIView {
             make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.9)
             make.top.equalTo(cityLabel.snp.bottom).offset(padding)
+        }
+        
+        
+        locationButton.snp.makeConstraints { (make) in
+            make.leading.equalTo(kolodaView.snp.leading).offset(padding * 1.5)
+            make.top.equalTo(kolodaView.snp.top).offset(padding * 1.5)
+            make.size.equalTo(45 * Global.ScaleFactor)
+        }
+        
+        locationView.snp.makeConstraints { (make) in
+            make.width.equalTo(kolodaView.snp.width).multipliedBy(0.9)
+            make.leading.equalTo(locationButton.snp.leading).offset(-padding)
+            make.top.equalTo(locationButton.snp.bottom)
+            make.height.equalTo(kolodaView.snp.height).multipliedBy(0.45)
         }
         
         pagingControl.snp.makeConstraints { (make) in
@@ -123,27 +185,9 @@ class HomeView: UIView {
         
     }
     
-    
 }
 
 extension HomeView: CAAnimationDelegate {
-    
-    func descriptionButtonPressed() {
-        if descriptionLabel.transform.ty > 0 {
-            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut], animations: {
-                self.descriptionLabel.transform = CGAffineTransform.identity
-            }, completion: nil)
-            
-        }
-        else {
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: {
-                self.descriptionLabel.alpha = 0
-            }, completion: {_ in
-                self.descriptionLabel.transform = self.labelTransform
-                self.descriptionLabel.alpha = 1
-            })
-        }
-    }
     
     func deployDescription() {
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut], animations: {
@@ -155,32 +199,29 @@ extension HomeView: CAAnimationDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: {
             self.descriptionLabel.alpha = 0
         }, completion: {_ in
-            self.descriptionLabel.transform = self.labelTransform
+            self.descriptionLabel.transform = self.descriptionLabelTransform
             self.descriptionLabel.alpha = 1
         })
     }
     
+    func deployLocation() {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut], animations: {
+            self.locationView.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
+    
+    func dismissLocation() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: {
+            self.locationView.alpha = 0
+        }, completion: {_ in
+            self.locationView.transform = self.locationViewTransform
+            self.locationView.alpha = 1
+        })
+    }
     
     func fireLoadingAnimaton() {
-        let radius = UIScreen.main.bounds.width / 6
-        backgroundLoadingLayer = CAShapeLayer()
-        loadingLayer = CAShapeLayer()
         backgroundLoadingLayer.removeAnimation(forKey: "fade")
         loadingLayer.removeAnimation(forKey: "fade")
-        let circularPath = UIBezierPath(arcCenter: UIApplication.shared.keyWindow!.center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 3 * CGFloat.pi / 2, clockwise: true)
-        backgroundLoadingLayer.path = circularPath.cgPath
-        
-        backgroundLoadingLayer.strokeColor = UIColor.black.cgColor
-        backgroundLoadingLayer.lineWidth = 10
-        backgroundLoadingLayer.fillColor = UIColor.clear.cgColor
-        backgroundLoadingLayer.lineCap = CAShapeLayerLineCap.round
-        
-        loadingLayer.path = circularPath.cgPath
-        loadingLayer.strokeColor = Global.ThemeColor.cgColor
-        loadingLayer.lineWidth = 10
-        loadingLayer.fillColor = UIColor.clear.cgColor
-        loadingLayer.lineCap = CAShapeLayerLineCap.round
-        loadingLayer.strokeEnd = 0
         
         let circle1Animation = CABasicAnimation(keyPath: "strokeEnd")
         circle1Animation.fromValue = 0

@@ -36,5 +36,6 @@ struct ClothingPost: Codable {
     var description: String?
     var user: User
     var imageURLs: [String]
-    
+    var lat: Float
+    var longt: Float
 }

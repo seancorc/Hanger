@@ -14,7 +14,7 @@ import MapKit
 class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate {
     var filterViewController: FilterViewController! //Purposefully creating retain cycle to save state of FilterViewController 
     var locationManager: CLLocationManager!
-    var geoCoder: CLGeocoder!
+    var userGeoCoder: CLGeocoder!
     var networkManager: NetworkManager!
     var userManager: UserManager!
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
@@ -39,6 +39,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         
         homeView.translatesAutoresizingMaskIntoConstraints = false
         homeView.descriptionButton.addTarget(self, action: #selector(descriptionButtonPressed), for: .touchUpInside)
+        homeView.locationButton.addTarget(self, action: #selector(locationButtonPressed), for: .touchUpInside)
         view.addSubview(homeView)
         homeView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -73,6 +74,14 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
             homeView.deployDescription()
         } else {
             homeView.dismissDescription()
+        }
+    }
+    
+    @objc func locationButtonPressed() {
+        if homeView.locationView.transform.ty < 0 {
+            homeView.deployLocation()
+        } else {
+            homeView.dismissLocation()
         }
     }
     
@@ -127,7 +136,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
 extension HomeViewController: CLLocationManagerDelegate {
     func setupLocationManagment() {
         locationManager = CLLocationManager()
-        geoCoder = CLGeocoder()
+        userGeoCoder = CLGeocoder()
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -139,13 +148,13 @@ extension HomeViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = manager.location {
-            geoCoder.reverseGeocodeLocation(location) { (placemark, error) in
+            userGeoCoder.reverseGeocodeLocation(location) { (placemark, error) in
                 if let err = error {
                     print(err.localizedDescription)
                 } else {
                     let city = placemark?[0].locality ?? ""
                     let state = placemark?[0].administrativeArea ?? ""
-                    self.homeView.cityLabel.text = city + ", " + state
+                    self.homeView.cityLabel.text = "\(city), \(state)"
                     self.homeView.layoutIfNeeded()
                 }
             }

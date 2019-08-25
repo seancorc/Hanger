@@ -8,20 +8,24 @@
 
 import UIKit
 import Koloda
+import MapKit.MKGeometry
 
 //Todo: What happens when user swipes right
 class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
     var homeView: HomeView!
     var clothingPosts = [ClothingPost]()
+    var locationViewGeoCoder: CLGeocoder!
     var currentKolodaIndex = 0
     var tapGestureRecognizer: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         homeView = HomeView()
         homeView.kolodaView.delegate = self
         homeView.kolodaView.dataSource = self
+        
+        locationViewGeoCoder = CLGeocoder()
         
     }
     
@@ -40,15 +44,36 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
     
     
     func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
+        setDescriptionForCard(index: index)
+        setLocationViewForCard(index: index)
+        homeView.pagingControl.numberOfPages = clothingPosts[index].imageURLs.count
+        homeView.pagingControl.currentPage = 0
+        UIView.animate(withDuration: 0.3) {
+            self.homeView.pagingControl.layoutIfNeeded()
+        }
+    }
+    
+    private func setDescriptionForCard(index: Int) {
         homeView.descriptionButton.isHidden = clothingPosts[index].description == nil
         let description = clothingPosts[homeView.kolodaView.currentCardIndex].description ?? ""
         let attrText = NSMutableAttributedString(attributedString: homeView.descriptionLabel.attributedText ?? NSAttributedString())
         attrText.append(NSAttributedString(string: description, attributes: [NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 20 * Global.ScaleFactor) as Any]))
         homeView.descriptionLabel.attributedText = attrText
-        homeView.pagingControl.numberOfPages = clothingPosts[index].imageURLs.count
-        homeView.pagingControl.currentPage = 0
-        UIView.animate(withDuration: 0.3) {
-            self.homeView.pagingControl.layoutIfNeeded()
+    }
+    
+    private func setLocationViewForCard(index: Int) {
+        let lat = CLLocationDegrees(floatLiteral: Double(clothingPosts[index].lat))
+        let longt = CLLocationDegrees(floatLiteral: Double(clothingPosts[index].longt))
+        let clothingPostLocation = CLLocation(latitude: lat, longitude: longt)
+        locationViewGeoCoder.reverseGeocodeLocation(clothingPostLocation) { (placemark, error) in
+            if let err = error {
+                print(err.localizedDescription)
+            } else {
+                let city = placemark?[0].locality ?? ""
+                let state = placemark?[0].administrativeArea ?? ""
+                self.homeView.locationView.configureSubviews(labelText: "\(city), \(state)", mapViewCameraCoords: clothingPostLocation)
+                self.homeView.locationView.layoutIfNeeded()
+            }
         }
     }
     

@@ -10,6 +10,7 @@ import UIKit
 
 class DescriptionLabel: UILabel {
     var roundRect:CGRect!
+    
     override func drawText(in rect: CGRect) {
         super.drawText(in: roundRect)
     }
@@ -23,7 +24,7 @@ class DescriptionLabel: UILabel {
         roundRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height * 7/8)
         let roundRectBez = UIBezierPath(roundedRect: roundRect, cornerRadius: 10.0)
         let triangleBez = UIBezierPath()
-        let padding = roundRect.width / 10
+        let padding = roundRect.width / 12
         let triangleWidth = roundRect.width / 10
         triangleBez.move(to: CGPoint(x: roundRect.maxX - triangleWidth - padding , y:roundRect.maxY))
         triangleBez.addLine(to: CGPoint(x: roundRect.maxX - triangleWidth / 2 - padding ,y:rect.maxY))
