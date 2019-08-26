@@ -8,14 +8,6 @@
 
 import Foundation
 
-enum Prices: String, CaseIterable {
-    case one = "$0 - $25"
-    case two = "$25 - $50"
-    case three = "$50 - $150"
-    case four = "$150 - $300"
-    case five = "$300+"
-}
-
 enum Distances: String, CaseIterable {
     case five = "5 Mi"
     case ten = "10 Mi"

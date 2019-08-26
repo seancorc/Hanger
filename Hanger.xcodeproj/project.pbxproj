@@ -43,7 +43,6 @@
 		D6D87E9722FA2BCB006485BD /* SellClothesInitalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */; };
 		D6D87E9922FA3439006485BD /* SellClothesInitalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */; };
 		D6D87E9B22FA5AEB006485BD /* PriceTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */; };
-		D6D87E9D22FA5FF2006485BD /* NoSelectionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D87E9C22FA5FF2006485BD /* NoSelectionTextField.swift */; };
 		D6F05D6F22CDD51400621E36 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D6E22CDD51400621E36 /* MessageView.swift */; };
 		D6F05D7622CDD60800621E36 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */; };
 		D6F05D7822CDD7EC00621E36 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */; };
@@ -67,7 +66,7 @@
 		D6F05DBA22D7120000621E36 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DB922D7120000621E36 /* Validator.swift */; };
 		D6F05DBD22DBFE4C00621E36 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DBC22DBFE4C00621E36 /* FilterView.swift */; };
 		D6F05DC022DBFF1B00621E36 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */; };
-		D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */; };
+		D6F05DC222DC068400621E36 /* FilterTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC122DC068400621E36 /* FilterTableViewCells.swift */; };
 		D6F05DC422DC308100621E36 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */; };
 		D6F05DC622DC48F000621E36 /* SellClothesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */; };
 		D6FF0DCD230FA0270084A356 /* DescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DCC230FA0270084A356 /* DescriptionLabel.swift */; };
@@ -143,7 +142,6 @@
 		D6D87E9622FA2BCB006485BD /* SellClothesInitalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalView.swift; sourceTree = "<group>"; };
 		D6D87E9822FA3439006485BD /* SellClothesInitalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesInitalViewController.swift; sourceTree = "<group>"; };
 		D6D87E9A22FA5AEB006485BD /* PriceTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldDelegate.swift; sourceTree = "<group>"; };
-		D6D87E9C22FA5FF2006485BD /* NoSelectionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSelectionTextField.swift; sourceTree = "<group>"; };
 		D6F05D6E22CDD51400621E36 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		D6F05D7522CDD60800621E36 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		D6F05D7722CDD7EC00621E36 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -167,7 +165,7 @@
 		D6F05DB922D7120000621E36 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D6F05DBC22DBFE4C00621E36 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		D6F05DBF22DBFF1B00621E36 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		D6F05DC122DC068400621E36 /* FilterTableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCells.swift; sourceTree = "<group>"; };
 		D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6F05DC522DC48F000621E36 /* SellClothesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellClothesViewController.swift; sourceTree = "<group>"; };
 		D6FF0DCC230FA0270084A356 /* DescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionLabel.swift; sourceTree = "<group>"; };
@@ -291,7 +289,6 @@
 			children = (
 				D63157DF22C9F2BC00571558 /* NiceSpacingViews.swift */,
 				D6F05DA122D2925700621E36 /* ContentSizedTableView.swift */,
-				D6D87E9C22FA5FF2006485BD /* NoSelectionTextField.swift */,
 				D6F05DAB22D2EFFC00621E36 /* Login */,
 				D63157E122C9F2EE00571558 /* Home */,
 				D6D87E8922F0D3DF006485BD /* Sell Clothes  */,
@@ -474,7 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				D6F05DBC22DBFE4C00621E36 /* FilterView.swift */,
-				D6F05DC122DC068400621E36 /* FilterTableViewCell.swift */,
+				D6F05DC122DC068400621E36 /* FilterTableViewCells.swift */,
 				D6F05DC322DC308100621E36 /* FilterCollectionViewCell.swift */,
 			);
 			path = Filter;
@@ -746,7 +743,6 @@
 				D63157F622CDBFC800571558 /* Post.swift in Sources */,
 				D6F05D8622CDEB4800621E36 /* ChatMessage.swift in Sources */,
 				D63157E522C9F35F00571558 /* HomeView.swift in Sources */,
-				D6D87E9D22FA5FF2006485BD /* NoSelectionTextField.swift in Sources */,
 				D63157DE22C9F28800571558 /* LoginView.swift in Sources */,
 				D63157F422CC906100571558 /* AccountViewController.swift in Sources */,
 				D6D87E9B22FA5AEB006485BD /* PriceTextFieldDelegate.swift in Sources */,
@@ -785,7 +781,7 @@
 				D601954C22FDF97C0020D858 /* SellClothesOperations.swift in Sources */,
 				D6FF0DCD230FA0270084A356 /* DescriptionLabel.swift in Sources */,
 				D63157EE22CB29C900571558 /* Helpful Extensions.swift in Sources */,
-				D6F05DC222DC068400621E36 /* FilterTableViewCell.swift in Sources */,
+				D6F05DC222DC068400621E36 /* FilterTableViewCells.swift in Sources */,
 				D6F05DBA22D7120000621E36 /* Validator.swift in Sources */,
 				D6D87E9022F139D0006485BD /* SellClothesView.swift in Sources */,
 				D6019550230614DA0020D858 /* Filters.swift in Sources */,

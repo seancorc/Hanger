@@ -10,6 +10,7 @@
 import Foundation
 import UIKit
 
+
 class FilterCVDelegateAndDS: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var stringArray = [String]()
     var widthMultiplier: CGFloat!

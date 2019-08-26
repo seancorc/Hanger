@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanger/Views/Sell Clothes /SellClothesView.swift"
-            timestampString = "587846740.9329489"
+            timestampString = "588479956.986045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
@@ -257,6 +257,99 @@
             endingLineNumber = "199"
             landmarkName = "dismissDescription()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hanger/Views/Sell Clothes /SellClothesView.swift"
+            timestampString = "588479956.986138"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "SellClothesView"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hanger.SellClothesView.keyboardDoneButton.getter : __C.UIButton"
+                  moduleName = "Hanger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/seancorcoran/dev/Hanger/Hanger/Hanger/Views/Sell%20Clothes%20/SellClothesView.swift"
+                  timestampString = "588479636.610548"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "206">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; __C.UIButton in Hanger.SellClothesView.keyboardDoneButton.getter : __C.UIButton"
+                  moduleName = "Hanger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/seancorcoran/dev/Hanger/Hanger/Hanger/Views/Sell%20Clothes%20/SellClothesView.swift"
+                  timestampString = "588479636.612245"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "14">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hanger.SellClothesView.keyboardDoneButton.setter : __C.UIButton"
+                  moduleName = "Hanger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/seancorcoran/dev/Hanger/Hanger/Hanger/Views/Sell%20Clothes%20/SellClothesView.swift"
+                  timestampString = "588479636.613686"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hanger.SellClothesView.keyboardDoneButton.modify : __C.UIButton"
+                  moduleName = "Hanger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/seancorcoran/dev/Hanger/Hanger/Hanger/Views/Sell%20Clothes%20/SellClothesView.swift"
+                  timestampString = "588479636.614979"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hanger.SellClothesView.keyboardDoneButton.modify : __C.UIButton with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Hanger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/seancorcoran/dev/Hanger/Hanger/Hanger/Views/Sell%20Clothes%20/SellClothesView.swift"
+                  timestampString = "588479636.616307"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

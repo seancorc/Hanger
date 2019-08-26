@@ -14,9 +14,8 @@ class FilterViewController: UIViewController {
     var filterView: FilterView!
     var numberOfSelectedFilters: Int = 0
     var firstCellCVDelegateAndDS: FilterCVDelegateAndDS!
-    var seconndCellCVDelegateAndDS: FilterCVDelegateAndDS!
+    var secondCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var thirdCellCVDelegateAndDS: FilterCVDelegateAndDS!
-    var fourthCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var tvDelegateAndDS: FilterTVDelegateAndDS!
     var currentSelectionState = [Int: [IndexPath]]()
     var previousSelectionState = [Int: [IndexPath]]()
@@ -26,11 +25,10 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
     
-        firstCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray:  Prices.allCases.map { $0.rawValue}, widthMultiplier: 0.22)
-        seconndCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { $0.rawValue}, widthMultiplier: 0.2)
-        thirdCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Types.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
-        fourthCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Categories.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
-        tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [firstCellCVDelegateAndDS, seconndCellCVDelegateAndDS, thirdCellCVDelegateAndDS, fourthCellCVDelegateAndDS], parentVC: self)
+        firstCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { $0.rawValue}, widthMultiplier: 0.2)
+        secondCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Types.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
+        thirdCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Categories.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
+        tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [firstCellCVDelegateAndDS, secondCellCVDelegateAndDS, thirdCellCVDelegateAndDS], parentVC: self)
         
         filterView = FilterView()
         filterView.applyButton.addTarget(self, action: #selector(applyButtonPressed), for: .touchUpInside)
@@ -52,13 +50,27 @@ class FilterViewController: UIViewController {
         filterView.tableView.delegate = tvDelegateAndDS
         filterView.tableView.dataSource = tvDelegateAndDS
         filterView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: Global.CellID)
+        filterView.tableView.register(FilterPriceTableViewCell.self, forCellReuseIdentifier: "Price\(Global.CellID)")
     }
     
     @objc func allSwitchToggled(_ sender: Any) {
         guard let controlSwitch = sender as? UISwitch else {return}
-        guard let cell = filterView.tableView.cellForRow(at: IndexPath(row: controlSwitch.tag, section: 0)) as? FilterTableViewCell else {return}
-        cell.collectionView.alpha = controlSwitch.isOn ? 0.5 : 1
-        cell.collectionView.isUserInteractionEnabled = !controlSwitch.isOn
+        if let cell = filterView.tableView.cellForRow(at: IndexPath(row: controlSwitch.tag, section: 0)) as? FilterTableViewCell {
+            cell.collectionView.alpha = controlSwitch.isOn ? 0.5 : 1
+            cell.collectionView.isUserInteractionEnabled = !controlSwitch.isOn
+        }
+        if let cell = filterView.tableView.cellForRow(at: IndexPath(row: controlSwitch.tag, section: 0)) as? FilterPriceTableViewCell {
+            let alpha: CGFloat = controlSwitch.isOn ? 0.4 : 1
+            cell.minPriceTextField.alpha = alpha
+            cell.maxPriceTextField.alpha = alpha
+            cell.dash.alpha = alpha
+            cell.minPriceTextField.isUserInteractionEnabled = !controlSwitch.isOn
+            cell.maxPriceTextField.isUserInteractionEnabled = !controlSwitch.isOn
+        }
+    }
+    
+    @objc func keyboardDoneButtonPressed() {
+        filterView.endEditing(true)
     }
     
     @objc func applyButtonPressed() {
@@ -93,6 +105,12 @@ extension FilterViewController {
                     cell.collectionView.deselectItem(at: ip, animated: false)
                     cell.collectionView.delegate?.collectionView?(cell.collectionView, didDeselectItemAt: ip) //Doesn't call the delegate method for whatever reason so have to manually call it
                 }
+            }
+            if let cell = filterView.tableView.cellForRow(at: IndexPath(row: tableViewRow, section: 0)) as? FilterPriceTableViewCell {
+                cell.allSwitch.setOn(true, animated: true)
+                cell.allSwitch.sendActions(for: .valueChanged)
+                cell.maxPriceTextField.text = ""
+                cell.minPriceTextField.text = ""
             }
         }
     }

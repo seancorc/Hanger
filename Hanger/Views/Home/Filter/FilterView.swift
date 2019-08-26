@@ -24,6 +24,8 @@ class FilterView: UIView {
     
     lazy var tableView: ContentSizedTableView = {
         let tv = ContentSizedTableView()
+        tv.allowsSelection = false
+        tv.keyboardDismissMode = .onDrag
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         return tv
