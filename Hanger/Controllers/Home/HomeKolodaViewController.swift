@@ -82,16 +82,22 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.alpha = 0
             self.homeView.descriptionButton.alpha = 0
+            self.homeView.locationButton.alpha = 0
         }
         homeView.dismissDescription()
-        tapGestureRecognizer.isEnabled = false
     }
     
     func kolodaPanFinished(_ koloda: KolodaView, card: DraggableCardView) {
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.alpha = 1
             self.homeView.descriptionButton.alpha = 1
+            self.homeView.locationButton.alpha = 1
         }
+    }
+    
+    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+        if homeView.locationView.transform.ty >= 0 {homeView.dismissLocation()}
+        if homeView.descriptionLabel.transform.ty <= 0 {homeView.dismissDescription()}
     }
     
 //    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {

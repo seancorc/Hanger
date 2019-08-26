@@ -51,21 +51,8 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         getNearbyPostsTask = GetNearbyPostsTask(radius: 10) //(Default Radius in Miles)
         self.getNearbyPosts()
         
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        tapGestureRecognizer.delegate = self
-        view.addGestureRecognizer(tapGestureRecognizer)
-        
     }
     
-    //Satisfies conflict between koloda draggable card view pan gesture recognizer and tap gesture recognizer
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    @objc func tapped() {
-        if homeView.locationView.transform.ty >= 0 {homeView.dismissLocation()}
-        if homeView.descriptionLabel.transform.ty <= 0 {homeView.dismissDescription()}
-    }
     
     @objc func descriptionButtonPressed(_ sender: Any) {
         if homeView.locationView.transform.ty >= 0 {homeView.dismissLocation()}
@@ -101,6 +88,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
                 var errorText = ""
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+                self.addNoPostsView()
         }
     }
     
