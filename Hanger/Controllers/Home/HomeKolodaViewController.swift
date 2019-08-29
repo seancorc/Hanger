@@ -51,12 +51,11 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
         UIView.animate(withDuration: 0.3) {
             self.homeView.pagingControl.layoutIfNeeded()
         }
-        if let view = koloda.viewForCard(at: index) as? KolodaCardView {
-            view.collectionView.collectionViewLayout.invalidateLayout() //Temporary bad fix
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve], animations: {
-                view.layoutIfNeeded()
-            }, completion: nil)
+        if let view = koloda.viewForCard(at: index + 1) as? KolodaCardView {
+            view.collectionView.collectionViewLayout.invalidateLayout()
+            view.layoutIfNeeded()
         }
+        
     }
     
     private func setDescriptionForCard(index: Int) {
