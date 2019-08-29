@@ -6,7 +6,7 @@ target 'Hanger' do
   use_frameworks!
 
   # Pods for Hanger
-    pod 'SnapKit'
+    pod 'SnapKit', '5.0.0'
     pod 'Koloda'
     pod 'Alamofire'
     pod 'Promises'

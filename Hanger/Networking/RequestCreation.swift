@@ -70,7 +70,9 @@ enum UserRequests: Request {
 
 enum SellClothesRequests: Request {
     case createPost(clothingType: String, category: String, name: String, brand: String, price: Int, description: String?, imageURLs: [String])
-    case getNearbyPosts(radius: Int)
+    case getNearbyPosts(radius: Int?)
+    
+    
 
     var path: String {
         switch self {
@@ -89,7 +91,7 @@ enum SellClothesRequests: Request {
     var parameters: RequestParameters {
         switch self {
         case let .createPost(type, category, name, brand, price, description, imageURLs): return .body(["clothingType": type, "category": category, "name": name, "brand": brand, "price": price, "description": description, "imageURLs": imageURLs])
-        case let .getNearbyPosts(radius): return .url(["radius":"\(radius)"])
+        case let .getNearbyPosts(radius): return .url(self.setupNearbyPostParameters(radius: radius))
         }
     }
 
@@ -97,5 +99,10 @@ enum SellClothesRequests: Request {
         return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
     }
 
+    private func setupNearbyPostParameters(radius: Int?) -> [String: String] {
+        var params = [String: String]()
+        if let radius = radius {params["radius"] = "\(radius)"}
+        return params
+    }
 
 }

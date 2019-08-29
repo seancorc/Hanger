@@ -68,10 +68,19 @@ class CreatePostTask: Operation {
 }
 
 class GetNearbyPostsTask: Operation {
-    var radius: Int
+    var radius: Int?
+    var type: String?
+    var category: String?
+    var minPrice: Int?
+    var maxPrice: Int?
     
-    init(radius: Int) {
+    
+    init(radius: Int? = nil, type: String? = nil, category: String? = nil, minPrice: Int? = nil, maxPrice: Int? = nil) {
         self.radius = radius
+        self.type = type
+        self.category = category
+        self.minPrice = minPrice
+        self.maxPrice = maxPrice
     }
     
     var request: Request {

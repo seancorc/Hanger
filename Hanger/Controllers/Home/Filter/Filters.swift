@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum Distances: String, CaseIterable {
-    case five = "5 Mi"
-    case ten = "10 Mi"
-    case fifteen = "15 Mi"
-    case twentyfive = "25 Mi"
-    case fifty = "50 Mi"
-    case onehundred = "100 Mi"
-    case threehundred = "300 Mi"
+enum Distances: Int, CaseIterable {
+    case five = 5
+    case ten = 10
+    case fifteen = 15
+    case twentyfive = 25
+    case fifty = 50
+    case onehundred = 100
+    case threehundred = 300
 }
 
 enum Types: String, CaseIterable {

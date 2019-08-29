@@ -10,7 +10,8 @@ import UIKit
 import Koloda
 import MapKit
 
-//TODO: Manage stream of cards, don't present ones already bought, use filters
+//TODO: FIX BUG WITH COLLECTION VIEW SIZE
+//Manage stream of cards, don't present ones already bought, use filters
 class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate {
     var filterViewController: FilterViewController! //Purposefully creating retain cycle to save state of FilterViewController 
     var locationManager: CLLocationManager!
@@ -27,6 +28,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         self.userManager = userManager
         self.filterViewController = FilterViewController()
         super.init(nibName: nil, bundle: nil)
+        self.filterViewController.filterSelectedDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,7 +50,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long - Palos Verdes, CA
         setupLocationManagment()
         
-        getNearbyPostsTask = GetNearbyPostsTask(radius: 10) //(Default Radius in Miles)
+        getNearbyPostsTask = GetNearbyPostsTask(radius: nil) //(0 Means Any Distance)
         self.getNearbyPosts()
         
     }
@@ -72,9 +74,11 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         }
     }
     
-    private func getNearbyPosts(radius: Int = 10, silent: Bool = false) {
+    /**
+     - Parameter silent: Indicates whether a loading animation is desired
+    */
+    private func getNearbyPosts(silent: Bool = false) {
         if !silent {homeView.fireLoadingAnimaton()}
-        getNearbyPostsTask.radius = radius
         getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
             if clothingPosts.count == 0 {
                 self.addNoPostsView()
@@ -88,7 +92,6 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
                 var errorText = ""
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
-                self.addNoPostsView()
         }
     }
     
@@ -117,6 +120,17 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     @objc func refreshButtonPressed() {
         self.hideNoPostView()
         self.getNearbyPosts()
+    }
+    
+}
+
+extension HomeViewController: FilterSelectedDelegate {
+    func filtersApplied(radius: Int?, type: String?, category: String?, minPrice: Int?, maxPrice: Int?) {
+        getNearbyPostsTask.radius = radius
+        getNearbyPostsTask.type = type
+        getNearbyPostsTask.category = category
+        getNearbyPostsTask.minPrice = minPrice
+        getNearbyPostsTask.maxPrice = maxPrice
     }
     
 }

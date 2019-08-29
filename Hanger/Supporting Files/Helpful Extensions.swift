@@ -69,9 +69,9 @@ extension UIImage { //Used to make frosty tabBar
 
 extension UIImageView {
     
-    func loadFromURL(photoUrl:String) -> Bool {
-        
-        guard let url = URL(string: photoUrl) else {return false}
+    func loadFromURL(photoUrl:String, completion: @escaping ((Bool) -> Void) = {_ in}) {
+
+        guard let url = URL(string: photoUrl) else {completion(false); return}
         
         let request = URLRequest(url: url)
         
@@ -90,9 +90,9 @@ extension UIImageView {
             } else {
                 successful = false
             }
+            completion(successful)
         }
         datatask.resume()
-        return successful
     }
 }
 

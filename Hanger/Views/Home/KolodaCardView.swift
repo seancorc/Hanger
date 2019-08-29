@@ -24,6 +24,7 @@ class KolodaCardView: UIView {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.showsVerticalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isPagingEnabled = true
         cv.clipsToBounds = true
@@ -104,6 +105,7 @@ class KolodaCardView: UIView {
                 
         setupConstraints()
     }
+
     
     func configureSubviews(name: String, brand: String, sellerProfilePicURL: String?, sellerName: String, price: String) {
         let mainString = NSMutableAttributedString(string: "\(name)\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24 * Global.ScaleFactor, weight: .heavy)])

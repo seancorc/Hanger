@@ -16,7 +16,7 @@ class HomeView: UIView {
     lazy var kolodaView: KolodaView = {
         let kolodaView = KolodaView()
         kolodaView.translatesAutoresizingMaskIntoConstraints = false
-        kolodaView.backgroundColor = .clear
+        kolodaView.backgroundColor = .white
         return kolodaView
     }()
     

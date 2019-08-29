@@ -9,10 +9,12 @@
 import UIKit
 
 class CardCollectionViewCell: UICollectionViewCell {
+    static let defaultImage = UIImage(named: "exiticon")
+    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.isUserInteractionEnabled = true
-        imageView.image = UIImage(named: "exiticon") //Default image
+        imageView.image = CardCollectionViewCell.defaultImage
         imageView.backgroundColor = UIColor(white: 0.98, alpha: 1)
         imageView.contentMode = .scaleToFill
         return imageView
@@ -35,7 +37,9 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(imageURL: String) {
-        self.imageView.loadFromURL(photoUrl: imageURL)
+        if imageView.image == CardCollectionViewCell.defaultImage {
+            self.imageView.loadFromURL(photoUrl: imageURL)
+        }
     }
     
     func setupConstraints() {

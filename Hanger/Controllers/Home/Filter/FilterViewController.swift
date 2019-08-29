@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FilterSelectedDelegate: class {
+    func filtersApplied(radius: Int?, type: String?, category: String?, minPrice: Int?, maxPrice: Int?)
+}
+
 //TODO: When cancel is pressed revert to previous state of filters
 //Put a space to choose more specific filters
 class FilterViewController: UIViewController {
@@ -17,6 +21,7 @@ class FilterViewController: UIViewController {
     var secondCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var thirdCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var tvDelegateAndDS: FilterTVDelegateAndDS!
+    weak var filterSelectedDelegate: FilterSelectedDelegate!
     var currentSelectionState = [Int: [IndexPath]]()
     var previousSelectionState = [Int: [IndexPath]]()
 
@@ -25,7 +30,7 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
     
-        firstCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { $0.rawValue}, widthMultiplier: 0.2)
+        firstCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { "\($0.rawValue) Mi"}, widthMultiplier: 0.2)
         secondCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Types.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
         thirdCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Categories.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
         tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [firstCellCVDelegateAndDS, secondCellCVDelegateAndDS, thirdCellCVDelegateAndDS], parentVC: self)
