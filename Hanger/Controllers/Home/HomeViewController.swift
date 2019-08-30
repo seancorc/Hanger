@@ -10,8 +10,7 @@ import UIKit
 import Koloda
 import MapKit
 
-//TODO: FIX BUG WITH COLLECTION VIEW SIZE
-//Manage stream of cards, don't present ones already bought, use filters
+//TODO: Manage stream of cards, don't present ones already bought, use filters
 class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate {
     var filterViewController: FilterViewController! //Purposefully creating retain cycle to save state of FilterViewController 
     var locationManager: CLLocationManager!
@@ -19,7 +18,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     var networkManager: NetworkManager!
     var userManager: UserManager!
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
-    var getNearbyPostsTask: GetNearbyPostsTask!
+    var getNearbyPostsTask: GetClothingPostsTask!
     var noPostsView: NoPostsView!
     
     
@@ -50,9 +49,17 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long - Palos Verdes, CA
         setupLocationManagment()
         
-        getNearbyPostsTask = GetNearbyPostsTask(radius: nil) //(0 Means Any Distance)
-        self.getNearbyPosts()
+        getNearbyPostsTask = GetClothingPostsTask(radius: nil) //(0 Means Any Distance)
+        self.getInitalClothingPosts()
         
+    }
+    
+    override func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        
+        super.koloda(koloda, didSwipeCardAt: index, in: direction)
+        if koloda.countOfCards - index < 10 {
+            //Prefetch
+        }
     }
     
     
@@ -77,8 +84,8 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     /**
      - Parameter silent: Indicates whether a loading animation is desired
     */
-    private func getNearbyPosts(silent: Bool = false) {
-        if !silent {homeView.fireLoadingAnimaton()}
+    private func getInitalClothingPosts() {
+        homeView.fireLoadingAnimaton()
         getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
             if clothingPosts.count == 0 {
                 self.addNoPostsView()
@@ -86,9 +93,23 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
                 self.clothingPosts = clothingPosts
                 self.homeView.kolodaView.reloadData()
             }
-            if !silent {self.homeView.dismissLoadingAnimaton()}
+            self.homeView.dismissLoadingAnimaton()
             }.catch { (error) in
-                if !silent {self.homeView.dismissLoadingAnimaton()}
+                self.homeView.dismissLoadingAnimaton()
+                var errorText = ""
+                if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
+                self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
+        }
+    }
+    
+    //Work in progress
+    private func prefetchClothingPosts() {
+        getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
+            clothingPosts.forEach({
+                self.clothingPosts.append($0) //Implement Pagination
+            })
+                self.homeView.kolodaView.reloadData()
+            }.catch { (error) in
                 var errorText = ""
                 if let msgError = error as? MessageError {errorText = msgError.message} else {errorText = "Error"}
                 self.present(HelpfulFunctions.createAlert(for: errorText), animated: true, completion: nil)
@@ -119,7 +140,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     
     @objc func refreshButtonPressed() {
         self.hideNoPostView()
-        self.getNearbyPosts()
+        self.getInitalClothingPosts()
     }
     
 }

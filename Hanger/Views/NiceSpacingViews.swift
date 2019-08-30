@@ -34,7 +34,6 @@ class NiceSpacingButton: UIButton {
         self.setTitle(title, for: UIControl.State.normal)
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
         self.setTitleColor(.white, for: UIControl.State.normal)
-        self.clipsToBounds = true
         self.backgroundColor = backgroundColor
     }
     

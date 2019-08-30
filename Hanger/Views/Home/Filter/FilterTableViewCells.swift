@@ -175,7 +175,6 @@ class FilterPriceTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -252,6 +251,10 @@ class FilterPriceTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-padding * 2) //For automatic TV dimension
         }
     
+    }
+    
+    func isEmpty() -> Bool {
+        return self.minPriceTextField.text == "" && self.minPriceTextField.text == ""
     }
     
 }

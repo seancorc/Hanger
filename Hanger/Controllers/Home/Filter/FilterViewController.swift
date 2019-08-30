@@ -12,28 +12,34 @@ protocol FilterSelectedDelegate: class {
     func filtersApplied(radius: Int?, type: String?, category: String?, minPrice: Int?, maxPrice: Int?)
 }
 
+struct PreviousFilterState {
+    static var previousMinPriceText: String = ""
+    static var previousMaxPriceText: String = ""
+    static var distanceSelection: IndexPath? = nil
+    static var TypesSelection: [IndexPath]? = nil
+    static var CategoriesSelection: [IndexPath]? = nil
+}
+
 //TODO: When cancel is pressed revert to previous state of filters
 //Put a space to choose more specific filters
 class FilterViewController: UIViewController {
     var filterView: FilterView!
     var numberOfSelectedFilters: Int = 0
-    var firstCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var secondCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var thirdCellCVDelegateAndDS: FilterCVDelegateAndDS!
+    var fourthCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var tvDelegateAndDS: FilterTVDelegateAndDS!
     weak var filterSelectedDelegate: FilterSelectedDelegate!
-    var currentSelectionState = [Int: [IndexPath]]()
-    var previousSelectionState = [Int: [IndexPath]]()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
     
-        firstCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { "\($0.rawValue) Mi"}, widthMultiplier: 0.2)
-        secondCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Types.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
-        thirdCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Categories.allCases.map { $0.rawValue}, widthMultiplier: 0.25)
-        tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [firstCellCVDelegateAndDS, secondCellCVDelegateAndDS, thirdCellCVDelegateAndDS], parentVC: self)
+        secondCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { "\($0.rawValue) Mi"}, widthMultiplier: 0.2, filterType: FilterType.Distance)
+        thirdCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Types.allCases.map { $0.rawValue}, widthMultiplier: 0.25, filterType: FilterType.Types)
+        fourthCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Categories.allCases.map { $0.rawValue}, widthMultiplier: 0.25, filterType: FilterType.Categories)
+        tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [secondCellCVDelegateAndDS, secondCellCVDelegateAndDS, thirdCellCVDelegateAndDS], parentVC: self)
         
         filterView = FilterView()
         filterView.applyButton.addTarget(self, action: #selector(applyButtonPressed), for: .touchUpInside)
@@ -46,10 +52,6 @@ class FilterViewController: UIViewController {
         setupTableviewControl()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        previousSelectionState = currentSelectionState
-    }
     
     private func setupTableviewControl() {
         filterView.tableView.delegate = tvDelegateAndDS
@@ -98,7 +100,15 @@ extension FilterViewController {
     }
     
     @objc func cancelButtonPressed() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)//{
+//            if let priceCell = self.filterView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FilterPriceTableViewCell {
+//                priceCell.minPriceTextField.text = PreviousFilterState.previousMinPriceText
+//                priceCell.maxPriceTextField.text = PreviousFilterState.previousMaxPriceText
+//                priceCell.allSwitch.setOn(priceCell.isEmpty(), animated: false)
+//                priceCell.allSwitch.sendActions(for: .valueChanged)
+//            }
+        //        }}
+        
     }
     
     @objc func resetButtonPressed() {

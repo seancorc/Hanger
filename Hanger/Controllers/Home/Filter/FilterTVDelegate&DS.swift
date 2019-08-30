@@ -53,6 +53,7 @@ class FilterTVDelegateAndDS: NSObject, UITableViewDelegate, UITableViewDataSourc
     }
 }
 
+
 class FilterPriceTextFieldDelegate: NSObject, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text?.isEmpty ?? true {textField.text = "$"}
@@ -60,6 +61,8 @@ class FilterPriceTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text == "$" {textField.text = ""}
+        PreviousFilterState.previousMinPriceText = textField.text ?? ""
+        PreviousFilterState.previousMaxPriceText = textField.text ?? ""
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

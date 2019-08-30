@@ -14,11 +14,13 @@ import UIKit
 class FilterCVDelegateAndDS: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var stringArray = [String]()
     var widthMultiplier: CGFloat!
+    var filterType: FilterType!
     
-    init(stringArray: [String], widthMultiplier: CGFloat = 0.2) {
+    init(stringArray: [String], widthMultiplier: CGFloat = 0.2, filterType: FilterType) {
         super.init()
         self.stringArray = stringArray
         self.widthMultiplier = widthMultiplier
+        self.filterType = filterType
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -40,22 +42,13 @@ class FilterCVDelegateAndDS: NSObject, UICollectionViewDelegate, UICollectionVie
         return CGSize(width: (size.width + padding) > UIScreen.main.bounds.width * widthMultiplier ? (size.width + padding) : UIScreen.main.bounds.width * widthMultiplier, height: size.height * 2) //If the text with padding is bigger then the selected width multiplier
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView.allowsMultipleSelection {
-//            self.numberOfSelectedFilters += 1
-//            filterView.applyButton.setTitle("Apply (\(numberOfSelectedFilters))", for: .normal)
-//            filterView.applyButton.layoutIfNeeded()
-//        }
-//        currentSelectionState[collectionView.tag]?.append(indexPath)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        if collectionView.allowsMultipleSelection {
-//            self.numberOfSelectedFilters -= 1
-//            filterView.applyButton.setTitle("Apply (\(numberOfSelectedFilters))", for: .normal)
-//            filterView.applyButton.layoutIfNeeded()
-//        }
-//        currentSelectionState[collectionView.tag]?.removeAll {$0 == indexPath}
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch self.filterType {
+        case .Distance?: break
+        case .Types?: break
+        case .Categories?: break
+        default: break
+    }
     
+    }
 }

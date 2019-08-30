@@ -73,6 +73,7 @@
 		D6FF0DD02310C57C0084A356 /* FilterTVDelegate&DS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DCF2310C57C0084A356 /* FilterTVDelegate&DS.swift */; };
 		D6FF0DD22310DC130084A356 /* FilterCVDelegate&DS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DD12310DC130084A356 /* FilterCVDelegate&DS.swift */; };
 		D6FF0DD72311E75A0084A356 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DD62311E75A0084A356 /* LocationView.swift */; };
+		D6FF0DD92318D0570084A356 /* FilterStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FF0DD82318D0570084A356 /* FilterStateManager.swift */; };
 		EF594054ADAEE109503CB0C0 /* Pods_HangerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70346B35C8A9A9B6F6B02192 /* Pods_HangerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,7 @@
 		D6FF0DCF2310C57C0084A356 /* FilterTVDelegate&DS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterTVDelegate&DS.swift"; sourceTree = "<group>"; };
 		D6FF0DD12310DC130084A356 /* FilterCVDelegate&DS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterCVDelegate&DS.swift"; sourceTree = "<group>"; };
 		D6FF0DD62311E75A0084A356 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		D6FF0DD82318D0570084A356 /* FilterStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStateManager.swift; sourceTree = "<group>"; };
 		DDE14AD1A9F60F443F745AFC /* Pods_HangerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -484,6 +486,7 @@
 				D6FF0DCF2310C57C0084A356 /* FilterTVDelegate&DS.swift */,
 				D6FF0DD12310DC130084A356 /* FilterCVDelegate&DS.swift */,
 				D601954F230614DA0020D858 /* Filters.swift */,
+				D6FF0DD82318D0570084A356 /* FilterStateManager.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				D63157AE22C9F1BE00571558 /* Hanger.xcdatamodeld in Sources */,
 				D6F05DA222D2925700621E36 /* ContentSizedTableView.swift in Sources */,
 				D6FF0DD72311E75A0084A356 /* LocationView.swift in Sources */,
+				D6FF0DD92318D0570084A356 /* FilterStateManager.swift in Sources */,
 				D6F05DA822D2E92C00621E36 /* User.swift in Sources */,
 				D63157F222CC896400571558 /* MessageViewController.swift in Sources */,
 				D6F05DBD22DBFE4C00621E36 /* FilterView.swift in Sources */,

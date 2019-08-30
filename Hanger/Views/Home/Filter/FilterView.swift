@@ -10,6 +10,13 @@ import UIKit
 
 class FilterView: UIView {
     
+    lazy var separatorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        return view
+    }()
+    
     lazy var applyButtonContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -48,6 +55,8 @@ class FilterView: UIView {
         
         self.addSubview(applyButtonContainerView)
         
+        self.addSubview(separatorView)
+        
         applyButtonContainerView.addSubview(applyButton)
         
         setupConstraints()
@@ -59,6 +68,13 @@ class FilterView: UIView {
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(applyButtonContainerView.snp.top)
+        }
+        
+        separatorView.snp.makeConstraints { (make) in
+            make.top.equalTo(applyButtonContainerView.snp.top)
+            make.width.equalToSuperview()
+            make.height.equalTo(1)
+            make.centerX.equalToSuperview()
         }
         
         applyButtonContainerView.snp.makeConstraints { (make) in

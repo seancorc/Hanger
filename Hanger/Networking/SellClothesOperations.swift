@@ -67,7 +67,7 @@ class CreatePostTask: Operation {
     }
 }
 
-class GetNearbyPostsTask: Operation {
+class GetClothingPostsTask: Operation {
     var radius: Int?
     var type: String?
     var category: String?
