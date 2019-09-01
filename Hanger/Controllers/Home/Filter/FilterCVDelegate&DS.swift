@@ -43,12 +43,14 @@ class FilterCVDelegateAndDS: NSObject, UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch self.filterType {
-        case .Distance?: break
-        case .Types?: break
-        case .Categories?: break
-        default: break
+        FilterStateManager.stateManager().stackOfNewlySelectedRows[self.filterType]?.append(indexPath)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let newlySelectedRows = FilterStateManager.stateManager().stackOfNewlySelectedRows[self.filterType] {
+            if !newlySelectedRows.contains(indexPath) { FilterStateManager.stateManager().stackOfDeselectedRows[FilterType.Distance]?.append(indexPath)
+            }
+        }
     }
+    
 }

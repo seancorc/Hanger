@@ -8,13 +8,39 @@
 
 import Foundation
 
-public enum FilterType {
+public enum FilterType: CaseIterable {
     case Price
     case Distance
     case Types
     case Categories
 }
 
-struct FilterStateManager {
-    static var stackOfNewlySelectedRows = [FilterType : [IndexPath]]()
+class FilterStateManager {
+    var stackOfNewlySelectedRows = [FilterType : [IndexPath]]()
+    var stackOfDeselectedRows = [FilterType : [IndexPath]]()
+    var initalToggleStates = [FilterType : Bool]()
+    var initalMinPriceTextFieldText: String = ""
+    var initalMaxPriceTextFieldText: String = ""
+    
+    private init() {
+        FilterType.allCases.forEach {
+            stackOfNewlySelectedRows[$0] = []
+            stackOfDeselectedRows[$0] = []
+            initalToggleStates[$0] = true
+        }
+    }
+    
+    static private let manager = FilterStateManager()
+    
+    static func stateManager() -> FilterStateManager {
+        return manager
+    }
+    
+    func resetStateManager() {
+        FilterType.allCases.forEach {
+            stackOfNewlySelectedRows[$0] = []
+            stackOfDeselectedRows[$0] = []
+        }
+    }
+    
 }

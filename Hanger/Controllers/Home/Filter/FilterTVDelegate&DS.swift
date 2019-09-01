@@ -28,7 +28,7 @@ class FilterTVDelegateAndDS: NSObject, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Price\(Global.CellID)", for: indexPath) as! FilterPriceTableViewCell
-            cell.configureCell(labelText: "Price Range", allLabelText: "Any Price")
+            cell.configureCell(labelText: "Price Range", allLabelText: "Any Price", filterType: FilterType.Price)
             cell.allSwitch.tag = indexPath.row
             cell.allSwitch.addTarget(parentVC, action: #selector(FilterViewController.allSwitchToggled), for: .valueChanged)
             cell.keyboardDoneButton.addTarget(parentVC, action: #selector(FilterViewController.keyboardDoneButtonPressed), for: .touchUpInside)
@@ -43,9 +43,9 @@ class FilterTVDelegateAndDS: NSObject, UITableViewDelegate, UITableViewDataSourc
             cell.allSwitch.addTarget(parentVC, action: #selector(FilterViewController.allSwitchToggled), for: .valueChanged)
             cell.collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: Global.CellID)
             switch indexPath.row {
-            case 1: cell.configureCell(labelText: "Distance", allLabelText: "Any Distance"); cell.collectionView.allowsMultipleSelection = false
-            case 2: cell.configureCell(labelText: "Types", allLabelText: "Any Type"); cell.collectionView.allowsMultipleSelection = true
-            case 3: cell.configureCell(labelText: "Categories", allLabelText: "Any Category"); cell.collectionView.allowsMultipleSelection = true
+            case 1: cell.configureCell(labelText: "Distance", allLabelText: "Any Distance", filterType: FilterType.Distance); cell.collectionView.allowsMultipleSelection = false
+            case 2: cell.configureCell(labelText: "Types", allLabelText: "Any Type", filterType: FilterType.Types); cell.collectionView.allowsMultipleSelection = true
+            case 3: cell.configureCell(labelText: "Categories", allLabelText: "Any Category", filterType: FilterType.Categories); cell.collectionView.allowsMultipleSelection = true
             default: print("default")
             }
             return cell
@@ -61,8 +61,6 @@ class FilterPriceTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text == "$" {textField.text = ""}
-        PreviousFilterState.previousMinPriceText = textField.text ?? ""
-        PreviousFilterState.previousMaxPriceText = textField.text ?? ""
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

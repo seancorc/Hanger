@@ -12,15 +12,8 @@ protocol FilterSelectedDelegate: class {
     func filtersApplied(radius: Int?, type: String?, category: String?, minPrice: Int?, maxPrice: Int?)
 }
 
-struct PreviousFilterState {
-    static var previousMinPriceText: String = ""
-    static var previousMaxPriceText: String = ""
-    static var distanceSelection: IndexPath? = nil
-    static var TypesSelection: [IndexPath]? = nil
-    static var CategoriesSelection: [IndexPath]? = nil
-}
 
-//TODO: When cancel is pressed revert to previous state of filters
+//TODO: When cancel is donepressed revert to previous state of filters
 //Put a space to choose more specific filters
 class FilterViewController: UIViewController {
     var filterView: FilterView!
@@ -39,7 +32,7 @@ class FilterViewController: UIViewController {
         secondCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Distances.allCases.map { "\($0.rawValue) Mi"}, widthMultiplier: 0.2, filterType: FilterType.Distance)
         thirdCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Types.allCases.map { $0.rawValue}, widthMultiplier: 0.25, filterType: FilterType.Types)
         fourthCellCVDelegateAndDS = FilterCVDelegateAndDS(stringArray: Categories.allCases.map { $0.rawValue}, widthMultiplier: 0.25, filterType: FilterType.Categories)
-        tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [secondCellCVDelegateAndDS, secondCellCVDelegateAndDS, thirdCellCVDelegateAndDS], parentVC: self)
+        tvDelegateAndDS = FilterTVDelegateAndDS(cvDelegateAndDSs: [secondCellCVDelegateAndDS, thirdCellCVDelegateAndDS, fourthCellCVDelegateAndDS], parentVC: self)
         
         filterView = FilterView()
         filterView.applyButton.addTarget(self, action: #selector(applyButtonPressed), for: .touchUpInside)
@@ -50,6 +43,20 @@ class FilterViewController: UIViewController {
         }
         
         setupTableviewControl()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FilterStateManager.stateManager().resetStateManager()
+        for cell in filterView.tableView.visibleCells {
+            if let cell = cell as? FilterTableViewCell {
+                FilterStateManager.stateManager().initalToggleStates[cell.filterType] = cell.allSwitch.isOn
+            }
+            if let cell = cell as? FilterPriceTableViewCell {
+                FilterStateManager.stateManager().initalMinPriceTextFieldText = cell.minPriceTextField.text ?? ""
+                FilterStateManager.stateManager().initalMaxPriceTextFieldText = cell.maxPriceTextField.text ?? ""
+            }
+        }
     }
     
     
@@ -100,15 +107,11 @@ extension FilterViewController {
     }
     
     @objc func cancelButtonPressed() {
-        dismiss(animated: true, completion: nil)//{
-//            if let priceCell = self.filterView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FilterPriceTableViewCell {
-//                priceCell.minPriceTextField.text = PreviousFilterState.previousMinPriceText
-//                priceCell.maxPriceTextField.text = PreviousFilterState.previousMaxPriceText
-//                priceCell.allSwitch.setOn(priceCell.isEmpty(), animated: false)
-//                priceCell.allSwitch.sendActions(for: .valueChanged)
-//            }
-        //        }}
-        
+        dismiss(animated: true, completion: {
+        for cell in self.filterView.tableView.visibleCells {
+            if let cell = cell as? FilterCell {cell.revertFilterChanges()}
+            }
+        })
     }
     
     @objc func resetButtonPressed() {

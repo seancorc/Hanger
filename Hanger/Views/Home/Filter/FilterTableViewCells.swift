@@ -8,9 +8,14 @@
 
 import UIKit
 
-class FilterTableViewCell: UITableViewCell {
+protocol FilterCell {
+    func revertFilterChanges()
+}
+
+class FilterTableViewCell: UITableViewCell, FilterCell {
     static let titleFontSize = 18 * Global.ScaleFactor
     static let allFontSize = 16 * Global.ScaleFactor
+    var filterType: FilterType!
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -70,9 +75,21 @@ class FilterTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    func configureCell(labelText: String, allLabelText: String) {
+    func configureCell(labelText: String, allLabelText: String, filterType: FilterType) {
         self.titleLabel.text = labelText
         self.allLabel.text = allLabelText
+        self.filterType = filterType
+    }
+    
+    func revertFilterChanges() {
+        for ip in FilterStateManager.stateManager().stackOfNewlySelectedRows[self.filterType] ?? [] {
+                self.collectionView.deselectItem(at: ip, animated: false)
+        }
+        for ip in FilterStateManager.stateManager().stackOfDeselectedRows[self.filterType] ?? [] {
+            self.collectionView.selectItem(at: ip, animated: false, scrollPosition: .centeredHorizontally)
+        }
+        self.allSwitch.setOn(FilterStateManager.stateManager().initalToggleStates[self.filterType] ?? true, animated: false)
+        self.allSwitch.sendActions(for: .valueChanged)
     }
     
     func setupConstraints() {
@@ -107,9 +124,10 @@ class FilterTableViewCell: UITableViewCell {
     
 }
 
-class FilterPriceTableViewCell: UITableViewCell {
+class FilterPriceTableViewCell: UITableViewCell, FilterCell {
     static let titleFontSize = 18 * Global.ScaleFactor
     static let allFontSize = 16 * Global.ScaleFactor
+    var filterType: FilterType!
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -202,13 +220,22 @@ class FilterPriceTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        keyboardDoneButton.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.2)
+        keyboardDoneButton.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.25)
     }
     
-    func configureCell(labelText: String, allLabelText: String) {
+    func configureCell(labelText: String, allLabelText: String, filterType: FilterType) {
         self.titleLabel.text = labelText
         self.allLabel.text = allLabelText
+        self.filterType = filterType
     }
+    
+    func revertFilterChanges() {
+        self.minPriceTextField.text = FilterStateManager.stateManager().initalMinPriceTextFieldText
+        self.maxPriceTextField.text = FilterStateManager.stateManager().initalMaxPriceTextFieldText
+        self.allSwitch.setOn(FilterStateManager.stateManager().initalToggleStates[self.filterType] ?? true, animated: false)
+        self.allSwitch.sendActions(for: .valueChanged)
+    }
+    
     
     func setupConstraints() {
         let padding = 16 * Global.ScaleFactor
@@ -251,10 +278,6 @@ class FilterPriceTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-padding * 2) //For automatic TV dimension
         }
     
-    }
-    
-    func isEmpty() -> Bool {
-        return self.minPriceTextField.text == "" && self.minPriceTextField.text == ""
     }
     
 }
