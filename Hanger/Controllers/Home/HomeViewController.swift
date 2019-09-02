@@ -18,16 +18,14 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     var networkManager: NetworkManager!
     var userManager: UserManager!
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
-    var getNearbyPostsTask: GetClothingPostsTask!
+    var getClothingPostsTask: GetClothingPostsTask!
     var noPostsView: NoPostsView!
     
     
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
         self.networkManager = networkManager
         self.userManager = userManager
-        self.filterViewController = FilterViewController()
         super.init(nibName: nil, bundle: nil)
-        self.filterViewController.filterSelectedDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,13 +47,14 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         updateLocationTask = UpdateUserLocationTask(lat: 34.0532, longt: -118.2437) //Default lat and long - Palos Verdes, CA
         setupLocationManagment()
         
-        getNearbyPostsTask = GetClothingPostsTask(radius: nil) //(0 Means Any Distance)
+        getClothingPostsTask = GetClothingPostsTask()
+        filterViewController = FilterViewController(getClothingPostsTask: self.getClothingPostsTask)
+        filterViewController.filterSelectedDelegate = self
         self.getInitalClothingPosts()
         
     }
     
     override func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        
         super.koloda(koloda, didSwipeCardAt: index, in: direction)
         if koloda.countOfCards - index < 10 {
             //Prefetch
@@ -81,12 +80,11 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
         }
     }
     
-    /**
-     - Parameter silent: Indicates whether a loading animation is desired
-    */
+    
     private func getInitalClothingPosts() {
         homeView.fireLoadingAnimaton()
-        getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
+        getClothingPostsTask.execute(in: networkManager).then { (clothingPosts) in
+            print(clothingPosts)
             if clothingPosts.count == 0 {
                 self.addNoPostsView()
             } else {
@@ -104,7 +102,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     
     //Work in progress
     private func prefetchClothingPosts() {
-        getNearbyPostsTask.execute(in: networkManager).then { (clothingPosts) in
+        getClothingPostsTask.execute(in: networkManager).then { (clothingPosts) in
             clothingPosts.forEach({
                 self.clothingPosts.append($0) //Implement Pagination
             })
@@ -146,15 +144,11 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
 }
 
 extension HomeViewController: FilterSelectedDelegate {
-    func filtersApplied(radius: Int?, type: String?, category: String?, minPrice: Int?, maxPrice: Int?) {
-        getNearbyPostsTask.radius = radius
-        getNearbyPostsTask.type = type
-        getNearbyPostsTask.category = category
-        getNearbyPostsTask.minPrice = minPrice
-        getNearbyPostsTask.maxPrice = maxPrice
+    func filtersApplied() {
+        getInitalClothingPosts()
     }
-    
 }
+
 
 extension HomeViewController: CLLocationManagerDelegate {
     func setupLocationManagment() {

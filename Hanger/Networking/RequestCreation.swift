@@ -70,28 +70,28 @@ enum UserRequests: Request {
 
 enum SellClothesRequests: Request {
     case createPost(clothingType: String, category: String, name: String, brand: String, price: Int, description: String?, imageURLs: [String])
-    case getNearbyPosts(radius: Int?)
+    case getClothingPosts(minPrice: Int?, maxPrice: Int?, radius: Int?, types: [String]?, categories: [String]?)
     
     
 
     var path: String {
         switch self {
         case .createPost(_,_,_,_,_,_,_): return "/post/create/"
-        case .getNearbyPosts(_): return "/posts/nearby"
+        case .getClothingPosts(_): return "/posts/"
         }
     }
 
     var method: HTTPMethod {
         switch self {
         case .createPost(_,_,_,_,_,_,_): return HTTPMethod.post
-        case .getNearbyPosts(_): return HTTPMethod.get
+        case .getClothingPosts(_): return HTTPMethod.get
         }
     }
 
     var parameters: RequestParameters {
         switch self {
         case let .createPost(type, category, name, brand, price, description, imageURLs): return .body(["clothingType": type, "category": category, "name": name, "brand": brand, "price": price, "description": description, "imageURLs": imageURLs])
-        case let .getNearbyPosts(radius): return .url(self.setupNearbyPostParameters(radius: radius))
+        case let .getClothingPosts(minPrice, maxPrice, radius, types, categories): return .url(self.setupNearbyPostParameters(minPrice: minPrice, maxPrice: maxPrice, radius: radius, types: types, categories: categories))
         }
     }
 
@@ -99,9 +99,12 @@ enum SellClothesRequests: Request {
         return ["Authorization": "Bearer \(UserDefaults.standard.value(forKey: UserDefaultKeys.token) ?? "")"]
     }
 
-    private func setupNearbyPostParameters(radius: Int?) -> [String: String] {
+    private func setupNearbyPostParameters(minPrice: Int?, maxPrice: Int?, radius: Int?, types: [String]?, categories: [String]?) -> [String: String] {
         var params = [String: String]()
+        if let minPrice = minPrice, let maxPrice = maxPrice {params["minPrice"] = "\(minPrice)"; params["maxPrice"] = "\(maxPrice)"}
         if let radius = radius {params["radius"] = "\(radius)"}
+        if let types = types {params["types"] = types.description}
+        if let categories = categories {params["categories"] = categories.description}
         return params
     }
 

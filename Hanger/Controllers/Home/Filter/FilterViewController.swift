@@ -9,12 +9,10 @@
 import UIKit
 
 protocol FilterSelectedDelegate: class {
-    func filtersApplied(radius: Int?, type: String?, category: String?, minPrice: Int?, maxPrice: Int?)
+    func filtersApplied()
 }
 
-
-//TODO: When cancel is donepressed revert to previous state of filters
-//Put a space to choose more specific filters
+//TODO: Put a space to choose more specific filters
 class FilterViewController: UIViewController {
     var filterView: FilterView!
     var numberOfSelectedFilters: Int = 0
@@ -22,8 +20,17 @@ class FilterViewController: UIViewController {
     var thirdCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var fourthCellCVDelegateAndDS: FilterCVDelegateAndDS!
     var tvDelegateAndDS: FilterTVDelegateAndDS!
+    var getClothingPostsTask: GetClothingPostsTask!
     weak var filterSelectedDelegate: FilterSelectedDelegate!
-
+    
+    init(getClothingPostsTask: GetClothingPostsTask) {
+        super.init(nibName: nil, bundle: nil)
+        self.getClothingPostsTask = getClothingPostsTask
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +95,23 @@ class FilterViewController: UIViewController {
     }
     
     @objc func applyButtonPressed() {
+        for cell in filterView.tableView.visibleCells {
+            if let cell = cell as? FilterPriceTableViewCell {
+                if let minPrice = Int(cell.minPriceTextField.text ?? ""), let maxPrice = Int(cell.maxPriceTextField.text ?? "") {
+                    getClothingPostsTask.minPrice = minPrice
+                    getClothingPostsTask.maxPrice = maxPrice
+                }
+            }
+            if let cell = cell as? FilterTableViewCell {
+                switch cell.filterType {
+                case .Distance?: getClothingPostsTask.radius = cell.collectionView.indexPathsForSelectedItems?.isEmpty ?? true ? nil : Distances.allCases[cell.collectionView.indexPathsForSelectedItems![0].row].rawValue
+                case .Types?: getClothingPostsTask.types = cell.collectionView.indexPathsForSelectedItems?.map({ Types.allCases[$0.row].rawValue})
+                case .Categories?: getClothingPostsTask.categories = cell.collectionView.indexPathsForSelectedItems?.map({ Categories.allCases[$0.row].rawValue})
+                default: break
+                }
+            }
+        }
+        self.filterSelectedDelegate.filtersApplied()
         dismiss(animated: true, completion: nil)
     }
     

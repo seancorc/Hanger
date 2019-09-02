@@ -68,23 +68,23 @@ class CreatePostTask: Operation {
 }
 
 class GetClothingPostsTask: Operation {
-    var radius: Int?
-    var type: String?
-    var category: String?
     var minPrice: Int?
     var maxPrice: Int?
+    var radius: Int?
+    var types: [String]?
+    var categories: [String]?
     
     
-    init(radius: Int? = nil, type: String? = nil, category: String? = nil, minPrice: Int? = nil, maxPrice: Int? = nil) {
+    init(radius: Int? = nil, types: [String]? = nil, categories: [String]? = nil, minPrice: Int? = nil, maxPrice: Int? = nil) {
         self.radius = radius
-        self.type = type
-        self.category = category
+        self.types = types
+        self.categories = categories
         self.minPrice = minPrice
         self.maxPrice = maxPrice
     }
     
     var request: Request {
-        return SellClothesRequests.getNearbyPosts(radius: radius)
+        return SellClothesRequests.getClothingPosts(minPrice: minPrice, maxPrice: maxPrice, radius: radius, types: types, categories: categories)
     }
     
     func execute(in dispatcher: Dispatcher) -> Promise<[ClothingPost]> {
