@@ -97,7 +97,13 @@ class FilterViewController: UIViewController {
     @objc func applyButtonPressed() {
         for cell in filterView.tableView.visibleCells {
             if let cell = cell as? FilterPriceTableViewCell {
-                if let minPrice = Int(cell.minPriceTextField.text ?? ""), let maxPrice = Int(cell.maxPriceTextField.text ?? "") {
+                let minPriceTextFieldText = cell.minPriceTextField.text ?? ""
+                let minPrice = String(minPriceTextFieldText.dropFirst())
+                let maxPriceTextFieldText = cell.maxPriceTextField.text ?? ""
+                let maxPrice = String(maxPriceTextFieldText.dropFirst())
+                print(minPrice)
+                print(maxPrice)
+                if let minPrice = Int(minPrice), let maxPrice = Int(maxPrice) {
                     getClothingPostsTask.minPrice = minPrice
                     getClothingPostsTask.maxPrice = maxPrice
                 }
@@ -105,8 +111,14 @@ class FilterViewController: UIViewController {
             if let cell = cell as? FilterTableViewCell {
                 switch cell.filterType {
                 case .Distance?: getClothingPostsTask.radius = cell.collectionView.indexPathsForSelectedItems?.isEmpty ?? true ? nil : Distances.allCases[cell.collectionView.indexPathsForSelectedItems![0].row].rawValue
-                case .Types?: getClothingPostsTask.types = cell.collectionView.indexPathsForSelectedItems?.map({ Types.allCases[$0.row].rawValue})
-                case .Categories?: getClothingPostsTask.categories = cell.collectionView.indexPathsForSelectedItems?.map({ Categories.allCases[$0.row].rawValue})
+                case .Types?:
+                    if let arrayOfTypes = cell.collectionView.indexPathsForSelectedItems?.map({ Types.allCases[$0.row].rawValue}) {
+                        getClothingPostsTask.types = arrayOfTypes.isEmpty ? nil : arrayOfTypes
+                    }
+                case .Categories?:
+                    if let arrayOfCategories = cell.collectionView.indexPathsForSelectedItems?.map({ Categories.allCases[$0.row].rawValue}) {
+                    getClothingPostsTask.categories = arrayOfCategories.isEmpty ? nil : arrayOfCategories
+                    }
                 default: break
                 }
             }

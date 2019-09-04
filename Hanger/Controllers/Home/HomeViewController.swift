@@ -84,7 +84,6 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     private func getInitalClothingPosts() {
         homeView.fireLoadingAnimaton()
         getClothingPostsTask.execute(in: networkManager).then { (clothingPosts) in
-            print(clothingPosts)
             if clothingPosts.count == 0 {
                 self.addNoPostsView()
             } else {
