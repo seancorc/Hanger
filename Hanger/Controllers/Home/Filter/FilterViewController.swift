@@ -60,6 +60,7 @@ class FilterViewController: UIViewController {
                 FilterStateManager.stateManager().initalToggleStates[cell.filterType] = cell.allSwitch.isOn
             }
             if let cell = cell as? FilterPriceTableViewCell {
+                FilterStateManager.stateManager().initalToggleStates[cell.filterType] = cell.allSwitch.isOn
                 FilterStateManager.stateManager().initalMinPriceTextFieldText = cell.minPriceTextField.text ?? ""
                 FilterStateManager.stateManager().initalMaxPriceTextFieldText = cell.maxPriceTextField.text ?? ""
             }
@@ -101,11 +102,14 @@ class FilterViewController: UIViewController {
                 let minPrice = String(minPriceTextFieldText.dropFirst())
                 let maxPriceTextFieldText = cell.maxPriceTextField.text ?? ""
                 let maxPrice = String(maxPriceTextFieldText.dropFirst())
-                print(minPrice)
-                print(maxPrice)
+                if !cell.allSwitch.isOn {
                 if let minPrice = Int(minPrice), let maxPrice = Int(maxPrice) {
                     getClothingPostsTask.minPrice = minPrice
                     getClothingPostsTask.maxPrice = maxPrice
+                }
+                }else {
+                    getClothingPostsTask.minPrice = nil
+                    getClothingPostsTask.maxPrice = nil
                 }
             }
             if let cell = cell as? FilterTableViewCell {

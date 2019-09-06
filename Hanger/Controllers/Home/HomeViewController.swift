@@ -19,7 +19,7 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     var userManager: UserManager!
     var updateLocationTask: UpdateUserLocationTask! //Cheeck for refrence cycle
     var getClothingPostsTask: GetClothingPostsTask!
-    var noPostsView: NoPostsView!
+    var noPostsView: NoPostsView?
     
     
     init(networkManager: NetworkManager = .shared(), userManager: UserManager = .currentUser()) {
@@ -115,23 +115,23 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
     
     private func addNoPostsView() {
         noPostsView = NoPostsView()
-        noPostsView.refreshButton.addTarget(self, action: #selector(refreshButtonPressed), for: .touchUpInside)
-        noPostsView.translatesAutoresizingMaskIntoConstraints = false
-        noPostsView.alpha = 0
-        self.view.addSubview(noPostsView)
-        noPostsView.snp.makeConstraints({ (make) in
+        noPostsView?.refreshButton.addTarget(self, action: #selector(refreshButtonPressed), for: .touchUpInside)
+        noPostsView?.translatesAutoresizingMaskIntoConstraints = false
+        noPostsView?.alpha = 0
+        self.view.addSubview(noPostsView!)
+        noPostsView?.snp.makeConstraints({ (make) in
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.4)
             make.center.equalToSuperview()
         })
         UIView.animate(withDuration: 0.2, animations: {
-            self.noPostsView.alpha = 1
+            self.noPostsView?.alpha = 1
         })
     }
     
     private func hideNoPostView() {
         UIView.animate(withDuration: 0.2) {
-            self.noPostsView.alpha = 0
+            self.noPostsView?.alpha = 0
         }
     }
     
@@ -144,6 +144,9 @@ class HomeViewController: HomeKolodaViewController, UIGestureRecognizerDelegate 
 
 extension HomeViewController: FilterSelectedDelegate {
     func filtersApplied() {
+        self.clothingPosts = []
+        self.homeView.kolodaView.reloadData()
+        if self.noPostsView?.alpha != 0 {self.hideNoPostView()}
         getInitalClothingPosts()
     }
 }

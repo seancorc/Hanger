@@ -38,7 +38,7 @@ class NoPostsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Helvetica", size: 18 * Global.ScaleFactor)
         label.textColor = .white
-        label.text = "Try Widening Your Search Radius or Inviting Friends To Join Hanger!"
+        label.text = "Try Changing Your Search Filters or Inviting Friends To Join Hanger!"
         return label
     }()
     
