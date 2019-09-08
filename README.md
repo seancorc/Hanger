@@ -29,4 +29,4 @@ let loginTask = LoginTask(email: email, password: password)
 2. Keychain: Keychain will be used to store more sensitive information, such as web tokens.
 3. SQLite: SQLite will be used to persist message data.
 
-![](home.gif)
+![](home.gif =250x)
