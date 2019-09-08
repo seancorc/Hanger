@@ -1,4 +1,5 @@
-![Preview](home.gif)
+<img src="https://github.com/seancorc/Hanger/blob/master/home.gif" width="250">
+
 
 ## Documentation
 
