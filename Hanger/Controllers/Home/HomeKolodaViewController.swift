@@ -89,7 +89,8 @@ class HomeKolodaViewController: UIViewController, KolodaViewDelegate, KolodaView
             self.homeView.descriptionButton.alpha = 0
             self.homeView.locationButton.alpha = 0
         }
-        homeView.dismissDescription()
+        if homeView.locationView.transform.ty >= 0 {homeView.dismissLocation()}
+        if homeView.descriptionLabel.transform.ty <= 0 {homeView.dismissDescription()}
     }
     
     func kolodaPanFinished(_ koloda: KolodaView, card: DraggableCardView) {

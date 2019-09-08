@@ -13,7 +13,7 @@ class AccountView: UIView {
     
     lazy var dimView: UIView = {
         let view = UIView()
-        view.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = false
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
@@ -22,7 +22,7 @@ class AccountView: UIView {
     
     lazy var editLabel: UILabel = {
         let label = UILabel()
-        label.isUserInteractionEnabled = true
+        label.isUserInteractionEnabled = false
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Edit"
         label.textColor = .white

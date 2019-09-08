@@ -24,7 +24,9 @@ let loginTask = LoginTask(email: email, password: password)
             //Handle error
         }
 ``` 
-**Persistance:** 
+** Persistence:** 
 1. UserDefaults: UserDefaults is used to store small bits of information, such as if a user is logged in.
 2. Keychain: Keychain will be used to store more sensitive information, such as web tokens.
 3. SQLite: SQLite will be used to persist message data.
+
+[]!(home.gif)
