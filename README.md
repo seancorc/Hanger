@@ -1,4 +1,5 @@
-<img src="https://github.com/seancorc/Hanger/blob/master/home.gif" width="250">
+<img src="https://github.com/seancorc/Hanger/photos/blob/master/home.gif" width="250">
+![](/Photos/Hanger.png)
 
 
 ## Documentation
