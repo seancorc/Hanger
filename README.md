@@ -3,6 +3,7 @@
 
 ##### Basic Functionality:
 <img src="https://github.com/seancorc/Hanger/blob/master/Photos/home.gif" width="250">
+<img src="https://github.com/seancorc/Hanger/blob/master/Photos/createpost.gif" width="250">
 
 ## Documentation
 
