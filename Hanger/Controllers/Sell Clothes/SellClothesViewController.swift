@@ -70,9 +70,10 @@ class SellClothesViewController: UIViewController {
         sellClothesView.brandTextField.delegate = self
         sellClothesView.keyboardDoneButton.addTarget(self, action: #selector(keyboardDoneButtonPressed), for: .touchUpInside)
         sellClothesView.postButton.addTarget(self, action: #selector(postButtonPressed), for: .touchUpInside)
+        view.backgroundColor = .white
         view.addSubview(sellClothesView)
         sellClothesView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
         
         //Handle keyboard showing - needs to be refined along with constraints for tableview

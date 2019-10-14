@@ -1,16 +1,18 @@
 PODS:
-  - Alamofire (4.8.2)
-  - Kingfisher (5.7.1)
+  - Alamofire (4.9.0)
+  - Kingfisher (5.8.3):
+    - Kingfisher/Core (= 5.8.3)
+  - Kingfisher/Core (5.8.3)
   - Koloda (5.0):
     - pop (~> 1.0)
   - pop (1.0.12)
   - Promises (2.0.4)
-  - PryntTrimmerView (3.0.0)
+  - PryntTrimmerView (4.0.0)
   - SnapKit (5.0.0)
-  - SteviaLayout (4.4.4)
-  - YPImagePicker (4.0.0):
-    - PryntTrimmerView (~> 3.0.0)
-    - SteviaLayout (~> 4.4.1)
+  - SteviaLayout (4.6.0)
+  - YPImagePicker (4.1.2):
+    - PryntTrimmerView (~> 4.0.0)
+    - SteviaLayout (~> 4.6.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -33,15 +35,15 @@ SPEC REPOS:
     - YPImagePicker
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
   Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   Promises: fcb83dc6be43294a8d30c343636ed1a45a8d2e0a
-  PryntTrimmerView: 53ac64053c7ce63cb3e27f54090f52da0734891d
+  PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
-  SteviaLayout: 523469269059f2c6da02820bb2ff28a5fe0780aa
-  YPImagePicker: 8039f89ad79281545fa868486f32d9bf5d65ede1
+  SteviaLayout: b1b56a932f7e199a963a8cf59de2f766a3112d58
+  YPImagePicker: bdaa46782668e260fdd9709f19043a9f469fd2ad
 
 PODFILE CHECKSUM: 869fc1a229f33dacb46640a3f7405093bfd018f0
 

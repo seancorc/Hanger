@@ -11,7 +11,7 @@ import UIKit
 class ChatViewController: UIViewController {
     var chatView: ChatView!
     var imagePicker: UIImagePickerController!
-    var tableViewDataSourceAndDelegate = ChatTableViewDataSourceAndDelegate(chatMessages: [ChatMessage(text: "Yooooo duder", isMyMessage: true)])
+    var tableViewDataSourceAndDelegate = ChatTableViewDataSourceAndDelegate(chatMessages: [ChatMessage(text: "I'm intrested in buying your shirt", isMyMessage: false)])
     
     override func viewDidLoad() {
         super.viewDidLoad()

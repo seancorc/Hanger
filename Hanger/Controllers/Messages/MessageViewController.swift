@@ -55,7 +55,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
     
     
@@ -90,7 +90,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.messageView.tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! MessageTableViewCell
-        cell.configureCell(chatName: "Seller Name\nClothing Item", chatImage: #imageLiteral(resourceName: "sellerimage"), previewMessage: "Preview Message", timeLabelText:  Date(timeIntervalSince1970: Date().timeIntervalSince1970).shortTime)
+        cell.configureCell(chatName: "John Smith\nShirt, Nike", chatImage: #imageLiteral(resourceName: "sellerimage"), previewMessage: "I'm intrested in buying your shirt", timeLabelText:  Date(timeIntervalSince1970: Date().timeIntervalSince1970).shortTime)
         return cell
     }
     
