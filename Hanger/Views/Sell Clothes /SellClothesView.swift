@@ -88,8 +88,8 @@ class SellClothesView: UIView {
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.isScrollEnabled = false
         textView.layer.borderWidth = 1
+        textView.isScrollEnabled = false
         textView.textColor = .black
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
@@ -97,6 +97,18 @@ class SellClothesView: UIView {
     }()
     
     lazy var separatorView5: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    lazy var locationButton: LocButton = {
+        let button = LocButton()
+        return button
+    }()
+    
+    lazy var separatorView6: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
@@ -149,17 +161,14 @@ class SellClothesView: UIView {
     override func didMoveToSuperview() {
         stackView.addArrangedSubview(collectionView)
         stackView.addArrangedSubview(nameTextField)
-        stackView.addArrangedSubview(separatorView2)
         stackView.addArrangedSubview(brandTextField)
-        stackView.addArrangedSubview(separatorView3)
         priceTextField.inputAccessoryView = keyboardDoneButton
         stackView.addArrangedSubview(priceTextField)
-        stackView.addArrangedSubview(separatorView4)
         placeholderAttributedText.append(placeholderAttributedText2)
         descriptionPlaceholer.attributedText = placeholderAttributedText
         descriptionTextView.addSubview(descriptionPlaceholer)
         stackView.addArrangedSubview(descriptionTextView)
-        stackView.addArrangedSubview(separatorView5)
+        stackView.addArrangedSubview(locationButton)
         stackView.addArrangedSubview(postButton)
         
         self.addSubview(scrollView)
@@ -175,61 +184,50 @@ class SellClothesView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-padding * 1.5)
             make.leading.trailing.equalToSuperview()
         }
-    
+        
         stackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height)
             make.width.equalToSuperview()
         }
-
+        
         collectionView.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.32)
         }
-
+        
         nameTextField.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
         }
-
-        separatorView2.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(1)
-        }
-
+        
+     
         brandTextField.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
         }
-
-        separatorView3.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(1)
-        }
+        
         
         priceTextField.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
         }
         
-        separatorView4.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(1)
-        }
 
         descriptionPlaceholer.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(4 * Global.ScaleFactor)
             make.top.equalToSuperview().offset(8 * Global.ScaleFactor)
         }
-
+        
         descriptionTextView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.87)
             make.height.equalToSuperview().multipliedBy(0.18)
         }
         
-        separatorView5.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(1)
+        
+        locationButton.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.15)
         }
         
         postButton.snp.makeConstraints { (make) in
@@ -250,7 +248,58 @@ class SellClothesView: UIView {
             make.width.equalToSuperview()
         }
     }
+    
+}
 
+class LocButton: UIButton {
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Location"
+        label.textColor = .lightGray
+        label.font = UIFont(name: "Helvetica", size: 16 * Global.ScaleFactor)
+        return label
+    }()
+    
+    lazy var mapIcon: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.image = UIImage(named: "locationicon")?.withRenderingMode(.alwaysTemplate)
+        iv.tintColor = .lightGray
+        return iv
+    }()
+    
+    
+    lazy var arrow: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.image = UIImage(named: "rightskinnyarrow")?.withRenderingMode(.alwaysTemplate)
+        iv.tintColor = .lightGray
+        return iv
+    }()
+
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        self.addSubview(label)
+        self.addSubview(mapIcon)
+        self.addSubview(arrow)
+        let padding = 8 * Global.ScaleFactor
+        self.label.snp.makeConstraints({ (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        })
+        self.mapIcon.snp.makeConstraints { (make) in
+            make.leading.equalTo(label.snp.trailing).offset(padding)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(label.snp.height).multipliedBy(1.2)
+        }
+        self.arrow.snp.makeConstraints({ (make) in
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.size.equalTo(35 * Global.ScaleFactor)
+        })
+    }
     
 }
 
