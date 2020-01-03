@@ -1,5 +1,5 @@
 ![](https://github.com/seancorc/Hanger/blob/master/Photos/Hanger.png)
-## Welcome To Hanger - The Future of Buying and Selling Clothes (predicted launch December 2019)
+## Welcome To Hanger - The Future of Buying and Selling Clothes
 
 ##### Basic Functionality:
 <img src="https://github.com/seancorc/Hanger/blob/master/Photos/home.gif" width="250"> <img src="https://github.com/seancorc/Hanger/blob/master/Photos/createpost.gif" width="250"> <img src="https://github.com/seancorc/Hanger/blob/master/Photos/messages.gif" width="250">
